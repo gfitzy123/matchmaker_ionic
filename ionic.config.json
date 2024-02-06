@@ -1,0 +1,7 @@
+{
+  "name": "matchmaker_ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
