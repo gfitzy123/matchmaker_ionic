@@ -10,11 +10,17 @@
     {
       "src": "assets/icon/icon.png",
       "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/icon/icon.png",
+      "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
   "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"
