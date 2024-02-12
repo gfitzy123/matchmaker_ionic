@@ -225,7 +225,7 @@ export default function LoginWithPhoneNumber() {
 				{/* {showRecaptcha && <div id="recaptcha-container"></div>} */}
 				<div id="recaptcha-container"></div>
 				{expandedOtpForm === true && (
-					<div>
+					<div style={{ marginTop: '1rem' }}>
 						<label style={{ color: "#fff" }}>OTP</label>
 						<TextField
 							id="otpInput"
@@ -233,7 +233,6 @@ export default function LoginWithPhoneNumber() {
 							maxLength={6}
 							onChange={verifyOTP}
 							style={{
-								width: "70%",
 								color: "white",
 								borderRadius: "5px",
 								marginRight: "100px",
@@ -241,6 +240,7 @@ export default function LoginWithPhoneNumber() {
 								WebkitAppearance: "none",
 								MozAppearance: "textfield",
 								backgroundColor: "#ffffff",
+								width: '100%',
 							}}
 						/>
 						<div id="otpHelp" className="form-text" style={{ color: "white" }}>

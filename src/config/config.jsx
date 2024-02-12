@@ -1,5 +1,5 @@
-export const SERVER_PROTO = 'http'
-export const SERVER_HOST = '34.30.5.253' //localhost
+export const SERVER_PROTO = 'https'
+export const SERVER_HOST = '104.197.29.213' //localhost
 export const SERVER_PORT = '8080'
 // export const SERVER_BASE_URL = `${SERVER_PROTO}://${SERVER_HOST}:${SERVER_PORT}`
 // export const SERVER_BASE_URL = `http://34.30.5.253:8080`
