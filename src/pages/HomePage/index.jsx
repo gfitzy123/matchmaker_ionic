@@ -7,6 +7,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { SERVER_BASE_URL } from "../../config/config";
 import MatchMakerLogo from "../../assets/images/logoAI.png";
 import LoginWithPhoneNumber from "../../components/loginWithPhoneNumber";
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Box from "@mui/material/Box";
+import { homeObjOne, homeObjThree, homeObjTwo, homeObjFour} from './Data';
+import InfoSection from '../../components/InfoSection/InfoSection';
 
 export default function HomePage() {
   const history = useHistory();
@@ -43,8 +48,13 @@ export default function HomePage() {
   };
 
   return (
-    <div className="wrapper">
-      <img src={MatchMakerLogo} className="matchmaker-logo" />
+    <Box>
+      <Navbar />
+      <InfoSection {...homeObjOne} />
+      <InfoSection {...homeObjThree} />
+      <InfoSection {...homeObjTwo} />
+      <InfoSection {...homeObjFour} />
+      {/* <img src={MatchMakerLogo} className="matchmaker-logo" />
       <button
         className="btn-submit"
         onClick={() => {
@@ -53,9 +63,10 @@ export default function HomePage() {
         }}
       >
         Join Now
-      </button>
+      </button> */}
 
       <LoginWithPhoneNumber />
-    </div>
+      <Footer />
+    </Box>
   );
 }

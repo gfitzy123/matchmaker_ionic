@@ -33,17 +33,17 @@ setupIonicReact();
 
 const App = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <GoogleOAuthProvider clientId="641741913591-csrvko4707avoo0jvu1e832dm8l016hn.apps.googleusercontent.com">
-          <DndProvider backend={HTML5Backend}>
-            <Provider store={store}>
-              <Routing />
-            </Provider>
-          </DndProvider>
-        </GoogleOAuthProvider>
-      </IonRouterOutlet>
-    </IonReactRouter>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <GoogleOAuthProvider clientId="641741913591-csrvko4707avoo0jvu1e832dm8l016hn.apps.googleusercontent.com">
+            <DndProvider backend={HTML5Backend}>
+              <Provider store={store}>
+                <Routing />
+              </Provider>
+            </DndProvider>
+          </GoogleOAuthProvider>
+        </IonRouterOutlet>
+      </IonReactRouter>
   </IonApp>
 );
 

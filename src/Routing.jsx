@@ -43,7 +43,7 @@ export default function Routing() {
   };
 
   return user == null ? (
-    <>
+    <ion-content>
       <Route path="/">
         <HomePage />
       </Route>
@@ -74,9 +74,9 @@ export default function Routing() {
           <FinalPage />
         </AuthWrapper>
       </Route>
-    </>
+    </ion-content>
   ) : (
-    <>
+    <ion-content>
       <Route path="/">
         <ChatPage />
       </Route>
@@ -86,7 +86,7 @@ export default function Routing() {
       <Route path="/multipleImageUpload">
         <MultipleImageUpload />
       </Route>
-    </>
+    </ion-content>
   );
 }
 
