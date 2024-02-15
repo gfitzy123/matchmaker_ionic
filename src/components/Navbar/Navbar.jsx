@@ -10,12 +10,16 @@ import {
     NavItem,
     NavLinks,
     NavItemBtn,
-    NavBtnLink
+    NavBtnLink,
+    NavBtn,
+    NavRightContainer,
 } from './Navbar.elements'
 import { Button } from '../../styles/globalStyles';
 import FaTimes from "@mui/icons-material/PunchClock";
 import FaBars from "@mui/icons-material/ViewWeek";
 import MatchMakerLogo from "../../assets/images/logoAI.png";
+import Switch from './Switch'
+
 
 function Navbar() {
 
@@ -64,46 +68,41 @@ function Navbar() {
     return (
         <Nav>
             <NavbarContainer>
+                <NavMenu onClick={handleClick} click={click} >
+                    <NavItem onClick={handleHomeClick} homeclick={homeClick}>
+                        <NavLinks to='/about' onClick={closeMobileMenu}>
+                            About
+                        </NavLinks>
+                    </NavItem>
+                    <NavItem onClick={handleServicesClick} servicesClick={servicesClick}>
+                        <NavLinks to='/how-it-works' onClick={closeMobileMenu}>
+                            How it works
+                        </NavLinks>
+                    </NavItem>
+                    <NavItem onClick={handleProductsClick} productsClick={productsClick}>
+                        <NavLinks to='/faq' onClick={closeMobileMenu}>
+                            FAQ
+                        </NavLinks>
+                    </NavItem>
+                </NavMenu>
                 <NavLogo to='/'>
                     <LogoImage src={MatchMakerLogo} alt="MatchMaker Logo" />
                 </NavLogo>
+                <NavRightContainer>
+                    <Switch color="#4B4B4B" />
+                    {button ? (
+                        <NavBtnLink to='/sign-up'>
+                            <NavBtn>Get matched</NavBtn>
+                        </NavBtnLink>
+                    ) : (
+                        <NavBtnLink to='/sign-up'>
+                            <NavBtn onClick={closeMobileMenu} fontBig>Get matched</NavBtn>
+                        </NavBtnLink>
+                    )}
+                </NavRightContainer>
                 <HamburgerIcon onClick={handleClick}>
                     {click ? <FaTimes style={{ color: '#fff' }} /> : <FaBars style={{ color: '#fff' }} />}
                 </HamburgerIcon>
-                <NavMenu onClick={handleClick} click={click} >
-                    <NavItem onClick={handleHomeClick} homeclick={homeClick}>
-                        <NavLinks to='/' onClick={closeMobileMenu}>
-                            Home
-                        </NavLinks>
-                    </NavItem>
-
-
-                    <NavItem onClick={handleServicesClick} servicesClick={servicesClick}>
-                        <NavLinks to='/services' onClick={closeMobileMenu}>
-                            Services
-                        </NavLinks>
-                    </NavItem>
-
-
-                    <NavItem onClick={handleProductsClick} productsClick={productsClick}>
-                        <NavLinks to='/Products' onClick={closeMobileMenu}>
-                            Products
-                        </NavLinks>
-                    </NavItem>
-
-                    <NavItemBtn >
-                        {button ? (
-                            <NavBtnLink to='/sign-up'>
-                                <Button primary>SIGN UP</Button>
-                            </NavBtnLink>
-                        ) : (
-                            <NavBtnLink to='/sign-up'>
-                                <Button onClick={closeMobileMenu} fontBig primary>SIGN UP</Button>
-                            </NavBtnLink>
-                        )}
-
-                    </NavItemBtn>
-                </NavMenu>
             </NavbarContainer>
         </Nav>
     )

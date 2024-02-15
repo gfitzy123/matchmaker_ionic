@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 export const Nav = styled.nav`
-    background: #101522;
+    background: #222224;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -25,16 +25,17 @@ export const NavbarContainer = styled(Container)`
 
 export const NavLogo = styled(Link)`
     color: #fff;
-    justify-self: flex-start;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    max-width: 30%;
 `
 
 export const LogoImage = styled.img`
-    margin-right: 0.5rem;
+    // width: 50%;
 `;
 
 export const NavIcon = styled(HowToRegIcon)`
@@ -60,7 +61,7 @@ export const NavMenu = styled.ul`
     align-items: center;
     list-style: none;
     text-align: center;
-    
+    padding: 0;
   
     @media screen and (max-width: 960px) {
         display: flex;
@@ -71,7 +72,7 @@ export const NavMenu = styled.ul`
         top: 80px;
         opacity: 1;
         transition: all 0.5s ease;
-        background-color: #101522;
+        background-color: #222224;
         left: ${({ click }) => (click ? 0 : '-100%')};
     }
 `
@@ -132,8 +133,29 @@ export const NavBtnLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   padding: 8px 16px;
-  height: 100%;
-  width: 100%;
   border: none;
   outline: none;
 `;
+
+export const NavBtn = styled.button`
+  border-radius: 4px;
+  background: transparent;
+  white-space: nowrap;
+  padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
+  color: #fff;
+  font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
+  outline: none;
+  border: 1px solid #C6A15A;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.3s ease-out;
+    border: 1px solid #C6A16B;
+  }
+  @media screen and (max-width: 960px) {
+    width: 100%;
+  }
+`;
+
+export const NavRightContainer = styled.div`
+  display: flex;
+`

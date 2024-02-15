@@ -3,7 +3,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.div`
-  background-color: #101522;
+  background-color: #222224;
   padding: 4rem 0 2rem 0;
   display: flex;
   flex-direction: column;
