@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import UploadPictures from "./components/uploadPictures";
 import MultipleImageUpload from "./components/multipleImageComponent";
 import ErrorBoundary from "./components/errorBoundary";
+import JoinNow from './pages/JoinNow';
 
 export default function Routing() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -45,7 +46,7 @@ export default function Routing() {
   return user == null ? (
     <>
       <Route path="/">
-        <HomePage />
+        <JoinNow />
       </Route>
       <Route path="/demo">
         <DemoPage />
