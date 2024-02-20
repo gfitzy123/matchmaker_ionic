@@ -6,25 +6,21 @@ import {
   IonTitle,
   IonButton,
   IonContent,
+  useIonRouter,
 } from "@ionic/react";
 import {
   getAuth,
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import axios from "axios";
-import { db } from "../../config/firebase";
 import Logo from "../../assets/images/logo.png";
-import { doc, getDoc } from "firebase/firestore";
-import { SERVER_BASE_URL } from "../../config/config";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const JoinNow: React.FC = () => {
-  const [otp, setOtp] = useState();
-  const [expandedOtpForm, setExpandedOtpForm] = useState(false);
-  const [confirmationResult, setConfirmationResult] = useState(null);
+  const router = useIonRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
   const ionInputEl = useRef<HTMLIonInputElement>(null);
+  const [confirmationResult, setConfirmationResult] = useState(null);
 
   const recaptchaRef = React.createRef();
 
@@ -58,7 +54,6 @@ const JoinNow: React.FC = () => {
     const debugPhoneNumber = "+1 413 658 4988";
 
     generatorRecaptcha();
-    setExpandedOtpForm(true);
 
     let appVerifier = (window as any).recaptchaVerifier;
 
@@ -66,55 +61,9 @@ const JoinNow: React.FC = () => {
       const result = await signInWithPhoneNumber(getAuth(), phone, appVerifier);
       console.log("signInWithPhoneNumber: result", result);
       setConfirmationResult(result);
+      router.push(`/get_code/:${JSON.stringify(result)}`);
     } catch (error) {
       console.log("loginWithPhoneNumber_Error", error);
-    }
-  };
-
-  const verifyOTP = async (e) => {
-    let otp = e.target.value;
-    if (otp.length <= 6) {
-      setOtp(otp);
-    }
-
-    if (otp.length === 6 && confirmationResult) {
-      try {
-        let confirmResult = confirmationResult;
-        confirmResult
-          .confirm(otp)
-          .then(async (result) => {
-            console.log("Phone Verified Successfully - user", result.user);
-            toast("Phone Verified Successfully");
-            const user = result.user;
-            const userDoc = doc(db, "Users", user.uid);
-            const userDocData = await getDoc(userDoc);
-            console.log("userDocData", userDocData.exists());
-
-            if (userDocData.exists()) {
-              // If user exists, navigate to /chat_page
-              console.log("Navigating to /chat_page");
-              localStorage.setItem("user", JSON.stringify(user));
-
-              const response = await axios.get(
-                `${SERVER_BASE_URL}/users/${user.uid}`
-              );
-              const userDetails = response.data;
-            } else {
-            }
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("otp_Error", errorCode, errorMessage);
-            if (errorCode === "auth/invalid-verification-code") {
-              toast("Invalid verification Code");
-            } else {
-              toast("Phone Verification Failed");
-            }
-          });
-      } catch (e) {
-        console.log("verifyOTP_Error", e);
-      }
     }
   };
 
@@ -162,7 +111,7 @@ const JoinNow: React.FC = () => {
             <div style={{ marginBottom: "50px" }} />
 
             <IonButton type="submit" expand="block">
-              Continue
+              CONTINUE
             </IonButton>
             <div style={{ marginBottom: "200px" }} />
           </form>
