@@ -128,9 +128,8 @@ const GetCode: React.FC = (props) => {
             <img src={Logo} alt="Ionic logo" />
           </div>
 
-          <IonTitle className="txt-join">Join now</IonTitle>
           <IonTitle className="txt-phone">
-            Enter your number register we texted you
+            Enter your number we texted you
           </IonTitle>
           <form noValidate onSubmit={(event) => handleSubmit(event)}>
             <IonInput
