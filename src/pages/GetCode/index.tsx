@@ -21,7 +21,7 @@ const GetCode: React.FC = (props) => {
   const [otp, setOtp] = useState("");
   const ionInputEl = useRef<HTMLIonInputElement>(null);
   const [confirmationResult, setConfirmationResult] = useState(null);
-  console.log("confirmationResult", confirmationResult)
+  console.log("confirmationResult", confirmationResult);
   const recaptchaRef = React.createRef();
 
   const generatorRecaptcha = () => {
@@ -130,7 +130,7 @@ const GetCode: React.FC = (props) => {
 
           <IonTitle className="txt-join">Join now</IonTitle>
           <IonTitle className="txt-phone">
-            Enter your phone number register in the page
+            Enter your number register we texted you
           </IonTitle>
           <form noValidate onSubmit={(event) => handleSubmit(event)}>
             <IonInput
