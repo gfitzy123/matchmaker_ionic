@@ -132,6 +132,7 @@ export default function HomePage() {
           <StyledLabel color={toggleState ? "white" : "#222224"}>
             Phone number
           </StyledLabel>
+          <LoginWithPhoneNumber />
           <PhoneNumberWrapper toggleState={toggleState}>
             <CustomMuiTelInput
               InputProps={{
