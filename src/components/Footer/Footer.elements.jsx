@@ -1,30 +1,54 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const FooterContainer = styled.div`
-  background-color: #222224;
-  padding: 4rem 0 2rem 0;
+  background-color: ${({ toggleState }) => toggleState && "#222224"};
+  padding: 0 0 2rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const LogoImage = styled.img`
+  // width: 50%;
+  width: ${({ width }) => width ?? width};
+  height: ${({ height }) => height ?? height};
+`;
+
+export const FooterLogo = styled(Link)`
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 30%;
+  @media screen and (max-width: 960px) {
+    max-width: 100%;
+  }
 `;
 
 export const FooterSubscription = styled.section`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  border-top: ${({ toggleState }) =>
+    !toggleState
+      ? "solid 1px rgba(34, 34, 36, 1)"
+      : "solid 1px rgba(255, 255, 255, 0.2)"};
   padding: 24px;
   color: #fff;
+  width: 100%;
+  @media screen and (max-width: 960px) {
+    flex-direction: column;
+  }
 `;
 
 export const FooterSubHeading = styled.p`
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   margin-bottom: 24px;
   font-size: 24px;
 `;
@@ -85,11 +109,9 @@ export const FooterLinksWrapper = styled.div`
 
 export const FooterLinkItems = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
   margin: 16px;
   text-align: left;
-  width: 160px;
   box-sizing: border-box;
   color: #fff;
 
@@ -97,6 +119,7 @@ export const FooterLinkItems = styled.div`
     margin: 0;
     padding: 10px;
     width: 100%;
+    display: block;
   }
 `;
 
@@ -105,19 +128,24 @@ export const FooterLinkTitle = styled.h2`
 `;
 
 export const FooterLink = styled(Link)`
-  color: #fff;
+  color: ${({ toggleState }) => (!toggleState ? "black" : "white")};
   text-decoration: none;
   margin-bottom: 0.5rem;
-
+  padding: 10px;
   &:hover {
     color: #0467fb;
     transition: 0.3s ease-out;
   }
+  @media screen and (max-width: 960px) {
+    display: block; /* Set to block on smaller screens */
+    text-align: center;
+    width: 100%;
+  }
 `;
 
 export const SocialMedia = styled.section`
-  max-width: 1000px;
   width: 100%;
+  padding: 24px;
 `;
 
 export const SocialMediaWrap = styled.div`
@@ -163,11 +191,14 @@ export const SocialIcons = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 240px;
-
+  @media screen and (max-width: 820px) {
+    width: 100%;
+  }
 `;
 
 export const SocialIconLink = styled.a`
-  color: #fff;
+  color: ${({ toggleState }) =>
+    !toggleState ? "rgba(198, 161, 90, 1)" : "white"};
   font-size: 24px;
 
   &:hover {

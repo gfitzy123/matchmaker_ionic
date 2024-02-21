@@ -1,25 +1,37 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 export default ({ checked = false, color = "#6ab04c" }) => {
-    const [toggle, setToggle] = useState(checked);
-
-    return (
-        <Container>
-            <Label light>LIGHT</Label>
-            <Switch>
-                <Input {...{ color }} type="checkbox" defaultChecked={toggle} />
-                <Slider {...{ toggle, color }} onClick={() => setToggle(!toggle)} />
-            </Switch>
-            <Label>DARK</Label>
-        </Container>
-    );
+  const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(checked);
+  return (
+    <Container>
+      <Label color={toggle ? "#FFFFFF80" : "#222224"}>LIGHT</Label>
+      <Switch>
+        <Input {...{ color }} type="checkbox" defaultChecked={toggle} />
+        <Slider
+          {...{ toggle, color }}
+          onClick={() => {
+            setToggle(!toggle);
+            console.log({ toggle });
+            dispatch({
+              type: "Toggle",
+              toggle: !toggle,
+            });
+          }}
+        />
+      </Switch>
+      <Label toggle={toggle} color={toggle ? "#FFFFFF80" : "#222224"}>DARK</Label>
+    </Container>
+  );
 };
 
 const Container = styled.div`
-    display: flex;
-    align-items: center;
-`
+  display: flex;
+  align-items: center;
+  z-index: 999;
+`;
 
 const Slider = styled.span`
   position: absolute;
@@ -28,9 +40,11 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({ toggle, color }) => (toggle ? color : "white")};
+  background-color: ${({ toggle, color }) => (toggle ? color : "#383839")};
   border-radius: 15px;
   transition: 0.4s;
+  background-image: ${({ toggle, color }) =>
+    toggle ? "linear-gradient(to bottom, #4B4B4B 0%, #757575 100%)" : "white"};
 
   &:before {
     content: "";
@@ -43,7 +57,7 @@ const Slider = styled.span`
     height: 20px;
     border-radius: 100%;
 
-    background-color: ${({ toggle, color }) => (toggle ? "white" : color)};
+    background-color: ${({ toggle, color }) => (toggle ? "#383839" : "white")};
 
     transition: 0.4s;
   }
@@ -63,6 +77,7 @@ const Switch = styled.label`
   margin: 0.5rem;
   border-radius: 15px;
   transition: 0.4s;
+  background-color: #383839;
 
   & ${Input} {
     opacity: 0;
@@ -72,5 +87,5 @@ const Switch = styled.label`
 `;
 
 const Label = styled.label`
-  color: ${({ light }) => (light ? 'rgba(255, 255, 255, 0.60)' : '#FFF')};
+  color: ${({ color }) => color ?? color};
 `;
