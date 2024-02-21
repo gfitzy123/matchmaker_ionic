@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 export default ({ checked = false, color = "#6ab04c" }) => {
   const dispatch = useDispatch();
-  const [toggle, setToggle] = useState(checked);
+  const toggleState = useSelector((state) => state.HomeReducer.toggle);
+  const [toggle, setToggle] = useState(toggleState ?? checked);
+
   return (
     <Container>
       <Label color={toggle ? "#FFFFFF80" : "#222224"}>LIGHT</Label>
@@ -14,7 +16,6 @@ export default ({ checked = false, color = "#6ab04c" }) => {
           {...{ toggle, color }}
           onClick={() => {
             setToggle(!toggle);
-            console.log({ toggle });
             dispatch({
               type: "Toggle",
               toggle: !toggle,
@@ -22,7 +23,9 @@ export default ({ checked = false, color = "#6ab04c" }) => {
           }}
         />
       </Switch>
-      <Label toggle={toggle} color={toggle ? "#FFFFFF80" : "#222224"}>DARK</Label>
+      <Label toggle={toggle} color={toggle ? "#FFFFFF80" : "#222224"}>
+        DARK
+      </Label>
     </Container>
   );
 };

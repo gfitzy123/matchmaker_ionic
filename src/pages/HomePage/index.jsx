@@ -68,7 +68,7 @@ import {
   FAQHeader,
   SectionIcons,
 } from "./homePageStyles";
-import useMobileCheck from './mobileCheck';
+import useMobileCheck from "./mobileCheck";
 
 export default function HomePage() {
   const history = useHistory();
@@ -132,8 +132,8 @@ export default function HomePage() {
           <StyledLabel color={toggleState ? "white" : "#222224"}>
             Phone number
           </StyledLabel>
-          <LoginWithPhoneNumber />
-          <PhoneNumberWrapper toggleState={toggleState}>
+          <LoginWithPhoneNumber toggleState={toggleState} />
+          {/* <PhoneNumberWrapper toggleState={toggleState}>
             <CustomMuiTelInput
               InputProps={{
                 style: {
@@ -162,7 +162,7 @@ export default function HomePage() {
             >
               Apply For Membership
             </PhoneNumberApplyBtn>
-          )}
+          )} */}
         </PhoneNumberInputContainer>
       </StyledSectionOne>
       <StyledSectionTwo>
@@ -180,6 +180,8 @@ export default function HomePage() {
             color={toggleState ? "white" : "#222224"}
             fontSize="32px"
             margin="1rem"
+            textAlign="center"
+            width="100%"
           >
             Exclusive Matchmaking Awaits!
           </StyledLabel>

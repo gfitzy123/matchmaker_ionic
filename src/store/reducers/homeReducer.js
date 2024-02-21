@@ -3,7 +3,6 @@ const initialState = {
 };
 
 function HomeReducer(state = initialState, action) {
-  console.log({ action });
   switch (action.type) {
     case "Toggle": {
       return {

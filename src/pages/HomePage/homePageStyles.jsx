@@ -24,6 +24,7 @@ export const StyledSectionOne = styled.div`
 `;
 
 export const StyledLabel = styled.label`
+  width: ${({ width }) => width ?? width};
   color: ${({ color }) => color ?? "#fff"};
   font-size: ${({ fontSize }) => fontSize ?? "16px"};
   font-weight: ${({ fontWeight }) => fontWeight ?? "500"};
@@ -32,7 +33,7 @@ export const StyledLabel = styled.label`
   text-transform: ${({ textAlign }) => textAlign ?? "inherit"};
   line-height: ${({ lineHeight }) => lineHeight ?? lineHeight};
   @media screen and (max-width: 960px) {
-    text-align: center;
+    // text-align: center;
     line-height: 32px;
   }
 `;
@@ -64,8 +65,9 @@ export const PhoneNumberWrapper = styled.div`
   border-radius: 8px;
   margin-top: 0.5rem;
   @media screen and (max-width: 960px) {
-    height: 56px;
+    background-color: ${({ toggleState }) => !toggleState ? "#F5F6FA" : "#222224"};
     padding: 0;
+    border: none;
   }
 `;
 
@@ -76,7 +78,11 @@ export const CustomMuiTelInput = styled(MuiTelInput)`
 `;
 
 export const PhoneNumberApplyBtn = styled.button`
-  padding: 0 20px;
+  width: 70%;
+  border-radius: 6px;
+  padding: 19px;
+
+  // padding: 0 20px;
   background: #c6a15a;
   border-radius: 8px;
   font-size: 18px;
@@ -87,8 +93,8 @@ export const PhoneNumberApplyBtn = styled.button`
   @media screen and (max-width: 960px) {
     border-radius: 8px;
     width: 100%;
-    padding: 1rem;
-    height: 56px;
+    // padding: 1rem;
+    // height: 56px;
     margin-top: 1rem;
   }
 `;
@@ -220,6 +226,9 @@ export const AdvanceBtn = styled.button`
   text-transform: uppercase;
   text-wrap: nowrap;
   color: ${({ toggleState }) => (!toggleState ? "white" : "#222224")};
+  @media screen and (max-width: 960px) {
+    width: 100%;
+  }
 `;
 
 export const StyledSectionFour = styled.div`

@@ -118,10 +118,10 @@ p.veriff-description {
 }
 
 .request-otp {
-    height: 40px;
+    /* height: 40px;
     width: 100%;
     margin-top: 10px;
-    color: goldenrod;
+    color: goldenrod; */
 }
 
 .txt-veriff {
