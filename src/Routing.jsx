@@ -48,7 +48,7 @@ export default function Routing() {
   return user == null ? (
     <>
       <Route path="/">
-        <PlaidComponent />
+        <JoinNow />
       </Route>
       <Route path="/get_code">
         <GetCode />
@@ -74,6 +74,9 @@ export default function Routing() {
         <AuthWrapper>
           <IdentityVerification />
         </AuthWrapper>
+      </Route>
+      <Route path="/plaid">
+        <PlaidComponent />
       </Route>
       <Route path="/final">
         <AuthWrapper>
