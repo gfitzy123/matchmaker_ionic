@@ -3,5 +3,6 @@
     "matchmaker": "tier-dating"
   },
   "targets": {},
-  "etags": {}
+  "etags": {},
+  "default": "tier-dating"
 }
