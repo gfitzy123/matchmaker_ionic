@@ -17,8 +17,10 @@ import { useEffect, useState } from "react";
 import UploadPictures from "./components/uploadPictures";
 import MultipleImageUpload from "./components/multipleImageComponent";
 import ErrorBoundary from "./components/errorBoundary";
-import JoinNow from './pages/JoinNow';
-import GetCode from './pages/GetCode';
+import JoinNow from "./pages/JoinNow";
+import GetCode from "./pages/GetCode";
+import AccountSetUpPage from "./pages/AccountSetUpPage";
+import UploadPhotoPage from "./pages/UploadPhotoPage";
 
 export default function Routing() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -48,9 +50,16 @@ export default function Routing() {
     <ion-content>
       <Route path="/">
         <JoinNow />
+        {/* <HomePage /> */}
       </Route>
       <Route path="/get_code">
         <GetCode />
+      </Route>
+      <Route path="/account-setup">
+        <AccountSetUpPage />
+      </Route>
+      <Route path="/upload-photo">
+        <UploadPhotoPage />
       </Route>
       <Route path="/demo">
         <DemoPage />

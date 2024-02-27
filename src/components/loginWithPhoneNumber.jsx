@@ -71,7 +71,6 @@ export default function LoginWithPhoneNumber({ toggleState }) {
 
   const generatorRecaptcha = (auth) => {
     window.recaptchaVerifier = new RecaptchaVerifier(
-      getAuth(),
       "recaptcha-container",
       {
         size: "invisible",
@@ -86,8 +85,8 @@ export default function LoginWithPhoneNumber({ toggleState }) {
             }
           }, 500);
         },
-      }
-      // getAuth()
+      },
+      getAuth()
     );
   };
 

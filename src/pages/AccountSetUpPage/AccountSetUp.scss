@@ -1,62 +1,36 @@
-#join-now-page {
+#account-setup-page {
   .container {
     display: flex;
     flex-direction: column;
     background-color: #222224;
-    // position: absolute;
-    // width: 100%;
+    padding: 40px;
+    justify-content: space-between;
   }
 
-  .login-logo {
-    padding: 100px 0px 0px 0px;
-    min-height: 10px;
-    text-align: center;
-    @media screen and (max-width: 960px) {
-      min-height: 0px;
-    }
-  }
-
-  .login-logo img {
-    max-width: 120px;
-    @media screen and (max-width: 960px) {
-      width: 80px;
-      height: 80px;
-    }
-  }
-
-  .txt-join {
+  .txt-setup {
     color: #fff;
-    font-size: 40px;
+    font-size: 24px;
     margin: 50px 0px 20px 0px;
     @media screen and (max-width: 960px) {
       position: relative;
     }
   }
-  .text-phone-label {
-    font-size: 12px;
-    color: white;
-    font-weight: 400;
-    padding: 0px 0px 10px 0px;
-  }
-  .txt-phone {
-    color: #dddddd;
-    font-size: 16px;
-    margin: 0px 0px 30px 0px;
-    @media screen and (max-width: 960px) {
-      position: relative;
-    }
+
+  .back-button {
+    width: 100%;
+    text-align: left;
   }
 
+  .setup-content {
+    text-align: center;
+  }
   .button {
+    width: 100%;
     --border-radius: 8px;
   }
 
-  .MuiOutlinedInput-root fieldset {
-    border: none !important;
-  }
-
   ion-input.custom {
-    --background: #222224;
+    --background: #000;
     --color: #fff;
     --placeholder-color: #fff;
     --placeholder-opacity: 0.8;
@@ -80,7 +54,7 @@
     --color: #fff;
 
     --border-radius: 0;
-    --border-color: transparent;
+    --border-color: #000;
     --border-style: solid;
     --border-width: 1px;
 
