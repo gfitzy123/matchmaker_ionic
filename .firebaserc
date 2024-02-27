@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "tier-dating"
-  }
+    "matchmaker": "tier-dating"
+  },
+  "targets": {},
+  "etags": {},
+  "default": "tier-dating"
 }

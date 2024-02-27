@@ -17,8 +17,10 @@ import { useEffect, useState } from "react";
 import UploadPictures from "./components/uploadPictures";
 import MultipleImageUpload from "./components/multipleImageComponent";
 import ErrorBoundary from "./components/errorBoundary";
-import JoinNow from './pages/JoinNow';
-import GetCode from './pages/GetCode';
+import JoinNow from "./pages/JoinNow";
+import GetCode from "./pages/GetCode";
+import AccountSetUpPage from "./pages/AccountSetUpPage";
+import UploadPhotoPage from "./pages/UploadPhotoPage";
 import PlaidComponent from './components/plaid';
 
 export default function Routing() {
@@ -46,12 +48,19 @@ export default function Routing() {
   };
 
   return user == null ? (
-    <>
+    <ion-content>
       <Route path="/">
         <JoinNow />
+        {/* <HomePage /> */}
       </Route>
       <Route path="/get_code">
         <GetCode />
+      </Route>
+      <Route path="/account-setup">
+        <AccountSetUpPage />
+      </Route>
+      <Route path="/upload-photo">
+        <UploadPhotoPage />
       </Route>
       <Route path="/demo">
         <DemoPage />
@@ -83,9 +92,9 @@ export default function Routing() {
           <FinalPage />
         </AuthWrapper>
       </Route>
-    </>
+    </ion-content>
   ) : (
-    <>
+    <ion-content>
       <Route path="/">
         <ChatPage />
       </Route>
@@ -95,7 +104,7 @@ export default function Routing() {
       <Route path="/multipleImageUpload">
         <MultipleImageUpload />
       </Route>
-    </>
+    </ion-content>
   );
 }
 

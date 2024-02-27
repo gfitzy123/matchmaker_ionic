@@ -792,7 +792,7 @@ export default function ChatPage() {
     return <span>Browser doesn't support speech recognition.</span>;
   }
   return (
-    <div>
+    <div className="chat-wrapper">
       {/* <audio controls src={audioSrc} hidden style={{ display: 'none' }} /> */}
       <div className="header">
         <div className="chat-header">
@@ -1058,9 +1058,9 @@ export default function ChatPage() {
         ) : null}
 
         {isMatchScreen &&
-        !hasActiveEncounter &&
-        !drillDownProfile & !isOnboarding ? (
-          <div className="matchScreen" style={{ width: "80%" }}>
+          !hasActiveEncounter &&
+          !drillDownProfile & !isOnboarding ? (
+          <div className="matchScreen">
             <Grid container spacing={2}>
               {matches.length &&
                 matches.map((profileId, i) => (
@@ -1186,10 +1186,11 @@ export default function ChatPage() {
         <div className="chip-container">
           {savedSearches &&
             savedSearches.map((item, index) => (
-              <li key={index} style={{ marginBottom: "20px" }}>
+              <li key={index} >
                 <Chip
                   label={<span className="truncate">{`${item.message}`}</span>}
                   color="primary"
+                  sx={{ width: '100%' }}
                   onClick={() => handleSavedMessage(item.message)}
                 />
               </li>
@@ -1516,9 +1517,7 @@ const style = {
 const micIconStyle = {
   // height: "40px",
   // width: "40px",
-  marginTop: "10px",
   right: "80px",
-  borderRadius: "20px",
   position: "absolute",
   height: "45px",
   width: "45px",

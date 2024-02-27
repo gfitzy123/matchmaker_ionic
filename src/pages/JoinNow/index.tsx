@@ -1,5 +1,7 @@
 import "./Joinnow.scss";
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   IonPage,
   IonInput,
@@ -15,12 +17,15 @@ import {
 } from "firebase/auth";
 import Logo from "../../assets/images/logo.png";
 import { ToastContainer } from "react-toastify";
+import { MuiTelInput } from "mui-tel-input";
 
 const JoinNow: React.FC = () => {
   const router = useIonRouter();
+  const dispatch = useDispatch();
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const ionInputEl = useRef<HTMLIonInputElement>(null);
-  const [confirmationResult, setConfirmationResult] = useState(null);
+  // const [confirmationResult, setConfirmationResult] = useState(null);
 
   const recaptchaRef = React.createRef();
 
@@ -60,7 +65,8 @@ const JoinNow: React.FC = () => {
     try {
       const result = await signInWithPhoneNumber(getAuth(), phone, appVerifier);
       console.log("signInWithPhoneNumber: result", result);
-      setConfirmationResult(result);
+      dispatch({ type: "CONFIRM_RESULT", result: result });
+      // setConfirmationResult(result);
       router.push(`/get_code/:${JSON.stringify(result)}`);
     } catch (error) {
       console.log("loginWithPhoneNumber_Error", error);
@@ -90,15 +96,15 @@ const JoinNow: React.FC = () => {
         <div className="container">
           {/* <img src={Logo} alt="avatar" className="logo" /> */}
           <div className="login-logo">
-            <img src={Logo} alt="Ionic logo" />
+            <img src={Logo} alt="Ionic logo" className="logo-img" />
           </div>
 
           <IonTitle className="txt-join">Join now</IonTitle>
           <IonTitle className="txt-phone">
-            Enter your phone number register in the page
+            Enter your phone number to register in the app
           </IonTitle>
           <form noValidate onSubmit={(event) => handlePhoneNumberLogin(event)}>
-            <IonInput
+            {/* <IonInput
               ref={ionInputEl}
               placeholder="+1 000 - 000 - 0000"
               maxlength={12}
@@ -106,11 +112,26 @@ const JoinNow: React.FC = () => {
               class="custom"
               value={phoneNumber}
               onIonInput={onPhoneInput}
-            ></IonInput>
+            ></IonInput> */}
+            <IonTitle className="text-phone-label">Phone number</IonTitle>
+            <MuiTelInput
+              InputProps={{
+                style: {
+                  color: "white",
+                  borderBottom: "solid 1px white",
+                  borderRadius: "0px",
+                  outline: "none",
+                },
+              }}
+              className="custom"
+              defaultCountry="US"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+            />
             <div id="recaptcha-container"></div>
             <div style={{ marginBottom: "50px" }} />
 
-            <IonButton type="submit" expand="block">
+            <IonButton type="submit" expand="block" className="button">
               CONTINUE
             </IonButton>
             <div style={{ marginBottom: "200px" }} />

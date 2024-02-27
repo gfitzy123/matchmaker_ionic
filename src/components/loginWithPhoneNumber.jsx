@@ -20,6 +20,12 @@ import {
 } from "firebase/auth";
 import { signUp } from "../actions/socialLogin";
 import { SERVER_BASE_URL } from "../config/config";
+import {
+  PhoneNumberWrapper,
+  PhoneNumberApplyBtn,
+  CustomMuiTelInput,
+} from "../pages/HomePage/homePageStyles";
+import useMobileCheck from "../pages/HomePage/mobileCheck";
 
 function OTPInput({ onOTPSubmit }) {
   const [otp, setOtp] = useState("");
@@ -44,7 +50,7 @@ function OTPInput({ onOTPSubmit }) {
   );
 }
 
-export default function LoginWithPhoneNumber() {
+export default function LoginWithPhoneNumber({ toggleState }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [phoneNumber, setPhoneNumber] = useState();
@@ -59,10 +65,11 @@ export default function LoginWithPhoneNumber() {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [expandedOtpForm, setExpandedOtpForm] = useState(false);
   const [showRecaptcha, setShowRecaptcha] = useState(true);
+  const isMobile = useMobileCheck();
 
   const recaptchaRef = React.createRef();
 
-  const generatorRecaptcha = () => {
+  const generatorRecaptcha = (auth) => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
       {
@@ -85,6 +92,7 @@ export default function LoginWithPhoneNumber() {
 
   const handlePhoneNumberLogin = async (event, phone) => {
     event.preventDefault();
+    console.log("handlePhoneNumberLogin: event", event);
     console.log("loginWithPhoneNumber - phone", phone);
     // Hardcoded phone number for debugging
     const debugPhoneNumber = "+1 413 658 4988";
@@ -198,61 +206,70 @@ export default function LoginWithPhoneNumber() {
   };
 
   return (
-    <div style={{ marginTop: "20px", alignItems: "center" }}>
+    <PhoneNumberWrapper toggleState={toggleState}>
       <Box
         component="form"
         noValidate
         onSubmit={(event) => handlePhoneNumberLogin(event, phoneNumber)}
+        sx={{
+          width: "100%",
+          display: isMobile || expandedOtpForm ? "block" : "flex",
+        }}
       >
-        <MuiTelInput
+        <CustomMuiTelInput
           InputProps={{
             style: {
-              color: "black", // change text color
-              backgroundColor: "white", // change background color
-              borderColor: "#666666", // change border color
-              marginTop: "20px",
+              color: toggleState ? "white" : "#222224",
+              border: "none",
+              outline: "none",
+              background: toggleState ? "#383839" : "white",
+              borderRadius: "8px",
             },
           }}
           defaultCountry="US"
-          // onlyCountries={['US']}
-
           value={phoneNumber}
           onChange={setPhoneNumber}
         />
 
         {/* {showRecaptcha && <div id="recaptcha-container"></div>} */}
         <div id="recaptcha-container"></div>
+        {/* {expandedOtpForm && (
+          <div style={{ borderTop: "solid 1px white", height: "10px" }}></div>
+        )} */}
         {expandedOtpForm === true && (
-          <div>
-            <label style={{ color: "#fff" }}>OTP</label>
+          <div style={{ marginTop: "1rem" }}>
+            <label style={{ color: toggleState ? "#fff" : "black" }}>OTP</label>
             <TextField
               id="otpInput"
               value={otp}
               maxLength={6}
               onChange={verifyOTP}
               style={{
-                width: "70%",
                 color: "white",
+                border: "none",
                 borderRadius: "5px",
                 marginRight: "100px",
-                borderColor: "#666666",
                 WebkitAppearance: "none",
                 MozAppearance: "textfield",
-                backgroundColor: "#ffffff",
+                width: "100%",
               }}
             />
-            <div id="otpHelp" className="form-text" style={{ color: "white" }}>
+            <div
+              id="otpHelp"
+              className="form-text"
+              style={{ color: toggleState ? "white" : "black" }}
+            >
               Please enter the one time pin that sent your phone
             </div>
           </div>
         )}
         {expandedOtpForm === false && (
-          <button type="submit" className="request-otp">
-            Request OTP
-          </button>
+          <PhoneNumberApplyBtn toggleState={toggleState} type="submit">
+            Apply For Membership
+          </PhoneNumberApplyBtn>
         )}
       </Box>
       <ToastContainer />
-    </div>
+    </PhoneNumberWrapper>
   );
 }
