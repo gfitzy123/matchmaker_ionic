@@ -9,7 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ChatPage from "./pages/ChatPage";
 import GenderSelectionPage from "./pages/GenderSelectionPage";
 import IncomeVerificationPage from "./pages/IncomeVerificationPage";
-import IdentityVerification from "./components/idVerification";
+import IdentityVerification from "./components/identity";
 import FinalPage from "./pages/FinalPage";
 import { useLocation } from "react-router-dom";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
@@ -19,6 +19,7 @@ import MultipleImageUpload from "./components/multipleImageComponent";
 import ErrorBoundary from "./components/errorBoundary";
 import JoinNow from './pages/JoinNow';
 import GetCode from './pages/GetCode';
+import PlaidComponent from './components/plaid';
 
 export default function Routing() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -73,6 +74,9 @@ export default function Routing() {
         <AuthWrapper>
           <IdentityVerification />
         </AuthWrapper>
+      </Route>
+      <Route path="/plaid">
+        <PlaidComponent />
       </Route>
       <Route path="/final">
         <AuthWrapper>
