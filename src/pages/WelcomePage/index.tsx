@@ -1,5 +1,5 @@
 import "./welcomePageStyles.scss";
-import { IonIcon, IonPage, IonContent } from "@ionic/react";
+import { IonIcon, IonPage, IonContent, IonButton } from "@ionic/react";
 import { ToastContainer } from "react-toastify";
 import { ellipsisVertical, menu } from "ionicons/icons";
 import MatchMakerLogo from "../../assets/images/logoAI.png";
@@ -35,6 +35,7 @@ export default function WelcomePage() {
             <p className="txt-description">{`Here you can find your ideal match thanks to advanced artificial intelligence that helps you understand your preferences and find a suitable match.`}</p>
             <p className="txt-description">{`Just tell us about your preferences, and we'll play cupid, searching for potential matches among our users. Let Matchmaker AI help you find love and make your partner search an unforgettable adventure!`}</p>
           </div>
+          <IonButton className="button">START</IonButton>
         </div>
       </IonContent>
       <ToastContainer />
