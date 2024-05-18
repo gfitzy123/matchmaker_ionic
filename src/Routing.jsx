@@ -22,6 +22,7 @@ import GetCode from "./pages/GetCode";
 import AccountSetUpPage from "./pages/AccountSetUpPage";
 import UploadPhotoPage from "./pages/UploadPhotoPage";
 import PlaidComponent from './components/plaid';
+import WelcomePage from "./pages/WelcomePage";
 
 export default function Routing() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -51,7 +52,6 @@ export default function Routing() {
     <ion-content>
       <Route path="/">
         <JoinNow />
-        {/* <HomePage /> */}
       </Route>
       <Route path="/get_code">
         <GetCode />
@@ -103,6 +103,9 @@ export default function Routing() {
       </Route>
       <Route path="/multipleImageUpload">
         <MultipleImageUpload />
+      </Route>
+      <Route path="/welcome">
+        <WelcomePage />
       </Route>
     </ion-content>
   );
