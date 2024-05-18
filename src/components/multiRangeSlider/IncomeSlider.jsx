@@ -1,92 +1,98 @@
-import './multiRangeSlider.css'
-import { useRef, useEffect, useState, useCallback } from 'react'
-import classnames from 'classnames'
+import "./multiRangeSlider.css";
+import { useRef, useEffect, useState, useCallback } from "react";
+import classnames from "classnames";
 
 const PreferredIncomeSlider = ({ min, max, onChange }) => {
-    const [minVal, setMinVal] = useState(min)
-    const [maxVal, setMaxVal] = useState(max)
-    const minValRef = useRef(null)
-    const maxValRef = useRef(null)
-    const range = useRef(null)
+	const [minVal, setMinVal] = useState(min);
+	const [maxVal, setMaxVal] = useState(max);
+	const minValRef = useRef(null);
+	const maxValRef = useRef(null);
+	const range = useRef(null);
 
-    // Convert to percentage
-    const getPercent = useCallback(
-        (value) => Math.round(((value - min) / (max - min)) * 100),
-        [min, max]
-    )
+	// Convert to percentage
+	const getPercent = useCallback(
+		(value) => Math.round(((value - min) / (max - min)) * 100),
+		[min, max]
+	);
 
-    // Set width of the range to decrease from the left side
-    useEffect(() => {
-        if (maxValRef.current) {
-            const minPercent = getPercent(minVal)
-            const maxPercent = getPercent(+maxValRef.current.value) // Precede with '+' to convert the value from type string to type number
+	// Helper function to format numbers correctly with "k" as thousands
+	const formatValue = (value) => {
+		const thousands = Math.round(value / 1000);
+		return `${thousands}k`;
+	};
 
-            if (range.current) {
-                range.current.style.left = `${minPercent}%`
-                range.current.style.width = `${maxPercent - minPercent}%`
-            }
-        }
-    }, [minVal, getPercent])
+	// Set width of the range to decrease from the left side
+	useEffect(() => {
+		if (maxValRef.current) {
+			const minPercent = getPercent(minVal);
+			const maxPercent = getPercent(+maxValRef.current.value);
 
-    // Set width of the range to decrease from the right side
-    useEffect(() => {
-        if (minValRef.current) {
-            const minPercent = getPercent(+minValRef.current.value)
-            const maxPercent = getPercent(maxVal)
+			if (range.current) {
+				range.current.style.left = `${minPercent}%`;
+				range.current.style.width = `${maxPercent - minPercent}%`;
+			}
+		}
+	}, [minVal, getPercent]);
 
-            if (range.current) {
-                range.current.style.width = `${maxPercent - minPercent}%`
-            }
-        }
-    }, [maxVal, getPercent])
+	// Set width of the range to decrease from the right side
+	useEffect(() => {
+		if (minValRef.current) {
+			const minPercent = getPercent(+minValRef.current.value);
+			const maxPercent = getPercent(maxVal);
 
-    // Get min and max values when their state changes
-    useEffect(() => {
-        onChange({ min: minVal, max: maxVal })
-    }, [minVal, maxVal, onChange])
+			if (range.current) {
+				range.current.style.width = `${maxPercent - minPercent}%`;
+			}
+		}
+	}, [maxVal, getPercent]);
 
-    return (
-        <div style={{ marginTop: '10px', marginBottom: '60px' }}>
-            <p>
-                Preffered Income: ${minVal} - ${maxVal}
-            </p>
-            <input
-                type="range"
-                min={min}
-                max={max}
-                value={minVal}
-                ref={minValRef}
-                onChange={(event) => {
-                    const value = Math.min(+event.target.value, maxVal - 1)
-                    setMinVal(value)
-                    event.target.value = value.toString()
-                }}
-                className={classnames('thumb thumb--zindex-3', {
-                    'thumb--zindex-5': minVal > max - 100,
-                })}
-            />
-            <input
-                type="range"
-                min={min}
-                max={max}
-                value={maxVal}
-                ref={maxValRef}
-                onChange={(event) => {
-                    const value = Math.max(+event.target.value, minVal + 1)
-                    setMaxVal(value)
-                    event.target.value = value.toString()
-                }}
-                className="thumb thumb--zindex-4"
-            />
+	// Get min and max values when their state changes
+	useEffect(() => {
+		onChange({ min: minVal, max: maxVal });
+	}, [minVal, maxVal, onChange]);
 
-            <div className="slider">
-                <div className="slider__track"></div>
-                <div ref={range} className="slider__range"></div>
-                <div className="slider__left-value">{minVal}</div>
-                <div className="slider__right-value">{maxVal}</div>
-            </div>
-        </div>
-    )
-}
+	return (
+		<div style={{ marginTop: "10px", marginBottom: "60px" }}>
+			<p>
+				Preferred Income: ${formatValue(minVal)} - ${formatValue(maxVal)}
+			</p>
+			<input
+				type="range"
+				min={min}
+				max={max}
+				value={minVal}
+				ref={minValRef}
+				onChange={(event) => {
+					const value = Math.min(+event.target.value, maxVal - 1);
+					setMinVal(value);
+					event.target.value = value.toString();
+				}}
+				className={classnames("thumb thumb--zindex-3", {
+					"thumb--zindex-5": minVal > max - 100,
+				})}
+			/>
+			<input
+				type="range"
+				min={min}
+				max={max}
+				value={maxVal}
+				ref={maxValRef}
+				onChange={(event) => {
+					const value = Math.max(+event.target.value, minVal + 1);
+					setMaxVal(value);
+					event.target.value = value.toString();
+				}}
+				className="thumb thumb--zindex-4"
+			/>
 
-export default PreferredIncomeSlider
+			<div className="slider">
+				<div className="slider__track"></div>
+				<div ref={range} className="slider__range"></div>
+				<div className="slider__left-value">{formatValue(minVal)}</div>
+				<div className="slider__right-value">{formatValue(maxVal)}</div>
+			</div>
+		</div>
+	);
+};
+
+export default PreferredIncomeSlider;
