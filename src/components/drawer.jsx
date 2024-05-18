@@ -669,7 +669,6 @@ export default function MenuDrawer({
 	const nodeRef = React.useRef(null);
 	const profileDetails = {};
 	const yourPreferences = {};
-	// console.log('MenuDrawer', user)
 
 	if (user) {
 		for (const key in user) {
@@ -754,6 +753,7 @@ export default function MenuDrawer({
 	const [height, setHeight] = React.useState(profileDetails?.height);
 	const [highestEducationLevelCompleted, setHighestEducationLevelCompleted] =
 		React.useState(profileDetails?.highestEducationLevelCompleted);
+
 	const [idVerified, setIdVerified] = React.useState(
 		profileDetails?.idVerified
 	);
@@ -781,6 +781,10 @@ export default function MenuDrawer({
 	);
 	const [preferredAgeMax, setPreferredAgeMax] = React.useState(
 		yourPreferences?.preferredAgeMax
+	);
+
+	const [whatYouAreLookingFor, setWhatYouAreLookingFor] = React.useState(
+		profileDetails?.whatYouAreLookingFor
 	);
 
 	const [edit, setEdit] = React.useState(false);
@@ -894,6 +898,33 @@ export default function MenuDrawer({
 											console.log(`min = ${min}, max = ${max}`)
 										}
 									/>
+								</div>
+								<div className={edit ? "edit-mode" : "display-mode"}>
+									{editWhatYouAreLookingFor ? (
+										<div className="edit-container">
+											<input
+												type="text"
+												id="whatYouAreLookingForInput"
+												value={whatYouAreLookingFor}
+												onChange={(e) =>
+													setWhatYouAreLookingFor(e.target.value)
+												}
+												placeholder="Enter what you are looking for"
+												className="input-field"
+											/>
+											<button onClick={handleSave} className="save-button">
+												Save
+											</button>
+										</div>
+									) : (
+										<p
+											onClick={() => setEditWhatYouAreLookingFor(true)}
+											className="display-text"
+										>
+											<strong>What You Are Looking For:</strong>{" "}
+											{whatYouAreLookingFor}
+										</p>
+									)}
 								</div>
 								{/* <div className={edit ? "edit-mode" : "display-mode"}>
 									{edit ? (
@@ -1894,6 +1925,14 @@ export default function MenuDrawer({
 		});
 	}, []);
 
+	const [editWhatYouAreLookingFor, setEditWhatYouAreLookingFor] =
+		React.useState(false);
+
+	const handleSave = () => {
+		// Save logic here
+		setEdit(false);
+		setEditWhatYouAreLookingFor(false);
+	};
 	return (
 		<div>
 			<React.Fragment key={"left"}>

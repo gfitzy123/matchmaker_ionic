@@ -4,17 +4,20 @@ import { useHistory } from "react-router";
 
 import {
   IonPage,
-  IonInput,
-  IonTitle,
+  IonIcon,
   IonButton,
   IonContent,
-  useIonRouter,
-  IonIcon,
+  isPlatform,
 } from "@ionic/react";
-import { arrowBack, logoInstagram } from "ionicons/icons";
-
+import { Capacitor } from '@capacitor/core';
+import { db } from "../../config/firebase";
 import { ToastContainer } from "react-toastify";
+import { doc, setDoc } from "firebase/firestore";
+import { Preferences } from '@capacitor/preferences';
+import { arrowBack, logoInstagram } from "ionicons/icons";
 import ImgUpload from "../../assets/images/image-upload.svg";
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 export default function UploadPhoto() {
   const history = useHistory();
@@ -24,6 +27,45 @@ export default function UploadPhoto() {
   const onBack = () => {
     history.push("/");
   };
+
+  const takePhoto = async () => {
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos,
+      quality: 100,
+    });
+    if(photo) {
+      handleUploadImage(photo);
+    }
+  };
+
+  const takeCameraRoll = async () => {
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100,
+    });
+    if(photo) {
+      handleUploadImage(photo);
+    }
+  };
+  
+
+  const handleUploadImage = (photo) => {
+    const debuigUid = "s1toERHmgcHZuRNTXoCY";
+    const userRef = doc(db, 'Users', debuigUid);
+    console.log("photo", photo)
+
+    if (photo !== null) {
+        setDoc(
+            userRef,
+            { capital: true, newImage: photo },
+            { merge: true }
+        )
+        alert("Photo Upload Successfully!")
+    }
+}
+
   return (
     <IonPage id="image-upload-page">
       <IonContent>
@@ -40,10 +82,10 @@ export default function UploadPhoto() {
             <p className="txt-setup">Upload photo on your profile</p>
           </div>
           <div>
-            <IonButton onClick={onConfirm} className="button">
+            <IonButton onClick={takePhoto} className="button">
               Take Photo
             </IonButton>
-            <IonButton onClick={onConfirm} className="button">
+            <IonButton onClick={takeCameraRoll} className="button">
               Choose From Camera Roll
             </IonButton>
             <IonButton onClick={onConfirm} className="button">

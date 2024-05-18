@@ -22,6 +22,7 @@ import GetCode from "./pages/GetCode";
 import AccountSetUpPage from "./pages/AccountSetUpPage";
 import UploadPhotoPage from "./pages/UploadPhotoPage";
 import PlaidComponent from "./components/plaid";
+import WelcomePage from "./pages/WelcomePage";
 
 export default function Routing() {
 	const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -47,59 +48,11 @@ export default function Routing() {
 		}
 	};
 
-	//for development:
-
+	//commented out auth wrapper for development purposes only:
 	return (
-		<ion-content>
-			<Route path="/landing-page">
-				{/* <JoinNow /> */}
-				<HomePage />
-			</Route>
-			<Route path="/chat-page">
-				{/* <JoinNow /> */}
-				<ChatPage />
-			</Route>
-			<Route path="/get_code">
-				<GetCode />
-			</Route>
-			<Route path="/account-setup">
-				<AccountSetUpPage />
-			</Route>
-			<Route path="/upload-photo">
-				<UploadPhotoPage />
-			</Route>
-			<Route path="/demo">
-				<DemoPage />
-			</Route>
-			<Route path="/profile_page">
-				<ProfilePage />
-			</Route>
-			<Route path="/sign_up_page">
-				<SignUpPage />
-			</Route>
-			<Route path="/gender">
-				<GenderSelectionPage />
-			</Route>
-			<Route path="/argyle">
-				<IncomeVerificationPage />
-			</Route>
-			<Route path="/identity">
-				<IdentityVerification />
-			</Route>
-			<Route path="/plaid">
-				<PlaidComponent />
-			</Route>
-			<Route path="/final">
-				<FinalPage />
-			</Route>
-		</ion-content>
-	);
-
-	return user == null ? (
 		<ion-content>
 			<Route path="/">
 				<JoinNow />
-				{/* <HomePage /> */}
 			</Route>
 			<Route path="/get_code">
 				<GetCode />
@@ -114,9 +67,9 @@ export default function Routing() {
 				<DemoPage />
 			</Route>
 			<Route path="/profile_page">
-				<AuthWrapper>
-					<ProfilePage />
-				</AuthWrapper>
+				{/* <AuthWrapper> */}
+				<ProfilePage />
+				{/* </AuthWrapper> */}
 			</Route>
 			<Route path="/sign_up_page">
 				<SignUpPage />
@@ -128,22 +81,19 @@ export default function Routing() {
 				<IncomeVerificationPage />
 			</Route>
 			<Route path="/identity">
-				<AuthWrapper>
-					<IdentityVerification />
-				</AuthWrapper>
+				{/* <AuthWrapper> */}
+				<IdentityVerification />
+				{/* </AuthWrapper> */}
 			</Route>
 			<Route path="/plaid">
 				<PlaidComponent />
 			</Route>
 			<Route path="/final">
-				<AuthWrapper>
-					<FinalPage />
-				</AuthWrapper>
+				{/* <AuthWrapper> */}
+				<FinalPage />
+				{/* </AuthWrapper> */}
 			</Route>
-		</ion-content>
-	) : (
-		<ion-content>
-			<Route path="/">
+			<Route path="/chat">
 				<ChatPage />
 			</Route>
 			<Route path="/uploadpictures">
@@ -152,9 +102,74 @@ export default function Routing() {
 			<Route path="/multipleImageUpload">
 				<MultipleImageUpload />
 			</Route>
+			<Route path="/welcome">
+				<WelcomePage />
+			</Route>
 		</ion-content>
 	);
 }
+
+// return user == null ? (
+// 	<ion-content>
+// 		<Route path="/">
+// 			<JoinNow />
+// 		</Route>
+// 		<Route path="/get_code">
+// 			<GetCode />
+// 		</Route>
+// 		<Route path="/account-setup">
+// 			<AccountSetUpPage />
+// 		</Route>
+// 		<Route path="/upload-photo">
+// 			<UploadPhotoPage />
+// 		</Route>
+// 		<Route path="/demo">
+// 			<DemoPage />
+// 		</Route>
+// 		<Route path="/profile_page">
+// 			<AuthWrapper>
+// 				<ProfilePage />
+// 			</AuthWrapper>
+// 		</Route>
+// 		<Route path="/sign_up_page">
+// 			<SignUpPage />
+// 		</Route>
+// 		<Route path="/gender">
+// 			<GenderSelectionPage />
+// 		</Route>
+// 		<Route path="/argyle">
+// 			<IncomeVerificationPage />
+// 		</Route>
+// 		<Route path="/identity">
+// 			<AuthWrapper>
+// 				<IdentityVerification />
+// 			</AuthWrapper>
+// 		</Route>
+// 		<Route path="/plaid">
+// 			<PlaidComponent />
+// 		</Route>
+// 		<Route path="/final">
+// 			<AuthWrapper>
+// 				<FinalPage />
+// 			</AuthWrapper>
+// 		</Route>
+// 	</ion-content>
+// ) : (
+// 	<ion-content>
+// 		<Route path="/">
+// 			<ChatPage />
+// 		</Route>
+// 		<Route path="/uploadpictures">
+// 			<UploadPictures />
+// 		</Route>
+// 		<Route path="/multipleImageUpload">
+// 			<MultipleImageUpload />
+// 		</Route>
+// 		<Route path="/welcome">
+// 			<WelcomePage />
+// 		</Route>
+// 	</ion-content>
+// );
 
 function AuthWrapper({ children, isAuthenticated }) {
 	let location = useLocation();

@@ -7,7 +7,7 @@ import { VERIFY_API_KEY } from "../../config/config";
 import VeriffImage from "../../assets/images/logo.svg";
 import { createVeriffFrame } from "@veriff/incontext-sdk";
 import { useLocation, useHistory } from "react-router-dom";
-import { IonPage, IonTitle, IonContent } from "@ionic/react";
+import { IonPage, IonTitle, IonText, IonContent } from "@ionic/react";
 
 export default function IdentityVerification(props) {
 	const history = useHistory();
@@ -77,9 +77,10 @@ export default function IdentityVerification(props) {
 					<div className="login-logo">
 						<img src={VeriffImage} alt="Ionic logo" />
 					</div>
-					<IonTitle className="txt-veriff">
-						We need to verify your identity to keep everyone safe.
-					</IonTitle>
+					<IonText className="txt-veriff">
+						We need to verify your identity to keep everyone safe. All members
+						undergo mandatory id verification.
+					</IonText>
 					<div style={{ marginBottom: "30px" }} />
 					<div id="veriff-root"></div>
 					<div style={{ marginBottom: "300px" }} />

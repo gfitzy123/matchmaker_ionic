@@ -53,10 +53,10 @@ export default function ProfilePage({
 		const fetchProfile = async () => {
 			console.log("fetchProfile");
 			const db = getFirestore();
-			console.log("ProfilePage: profileId", profileId);
-			console.log("userId", userId);
+			// console.log("ProfilePage: profileId", profileId);
+			// console.log("userId", userId);
 			const profileDoc = doc(db, "Users", profileId);
-			console.log("profileDoc", profileDoc);
+			// console.log("profileDoc", profileDoc);
 			const profileSnapshot = await getDoc(profileDoc);
 
 			const likeDoc = doc(db, "Likes", `${profileId}_${userId}`);
