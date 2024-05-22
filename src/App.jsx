@@ -29,11 +29,16 @@ import '@ionic/react/css/display.css';
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+// import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
 import './theme/tailwind.css';
+import { setupConfig } from '@ionic/core';
+
+setupConfig({
+  mode: 'md' // or 'md' for Material Design
+});
 
 setupIonicReact();
 

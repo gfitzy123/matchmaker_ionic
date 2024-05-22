@@ -3,3 +3,12 @@
 @tailwind utilities;
 
 /** other custom global styles can go here */
+
+ion-button {
+    text-transform: none !important;
+  }
+
+  .input-wrapper.sc-ion-input-md{
+min-height: 44px;
+padding: 0px 8px;
+  }

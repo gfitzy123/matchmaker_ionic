@@ -6,11 +6,11 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      primary: "var(--bg-primary-button)",
+      primary: "var(--ion-color-primary)",
       "bg-primary": "var(--bg-primary)",
-      secondary: "var(--color-secondary)",
-      background: "var(--background)",
-      text: "var(--text)",
+      secondary: "var(ion-color-primary-rgb)",
+      background: "var(--ion-background-color)",
+      text: "var(--ion-text-color)",
       "primary-text-button": "var(--primary-text-button)",
       border: "var(--border)",
       line: "var(--line)",
