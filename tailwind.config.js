@@ -16,6 +16,7 @@ module.exports = {
       line: "var(--line)",
       "women-svg": "var(--women-svg)",
       "men-svg": "var(--men-svg)",
+      "customTextGray": 'rgba(221, 221, 221, 1)',
     },
   },
   variants: {

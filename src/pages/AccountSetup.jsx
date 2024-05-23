@@ -9,49 +9,44 @@ function AccountSetup() {
         router.push('/profile');
     };
     const handleBack = () => {
-        router.push('/login');
+        router.push('/joinnow');
     };
 
     return (
         <IonPage>
+            <IonButtons slot="start">
+                <IonBackButton
+                    icon={chevronBack}
+                    defaultHref=""
+                    onClick={handleBack}
+                />
+            </IonButtons>
             <IonContent>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonBackButton
-                                icon={chevronBack}
-                                defaultHref=""
-                                onClick={handleBack}
-                            />
-                        </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
+                <IonGrid className="flex flex-col h-full justify-between ">
 
-                <IonGrid className="h-full ion-justify-content-center ion-align-items-center">
-                    <IonRow className="flex flex-col gap-72">
+                    <div>
+                        <IonRow className="ion-align-items-center ion-justify-content-center">
+                            <IonCol size="auto">
+                                <IonIcon
+                                    size="large"
+                                    icon={checkmark}
+                                    className="z-10 w-12 h-12"
+                                ></IonIcon>
+                            </IonCol>
+                        </IonRow>
 
-                        <div>
-                            <IonRow className="ion-align-items-center ion-justify-content-center">
-                                <IonCol size="auto">
-                                    <IonIcon
-                                        size="large"
-                                        icon={checkmark}
-                                        className="z-10 w-12 h-12"
-                                    ></IonIcon>
-                                </IonCol>
-                            </IonRow>
+                        <IonRow className="ion-align-items-center ion-justify-content-center">
+                            <IonCol size="auto">
+                                <IonLabel className="text-4xl w-full">
+                                    <h1 className="text-lg">
+                                        Your account is set up
+                                    </h1>
+                                </IonLabel>
+                            </IonCol>
+                        </IonRow>
+                    </div>
 
-                            <IonRow className="ion-align-items-center ion-justify-content-center">
-                                <IonCol size="auto">
-                                    <IonLabel className="text-4xl w-full">
-                                        <h1 className="text-lg">
-                                            Your account is set up
-                                        </h1>
-                                    </IonLabel>
-                                </IonCol>
-                            </IonRow>
-                        </div>
-
+                    <div>
                         <IonRow className="ion-align-items-center ion-justify-content-center">
                             <IonCol size="auto">
                                 <IonItem
@@ -65,7 +60,7 @@ function AccountSetup() {
                                 </IonItem>
                             </IonCol>
                         </IonRow>
-                    </IonRow>
+                    </div>
                 </IonGrid>
             </IonContent>
         </IonPage>

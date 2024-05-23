@@ -40,31 +40,23 @@ function Profile() {
 
     return (
         <IonPage>
-            <IonContent>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonBackButton
-                                icon={chevronBack}
-                                defaultHref=""
-                                onClick={handleConfirm}
-                            />
-                        </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
+            <IonButtons slot="start">
+                <IonBackButton
+                    icon={chevronBack}
+                    defaultHref=""
+                    onClick={handleConfirm}
+                />
+            </IonButtons>
 
+            <IonContent>
                 <IonGrid className="ion-justify-content-center ion-align-items-center ">
                     <IonRow className="ion-justify-content-center ion-align-items-center">
-                        <IonList className="flex flex-col items-center gap-48 ">
+                        <div className="flex flex-col items-center gap-48 ">
                             <div className="flex flex-col items-center">
-                                <IonItem lines="none">
-                                    <IonIcon size="large" icon={profile} className="z-10 w-20 h-20" />
-                                </IonItem>
-                                <IonItem lines="none">
-                                    <IonLabel className="text-4xl w-full">
-                                        <h1 className="text-lg">Upload photo on your profile</h1>
-                                    </IonLabel>
-                                </IonItem>
+                                <IonIcon size="large" icon={profile} className="z-10 w-20 h-20" />
+                                <IonLabel className="text-4xl w-full">
+                                    <h1 className="text-lg">Upload photo on your profile</h1>
+                                </IonLabel>
                             </div>
 
 
@@ -100,61 +92,59 @@ function Profile() {
                                     <IonLabel>Use From Your Instagram</IonLabel>
                                 </IonItem>
                             </div>
-                        </IonList>
+                        </div>
                     </IonRow>
                 </IonGrid>
 
                 <IonModal isOpen={showModal} onDidDismiss={handleCloseModal} ref={modal}>
-                    <IonContent>
-                        <IonList className="ion-justify-content-center ion-align-items-center">
-                            <div className="flex flex-col w-full justify-center items-center gap-8">
-                                <IonItem lines="none">
+                    <IonList className="ion-justify-content-center ion-align-items-center h-full ">
+                        <div className="flex flex-col w-full justify-between items-center ">
+                            <div>
                                     <IonLabel className="text-4xl w-full">
                                         <h1 className="text-lg text-center">
                                             "Matchmaker AI" Would Like To Access The Camera
                                         </h1>
                                     </IonLabel>
-                                </IonItem>
 
-                                <IonItem lines="none">
                                     <IonLabel className="text-4xl w-64">
                                         <h2 className="text-lg text-center">
                                             This lets you do things take and share photos, record videos, and use other special features and effects.
                                         </h2>
                                     </IonLabel>
-                                </IonItem>
-
-                                <IonGrid className="w-full">
-                                    <IonRow className="flex items-center justify-center  gap-10">
-                                        <IonCol size="auto">
-                                            <IonItem
-                                                className="w-full whitespace-nowrap"
-                                                lines="none"
-                                                button={true}
-                                                detail={false}
-                                                onClick={handleCloseModal}
-                                            >
-                                                <IonLabel onClick={handleConfirm}>Don't Allow</IonLabel>
-                                            </IonItem>
-                                        </IonCol>
-
-                                        <IonCol size="auto">
-                                            <IonItem
-                                                className="w-full"
-                                                lines="none"
-                                                button={true}
-                                                detail={false}
-                                                onClick={handleCloseModal}
-                                            >
-                                                <IonLabel onClick={handleCloseModal}>Ok</IonLabel>
-                                            </IonItem>
-                                        </IonCol>
-                                    </IonRow>
-                                </IonGrid>
-
                             </div>
-                        </IonList>
-                    </IonContent>
+
+                           <div>
+                           <IonGrid className="w-full">
+                                <IonRow className="flex items-center justify-center  gap-10">
+                                    <IonCol size="auto">
+                                        <IonItem
+                                            className="w-full whitespace-nowrap"
+                                            lines="none"
+                                            button={true}
+                                            detail={false}
+                                            onClick={handleCloseModal}
+                                        >
+                                            <IonLabel onClick={handleConfirm}>Don't Allow</IonLabel>
+                                        </IonItem>
+                                    </IonCol>
+
+                                    <IonCol size="auto">
+                                        <IonItem
+                                            className="w-full"
+                                            lines="none"
+                                            button={true}
+                                            detail={false}
+                                            onClick={handleCloseModal}
+                                        >
+                                            <IonLabel onClick={handleCloseModal}>Ok</IonLabel>
+                                        </IonItem>
+                                    </IonCol>
+                                </IonRow>
+                            </IonGrid>
+                           </div>
+
+                        </div>
+                    </IonList>
                 </IonModal>
             </IonContent>
         </IonPage>
