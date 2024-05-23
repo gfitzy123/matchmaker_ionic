@@ -1,19 +1,11 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
-import "./Home.css";
-import Welcome from "../components/landingpage";
+import Login from "./Login";
 
 const Home = () => {
   return (
-    <IonPage>
-      <Welcome />
-    </IonPage>
+    <>
+      <Login />
+      {/* <Welcome/> */}
+    </>
   );
 };
 

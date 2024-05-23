@@ -35,6 +35,8 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './theme/tailwind.css';
 import { setupConfig } from '@ionic/core';
+import Profile from './pages/Profile';
+import AccountSetup from './pages/AccountSetup';
 
 setupConfig({
   mode: 'md' // or 'md' for Material Design
@@ -46,11 +48,17 @@ const App = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
+        <Route exact path="/login">
           <Home />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/login" />
+        </Route>
+        <Route exact path="/accountsetup">
+          <AccountSetup />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
