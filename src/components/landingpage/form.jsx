@@ -26,10 +26,10 @@ const Form = () => {
       <div className="flex flex-col gap-5 justify-between p-14 border rounded-2xl w-full max-w-[640px]">
         <div className="flex flex-col lg:flex-row w-full justify-between gap-7">
           <div className="h-16 min-w-[230px] flex justify-center items-center gap-3 py-2 px-14 bg-secondaryBtn border rounded-lg">
-            <input className="w-6 h-6" type="radio" /> <span>Female</span>
+            <input className="w-6 h-6 custom-radio" type="radio" /> <span>Female</span>
           </div>
           <div className="h-16 min-w-[230px] flex justify-center items-center gap-3 py-2 px-14 bg-secondaryBtn border rounded-lg">
-            <input className="w-6 h-6" type="radio" /> <span>Male</span>
+            <input className="w-6 h-6 custom-radio" type="radio" /> <span>Male</span>
           </div>
         </div>
         <div className="flex flex-col">

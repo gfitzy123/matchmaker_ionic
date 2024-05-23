@@ -16,3 +16,26 @@ padding: 0px 8px;
   .input-fill-outline.sc-ion-input-md-h{
     --border-radius: 16px;
   }
+
+  .custom-radio {
+    appearance: none;
+    border: 1px solid #c6a15a; /* gray-300 */
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .custom-radio:checked::before {
+    content: '';
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #c6a15a; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
