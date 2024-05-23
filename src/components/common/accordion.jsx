@@ -8,18 +8,18 @@ const AccordionItem = ({id, title, children }) => {
   };
 
   return (
-    <div className="border-b border-gray-200 w-full">
+    <div className="border-b border-gray-200 w-full py-10">
       <button
-        className="flex justify-between items-center w-full py-4 text-left focus:outline-none"
+        className="flex justify-between items-center w-full gap-8 text-left focus:outline-none"
         onClick={toggleAccordion}
       >
-        <div className="flex gap-7">
+        <div className="flex items-center gap-16">
           <span className="text-lg font-medium">{id}</span>
-          <span className="text-lg font-medium">{title}</span>
+          <span className="text-2xl font-medium">{title}</span>
         </div>
         <span className="min-w-12">{isOpen ? <img src="minus.svg" alt="" /> : <img src="plus.svg" alt="" /> }</span>
       </button>
-      {isOpen && <div className="p-4 text-gray-700">{children}</div>}
+      {isOpen && <div className="text-base">{children}</div>}
     </div>
   );
 };

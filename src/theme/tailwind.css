@@ -13,6 +13,6 @@ min-height: 44px;
 padding: 0px 8px;
   }
 
-  .rounded {
+  .input-fill-outline.sc-ion-input-md-h{
     --border-radius: 16px;
   }

@@ -6,7 +6,7 @@ const VideoThumbnail = ({ videoId }) => {
   return (
     <div
       id="video-container"
-      className="relative h-96 w-full inline-block cursor-pointer"
+      className="relative h-[240px] lg:h-[580px] w-full inline-block cursor-pointer"
     >
       {showVideo ? (
         <iframe
@@ -23,7 +23,7 @@ const VideoThumbnail = ({ videoId }) => {
           src="videoThumbnail.png"
           alt="Play"
           onClick={() => setShowVideo(true)}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover w-full h-full"
         />
       )}
     </div>
