@@ -12,3 +12,7 @@ ion-button {
 min-height: 44px;
 padding: 0px 8px;
   }
+
+  .rounded {
+    --border-radius: 16px;
+  }
