@@ -1,3 +1,5 @@
+import Input from "react-phone-number-input/input";
+
 const Form = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-10 w-full max-w-[1280px]">
@@ -33,18 +35,22 @@ const Form = () => {
         <div className="flex flex-col">
           <span className="text-base">First name</span>
           <input
-            className="border bg-secondaryBtn h-16 rounded-lg p-2"
+            className="border bg-secondaryBtn rounded-lg px-6 py-5"
             type="text"
             placeholder="Enter your first name"
           />
         </div>
         <div className="flex flex-col">
           <span className="text-base">Phone number</span>
-          <input
-            className="border bg-secondaryBtn h-16 rounded-lg p-2"
-            type="tel"
-            placeholder="201-555-5555"
-          />
+           <div className="flex justify-start gap-2 px-6 py-5 border bg-secondaryBtn rounded-lg">
+      {"+1 "} <Input
+      className="bg-secondaryBtn w-full border-none focus:outline-none"
+      country="US"
+      international
+      placeholder="201-555-5555"
+      onChange={() => {}}
+    />
+          </div>
         </div>
 
         <button className="w-full bg-primary py-5 px-10 rounded-lg text-primaryBtn">Submit</button>

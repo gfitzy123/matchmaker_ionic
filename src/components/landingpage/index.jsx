@@ -181,15 +181,16 @@ const Welcome = () => {
                 </IonText>
                 <div className="w-full flex flex-col gap-1">
                   <span className="text-base">Phone number</span>
-                  <div className="flex bg-secondaryBtn justify-end h-20 text-lg items-center p-2 rounded-lg">
-                    <Input
+                  <div className="flex bg-secondaryBtn justify-between h-20 text-lg items-center p-2 rounded-lg">
+                    <div className="flex justify-start gap-2 p-4">
+                    {"+1 "} <Input
                       className="bg-secondaryBtn w-full border-none focus:outline-none"
                       country="US"
                       international
-                      withCountryCallingCode
-                      placeholder="21112"
+                      placeholder="201-555-5555"
                       onChange={() => {}}
                     />
+                    </div>
                     <button className="hidden lg:block bg-primary text-primaryBtn rounded-lg py-5 px-10 min-w-[287px]">
                       {" "}
                       APPLY FOR MEMBERSHIP
