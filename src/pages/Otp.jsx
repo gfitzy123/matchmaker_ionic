@@ -24,7 +24,6 @@ import Group from "../../public/assets/Group 1000001992.svg";
 import brand from "../../public/assets/bg.svg";
 function Otp() {
     const inputRefs = useRef([]);
-    const modal = useRef(null);
     const [showModal, setShowModal] = useState(false);
     const modalRef = useRef(null);
     const router = useIonRouter();
@@ -35,9 +34,6 @@ function Otp() {
 
     function handleCloseModal() {
         setShowModal(false);
-    }
-    function dismiss() {
-        modal.current?.dismiss();
     }
 
     const handleConfirm = () => {

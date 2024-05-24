@@ -32,23 +32,22 @@ setupIonicReact();
 
 const App = () => {
   const [theme, setTheme] = useState('light');
-
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
-    console.log({ newTheme });
-    handleTheme(newTheme);
+      const newTheme = theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      console.log({newTheme});
+      handleTheme(newTheme);
   };
-
   const handleTheme = (value) => {
-    setTheme(value);
-    document.querySelector('html')?.setAttribute('data-theme', value);
-  };
-
+      setTheme(value);
+      document.querySelector("html")?.setAttribute("data-theme", value);
+  }
   useEffect(() => {
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    handleTheme(currentTheme);
-  }, []);
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      handleTheme(currentTheme);
+  }, [])
 
   return (
     <IonApp>

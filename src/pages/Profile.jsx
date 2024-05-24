@@ -29,6 +29,9 @@ function Profile() {
     const handleConfirm = () => {
         router.push('/accountsetup');
     };
+    const handlewelcome = () => {
+        router.push('/welcome');
+    };
 
     function handleOpenModal() {
         setShowModal(true);
@@ -66,7 +69,8 @@ function Profile() {
                                     lines="none"
                                     button
                                     detail={false}
-                                    onClick={handleOpenModal}
+                                    onClick={handlewelcome}
+
                                 >
                                     <IonLabel>Take Photo</IonLabel>
                                 </IonItem>
@@ -76,7 +80,6 @@ function Profile() {
                                     lines="none"
                                     button
                                     detail={false}
-                                    onClick={handleOpenModal}
                                 >
                                     <IonLabel>Choose From Camera Roll</IonLabel>
                                 </IonItem>
@@ -86,7 +89,6 @@ function Profile() {
                                     lines="none"
                                     button
                                     detail={false}
-                                    onClick={handleOpenModal}
                                 >
                                     <IonIcon className="mr-6 w-8 h-8" icon={Insta}></IonIcon>
                                     <IonLabel>Use From Your Instagram</IonLabel>

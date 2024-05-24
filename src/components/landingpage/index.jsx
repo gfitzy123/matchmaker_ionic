@@ -19,7 +19,7 @@ import Footer from "./footer";
 import VideoThumbnail from "../common/videoThumbnail";
 import Input from "react-phone-number-input/input";
 
-const Welcome = () => {
+const Landing = () => {
   const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
@@ -227,4 +227,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default Landing;

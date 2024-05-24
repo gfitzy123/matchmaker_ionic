@@ -4,6 +4,34 @@
 
 /** other custom global styles can go here */
 
+/* Fonts Setting */
+
+
+.barlow-light {
+  font-family: "Barlow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.barlow-regular {
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.barlow-medium {
+  font-family: "Barlow";
+  font-weight: 500;
+  font-style: normal;
+}
+
+.barlow-semibold {
+  font-family: "Barlow";
+  font-weight: 600 !important;
+  font-style: normal;
+}
+
+
 ion-button {
     text-transform: none !important;
   }

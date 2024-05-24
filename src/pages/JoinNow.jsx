@@ -18,8 +18,6 @@ const JoinNow = () => {
   const [phone, setPhone] = useState('');
   const router = useIonRouter();
 
-
-
   const handleotp = () => {
     router.push('/otp');
   };
