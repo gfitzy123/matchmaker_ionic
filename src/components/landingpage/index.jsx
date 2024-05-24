@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   IonToolbar,
   IonButton,
-  IonToggle,
   IonButtons,
   IonIcon,
   IonMenu,
@@ -10,7 +9,6 @@ import {
   IonMenuButton,
   IonPage,
   IonText,
-  IonInput,
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import WaitingList from "./waiting-list";
@@ -19,6 +17,7 @@ import Cards from "./cards";
 import Accordions from "./accordions";
 import Footer from "./footer";
 import VideoThumbnail from "../common/videoThumbnail";
+import Input from "react-phone-number-input/input";
 
 const Welcome = () => {
   const [theme, setTheme] = useState("light");
@@ -52,7 +51,7 @@ const Welcome = () => {
         </IonToolbar>
         <IonContent className="ion-padding flex flex-col justify-center items-center">
           <IonButtons className="flex flex-col gap-5">
-          <div className="border w-full border-primary py-4 px-8 text-base rounded-lg text-center leading-4 lg:block">
+            <div className="border w-full border-primary py-4 px-8 text-base rounded-lg text-center leading-4 lg:block">
               Get Matched
             </div>
             <IonButton className="text-base" fill="clear">
@@ -81,22 +80,22 @@ const Welcome = () => {
           <IonButtons className="flex text-base justify-center gap-1 p-10">
             <span>Dark</span>
             <label className="flex cursor-pointer select-none items-center">
-                <div className="relative">
-                  <input
-                    type="checkbox"
-                    checked={theme === "light"}
-                    onChange={toggleTheme}
-                    className="sr-only"
-                  />
-                  <div
-                    className={`box block h-8 w-14 rounded-full bg-secondary`}
-                  ></div>
-                  <div
-                    className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-toggleOne to-toggleTwo transition
+              <div className="relative">
+                <input
+                  type="checkbox"
+                  checked={theme === "light"}
+                  onChange={toggleTheme}
+                  className="sr-only"
+                />
+                <div
+                  className={`box block h-8 w-14 rounded-full bg-secondary`}
+                ></div>
+                <div
+                  className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-toggleOne to-toggleTwo transition
              ${theme === "light" ? "translate-x-full" : ""}`}
-                  ></div>
-                </div>
-              </label>
+                ></div>
+              </div>
+            </label>
             <span>Light</span>
           </IonButtons>
         </IonContent>
@@ -182,19 +181,20 @@ const Welcome = () => {
                 </IonText>
                 <div className="w-full flex flex-col gap-1">
                   <span className="text-base">Phone number</span>
-                  <IonInput
-                    className="h-20 text-lg"
-                    type="tel"
-                    fill="outline"
-                    placeholder="888 8888 888"
-                  >
-                    <IonButton
-                      slot="end"
-                      className="h-[60px] hidden lg:block text-primaryBtn"
-                    >
+                  <div className="flex bg-secondaryBtn justify-end h-20 text-lg items-center p-2 rounded-lg">
+                    <Input
+                      className="bg-secondaryBtn w-full border-none focus:outline-none"
+                      country="US"
+                      international
+                      withCountryCallingCode
+                      placeholder="21112"
+                      onChange={() => {}}
+                    />
+                    <button className="hidden lg:block bg-primary text-primaryBtn rounded-lg py-5 px-10 min-w-[287px]">
+                      {" "}
                       APPLY FOR MEMBERSHIP
-                    </IonButton>
-                  </IonInput>
+                    </button>
+                  </div>
                   <button className="mt-6 bg-primary w-full lg:hidden text-base py-4 px-10 rounded-lg">
                     APPLY FOR MEMBERSHIP
                   </button>
