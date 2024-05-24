@@ -43,3 +43,7 @@ padding: 0px 8px;
   * {
     font-family: 'Barlow';
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
