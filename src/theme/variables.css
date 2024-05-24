@@ -66,6 +66,12 @@ http://ionicframework.com/docs/theming/ */
 
 --ion-background-color: #222224;
 --ion-text-color: #ffffff;
+--toggle-btn-color-one: #757575;
+--toggle-btn-color-two: #4B4B4B;
+--list-hover-color: #383839;
+--hover-text-color: #ffffff;
+--border-color: #383839;
+/* --item-background-color: #383839; */
 }
 
 :root[data-theme="light"] {
@@ -74,7 +80,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-primary-rgb: 56, 56, 57;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-btn: ##FFFFFF;
+  --ion-color-primary-btn: #FFFFFF;
   --ion-color-primary-tint: #4c8dff;
 
   /** secondary **/
@@ -82,7 +88,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-btn: ##FFFFFF;
+  --ion-color-secondary-btn: #FFFFFF;
   --ion-color-secondary-tint: #50c8ff;
 
   /** light **/
@@ -93,6 +99,13 @@ http://ionicframework.com/docs/theming/ */
 --ion-color-light-shade: #d7d8da;
 --ion-color-light-tint: #f5f6f9;
 
---ion-background-color: #ffffff;
+--ion-background-color: #F5F6FA;
 --ion-text-color: #222224;
+--toggle-btn-color-one: #ffffff;
+--toggle-btn-color-two: #ffffff;
+--list-hover-color: #383839;
+--hover-text-color: #ffffff;
+--border-color: #DDDDDD;
+--item-background-color: #ffffff;
+
 }

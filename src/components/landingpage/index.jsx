@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   IonToolbar,
-  IonImg,
   IonButton,
   IonToggle,
   IonButtons,
@@ -53,7 +52,7 @@ const Welcome = () => {
         </IonToolbar>
         <IonContent className="ion-padding flex flex-col justify-center items-center">
           <IonButtons className="flex flex-col gap-5">
-            <div className="w-full py-4 px-10 text-center rounded-lg border-2 border-bg-primary text-base">
+          <div className="border w-full border-primary py-4 px-8 text-base rounded-lg text-center leading-4 lg:block">
               Get Matched
             </div>
             <IonButton className="text-base" fill="clear">
@@ -81,14 +80,30 @@ const Welcome = () => {
           </IonButtons>
           <IonButtons className="flex text-base justify-center gap-1 p-10">
             <span>Dark</span>
-            <IonToggle checked={theme === "light"} onClick={toggleTheme} />
+            <label className="flex cursor-pointer select-none items-center">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={theme === "light"}
+                    onChange={toggleTheme}
+                    className="sr-only"
+                  />
+                  <div
+                    className={`box block h-8 w-14 rounded-full bg-secondary`}
+                  ></div>
+                  <div
+                    className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-toggleOne to-toggleTwo transition
+             ${theme === "light" ? "translate-x-full" : ""}`}
+                  ></div>
+                </div>
+              </label>
             <span>Light</span>
           </IonButtons>
         </IonContent>
       </IonMenu>
       <IonPage id="main-content">
         <div className="flex justify-center">
-          <IonToolbar className="mt-10 max-w-[1280px]">
+          <IonToolbar className="mt-8 py-2 max-w-[1280px]">
             <IonButtons slot="start" className="hidden lg:block">
               <IonButton fill="clear">About</IonButton>
               <IonButton fill="clear">How it works</IonButton>
@@ -117,17 +132,33 @@ const Welcome = () => {
                     y2="13.222"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#222224" />
-                    <stop offset="1" stop-color="#B29B6A" />
+                    <stop stop-color="var(--ion-text-color)" />
+                    <stop offset="1" stop-color="var(--ion-color-primary)" />
                   </linearGradient>
                 </defs>
               </svg>
             </div>
             <IonButtons className="gap-2 text-sm hidden lg:flex" slot="primary">
               <span>Dark</span>
-              <IonToggle checked={theme === "light"} onClick={toggleTheme} />
+              <label className="flex cursor-pointer select-none items-center">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={theme === "light"}
+                    onChange={toggleTheme}
+                    className="sr-only"
+                  />
+                  <div
+                    className={`box block h-8 w-14 rounded-full bg-secondary`}
+                  ></div>
+                  <div
+                    className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-toggleOne to-toggleTwo transition
+             ${theme === "light" ? "translate-x-full" : ""}`}
+                  ></div>
+                </div>
+              </label>
               <span>Light</span>
-              <div className="border-2 border-bg-primary py-4 px-8 text-base rounded-lg hidden lg:block">
+              <div className="border border-primary py-4 px-8 text-base rounded-lg hidden leading-4 lg:block">
                 Get Matched
               </div>
             </IonButtons>
@@ -157,7 +188,10 @@ const Welcome = () => {
                     fill="outline"
                     placeholder="888 8888 888"
                   >
-                    <IonButton slot="end" className="h-[60px] hidden lg:block">
+                    <IonButton
+                      slot="end"
+                      className="h-[60px] hidden lg:block text-primaryBtn"
+                    >
                       APPLY FOR MEMBERSHIP
                     </IonButton>
                   </IonInput>
@@ -171,7 +205,7 @@ const Welcome = () => {
               <Form />
               <Cards />
               <Accordions />
-              <div className="flex flex-col lg:flex-row justify-between items-center bg-secondaryBtn rounded-2xl border gap-10 p-10 w-full max-w-[1280px]">
+              <div className="flex flex-col lg:flex-row justify-between items-center bg-secondaryBtn rounded-2xl gap-10 p-10 w-full max-w-[1280px]">
                 <div className="flex flex-col gap-2 justify-center text-left">
                   <h1 className="text-5xl">Find Your Perfect Match Today!</h1>
                   <p className="text-base">
@@ -179,7 +213,7 @@ const Welcome = () => {
                     tailored to you.
                   </p>
                 </div>
-                <button className="bg-primary py-7 px-10 w-full text-lg rounded-lg lg:w-[282px]">
+                <button className="bg-primary text-primaryBtn py-7 leading-5 px-10 w-full text-lg rounded-lg lg:w-[282px]">
                   ADVANCE POSITION
                 </button>
               </div>

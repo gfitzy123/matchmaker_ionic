@@ -1,8 +1,6 @@
-import React from "react";
-
 const Cards = () => {
   return (
-<div className="flex flex-col gap-10 items-center justify-between lg:flex-row w-full max-w-[1280px]">
+<div className="flex flex-col gap-10 items-center lg:items-start justify-between lg:flex-row w-full max-w-[1280px]">
 <div className="flex gap-6 items-start lg:flex-col max-w-[280px]">
 <img className="p-2" src="glass.svg" alt="" />
     <div className="flex flex-col gap-5">

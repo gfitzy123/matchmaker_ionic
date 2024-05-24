@@ -1,5 +1,3 @@
-import { IonButton } from "@ionic/react";
-
 const Form = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-10 w-full max-w-[1280px]">
@@ -23,13 +21,13 @@ const Form = () => {
           yourself that's truly invaluable.
         </p>
       </div>
-      <div className="flex flex-col gap-5 justify-between p-14 border rounded-2xl w-full max-w-[640px]">
+      <div className="flex flex-col gap-5 justify-between p-14 bg-itemBackground border border-borderColor rounded-2xl w-full max-w-[640px]">
         <div className="flex flex-col lg:flex-row w-full justify-between gap-7">
           <div className="h-16 min-w-[230px] flex justify-center items-center gap-3 py-2 px-14 bg-secondaryBtn border rounded-lg">
-            <input className="w-6 h-6 custom-radio" type="radio" /> <span>Female</span>
+            <input className="w-6 h-6 custom-radio" type="radio" name="gender" checked /> <span>Female</span>
           </div>
           <div className="h-16 min-w-[230px] flex justify-center items-center gap-3 py-2 px-14 bg-secondaryBtn border rounded-lg">
-            <input className="w-6 h-6 custom-radio" type="radio" /> <span>Male</span>
+            <input className="w-6 h-6 custom-radio" type="radio" name="gender"  /> <span>Male</span>
           </div>
         </div>
         <div className="flex flex-col">
@@ -49,7 +47,7 @@ const Form = () => {
           />
         </div>
 
-        <button className="w-full bg-primary py-5 px-10 rounded-lg">Submit</button>
+        <button className="w-full bg-primary py-5 px-10 rounded-lg text-primaryBtn">Submit</button>
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ import { femaleData, menData } from "./constant";
 import {
     IonText,
     IonProgressBar,
-    IonButton,
   } from "@ionic/react";
 
 const WaitingList = () => {
@@ -31,7 +30,7 @@ const WaitingList = () => {
         </div>
       </div>
       <div className="flex justify-between flex-col lg:flex-row gap-16">
-        <div className="w-full">
+        <div className="w-full bg-itemBackground p-2 rounded-2xl">
           <div className="flex justify-center items-center gap-2 border-b-2 p-2">
             <img src={femaleData.image} alt="female" />
             <div className="flex w-full items-center justify-between">
@@ -46,14 +45,14 @@ const WaitingList = () => {
           </div>
           <ul>
             {femaleData.list.map((list) => (
-              <li className="flex items-center gap-4 border-b text-lg py-6 px-4">
+              <li className="flex items-center gap-4 border-b border-borderColor text-lg py-6 px-4 hover:bg-listHover hover:text-hoverColor">
                 <span>{list.id}</span>
                 <h4>{list.name}</h4>
               </li>
             ))}
           </ul>
         </div>
-        <div className="w-full">
+        <div className="w-full bg-itemBackground p-2 rounded-2xl">
           <div className="flex justify-center items-center gap-2 border-b-2 p-2">
             <img src={menData.image} alt="female" />
             <div className="flex w-full items-center justify-between">
@@ -68,7 +67,7 @@ const WaitingList = () => {
           </div>
           <ul>
             {menData.list.map((list) => (
-              <li className="flex items-center gap-4 border-b text-lg py-6 px-4">
+              <li className="flex items-center gap-4 border-b border-borderColor text-lg py-6 px-4 hover:bg-listHover hover:text-hoverColor">
                 <span>{list.id}</span>
                 <h4>{list.name}</h4>
               </li>
@@ -76,12 +75,12 @@ const WaitingList = () => {
           </ul>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-center rounded-2xl border gap-10 p-10">
+      <div className="flex flex-col bg-secondaryBtn lg:flex-row justify-between items-center rounded-2xl gap-10 p-10">
             <div className="flex flex-col gap-2 justify-center text-left">
                 <h1 className="text-2xl">Hi, Theresa! You are so close to exclusive matchmaking!</h1>
                 <p className="text-base">You are 54 in line, out of 50 people that will be accepted into the initial beta user group. Increase your chances of being accepted by inviting your friends.</p>
             </div>
-            <button className="w-full py-6 px-14 lg:w-[282px] text-nowrap bg-primary rounded-md text-lg text-secondary">ADVANCE POSITION</button>
+            <button className="w-full py-6 leading-5 px-14 lg:w-[282px] text-nowrap bg-primary rounded-md text-lg text-primaryBtn">ADVANCE POSITION</button>
         </div>
     </div>
   );
