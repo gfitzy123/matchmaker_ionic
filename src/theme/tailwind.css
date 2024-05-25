@@ -75,3 +75,16 @@ padding: 0px 8px;
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* OverRide Classess for Mobile Screen */
+.sc-ion-input-md-h {
+  --highlight-color-focused: unset;
+}
+.native-wrapper.sc-ion-input-md{
+  border-radius: 20px;
+  padding:0 10px;
+}
+.input-label-placement-start.sc-ion-input-md-h .input-wrapper.sc-ion-input-md {
+  background: #222428;
+  border-radius: 30px;
+}
