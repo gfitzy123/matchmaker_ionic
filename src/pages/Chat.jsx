@@ -70,7 +70,7 @@ const Chat = () => {
 
           <div className="p-4 ">
             <div className="flex items-center mb-4 ">
-              <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
+              <div className="flex-grow">
                 <div className="bg-gray-800 p-4 ">
                   <div className='flex gap-2'>
                     <IonIcon icon={person} className='border rounded-full'></IonIcon>
@@ -90,9 +90,13 @@ const Chat = () => {
                     <IonIcon icon={thumbsdown} slot="icon-only" />
                   </IonButton>
                 </div>
-                <Slider />
               </div>
             </div>
+            <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
+                <div className='w-[200%]'>
+                <Slider />
+                </div>
+              </div>
 
             <div className='text-primary border-b border-primary mb-2'>
               <h4>PERSONAL INFORMATION</h4>
