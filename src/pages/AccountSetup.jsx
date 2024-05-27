@@ -6,7 +6,7 @@ function AccountSetup() {
     const router = useIonRouter();
 
     const handleConfirm = () => {
-        router.push('/profile');
+        router.push('/uploadphoto');
     };
     const handleBack = () => {
         router.push('/joinnow');

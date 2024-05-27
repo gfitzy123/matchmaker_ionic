@@ -12,7 +12,7 @@ function NavBar() {
                     <IonRow
                         className="flex justify-between items-center flex-nowrap w-full "
                     >
-                        <IonIcon className=" w-8 h-8" icon={menu}></IonIcon>
+                        <IonIcon menu="main-menu" className=" w-8 h-8" icon={menu}></IonIcon>
                         <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>
                         <IonIcon className="w-8 h-8" icon={verticalmenu}></IonIcon>
                     </IonRow>

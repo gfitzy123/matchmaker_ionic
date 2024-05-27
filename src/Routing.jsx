@@ -1,14 +1,15 @@
-import React from 'react'
-import Home from './pages/Home'
-import AccountSetup from './pages/AccountSetup'
-import Otp from './pages/Otp'
-import Profile from './pages/Profile'
 import { IonContent, IonPage } from '@ionic/react'
 import { Redirect, Route } from 'react-router'
-import Welcome from './pages/Welcome'
-import Chat from './pages/Chat'
-import VoiceCommunication from './pages/VoiceCommunication'
 import Landing from './components/landingpage'
+import AccountSetup from './pages/AccountSetup'
+import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
+import Chat from './pages/Chat'
+import Home from './pages/Home'
+import Otp from './pages/Otp'
+import UploadPhoto from './pages/UploadPhoto'
+import VoiceCommunication from './pages/VoiceCommunication'
+import Welcome from './pages/Welcome'
+import Profile from './pages/Profile'
 
 
 export default function Routing() {
@@ -31,8 +32,8 @@ export default function Routing() {
         <Route exact path="/otp">
           <Otp/>
         </Route>
-        <Route exact path="/profile">
-          <Profile />
+        <Route exact path="/uploadphoto">
+          <UploadPhoto />
         </Route>
         <Route exact path="/welcome">
           <Welcome />
@@ -42,6 +43,12 @@ export default function Routing() {
         </Route>
         <Route exact path="/voicecommunication">
           <VoiceCommunication/>
+        </Route>
+        <Route exact path="/assessvoicecommunication">
+          <AssessVoiceCommunication/>
+        </Route>
+        <Route exact path="/profile">
+          <Profile/>
         </Route>
         </IonContent>
   </IonPage>

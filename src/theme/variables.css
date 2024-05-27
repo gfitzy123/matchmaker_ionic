@@ -34,6 +34,10 @@
 --hover-text-color: #ffffff;
 --border-color: #383839;
 /* --item-background-color: #383839; */
+
+/* Mobile */
+--ion-close-button:#FE0000
+--ion-buttonpuse-background: rgba(255, 255, 255, 0.16)
 }
 
 :root[data-theme="light"] {

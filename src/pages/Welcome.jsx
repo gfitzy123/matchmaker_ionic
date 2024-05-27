@@ -12,7 +12,7 @@ import {
   useIonRouter
 } from '@ionic/react';
 import NavBar from '../components/common/NavBar';
-import Profile from './Profile';
+import Profile from './UploadPhoto';
 
 function Welcome() {
   const router = useIonRouter();
