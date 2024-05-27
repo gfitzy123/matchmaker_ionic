@@ -37,8 +37,8 @@ module.exports = {
       hoverColor: "var(--hover-text-color)",
       borderColor: "var(--border-color)",
       itemBackground: "var(--item-background-color)",
-      closeButton: "#FE0000",
-      pausebutton: "rgb(var(--ion-color-primary-rgb))",
+      closeButton: "var(--ion-close-button)",
+      "pausebutton": "rgb(var(--ion-color-primary-rgb))",
     },
   },
   variants: {
