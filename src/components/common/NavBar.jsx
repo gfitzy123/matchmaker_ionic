@@ -10,7 +10,7 @@ function NavBar() {
             <IonHeader>
                 <IonToolbar >
                     <IonRow
-                        className="flex justify-between items-center flex-nowrap w-full "
+                        className="flex px-4 justify-between items-center flex-nowrap w-full "
                     >
                         <IonIcon menu="main-menu" className=" w-8 h-8" icon={menu}></IonIcon>
                         <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>

@@ -82,9 +82,20 @@ padding: 0px 8px;
 }
 .native-wrapper.sc-ion-input-md{
   border-radius: 20px;
-  padding:0 10px;
+  padding:0;
 }
 .input-label-placement-start.sc-ion-input-md-h .input-wrapper.sc-ion-input-md {
   background: #222428;
   border-radius: 30px;
+}
+ion-modal#example-modal {
+  --width: 90%;
+  --height: 55%;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal#example-modal::part(backdrop) {
+  background: #000;
+  opacity: 0.5;
 }
