@@ -81,7 +81,7 @@ const Chat = () => {
 
   return (
     <IonPage>
-      <NavBar />
+      <NavBar vertical/>
       <IonContent>
         <IonGrid className="p-4">
         <IonRow className="flex items-center justify-center  text-sm mb-2  ">
@@ -108,7 +108,7 @@ const Chat = () => {
               <IonCol>
                 {message.type === 'user' && (
                   <IonLabel>
-                    <h4 className="text-primary border-b border-pausebutton p-2 mb-2">PERSONAL INFORMATION</h4>
+                    <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">PERSONAL INFORMATION</h4>
                   </IonLabel>
                 )}
                 <IonGrid className="p-4">

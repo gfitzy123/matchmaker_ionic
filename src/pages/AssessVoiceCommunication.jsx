@@ -54,7 +54,7 @@ const AssessVoiceCommunication = () => {
 
     return (
         <IonPage>
-            <NavBar />
+            <NavBar vertical/>
             <IonContent>
                 <IonGrid className="p-4 ">
                     <IonRow className="items-center justify-center text-sm mb-2">

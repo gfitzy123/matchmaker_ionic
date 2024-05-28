@@ -56,6 +56,8 @@ const JoinNow = () => {
               </IonRow>
               <IonRow className="w-full max-w-xs mx-auto"></IonRow>
               <IonRow className="w-full max-w-xs mx-auto">
+              </IonRow>
+              <IonRow className="w-full max-w-xs mx-auto">
                 <IonCol>
                   <MuiTelInput
                     label="Phone number"

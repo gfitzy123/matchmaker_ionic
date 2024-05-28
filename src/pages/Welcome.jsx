@@ -9,7 +9,7 @@ import {
   IonPage,
   IonRow,
   IonText,
-  useIonRouter
+  useIonRouter,
 } from '@ionic/react';
 import NavBar from '../components/common/NavBar';
 import Profile from './UploadPhoto';
@@ -22,7 +22,7 @@ function Welcome() {
   return (
    <>
     <IonPage>
-      <NavBar />
+      <NavBar vertical/>
       <IonContent>
         <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-between">
           <IonRow className="ion-justify-content-center ion-align-items-center">

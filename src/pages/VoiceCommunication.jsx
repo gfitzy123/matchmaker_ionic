@@ -35,9 +35,11 @@ recorder.startRecording();
     recorder.stopRecording();
     router.push("/assessvoicecommunication");
   };
+  const handleback = () => {
+    router.push('/chat')
+  };
   return (
     <IonPage>
-      <NavBar />
       <IonContent className="flex flex-col items-center justify-around bg-black text-white h-full p-0">
         <div className="flex flex-col justify-center items-center h-1/2 mb-5">
           {recorder.mediaRecorder && (

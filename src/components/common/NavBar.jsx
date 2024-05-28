@@ -15,10 +15,11 @@ import {
   IonText,
   IonButton,
   IonMenuToggle,
+  useIonRouter,
 } from "@ionic/react";
 import namelogo from "../../../public/assets/namelogo.svg";
 import verticalmenu from "../../../public/assets/DotsThreeVertical.svg";
-import { chevronForward, close } from "ionicons/icons";
+import { chevronBack, chevronForward, close } from "ionicons/icons";
 import chat from "../../../public/assets/chat.svg";
 import settings from "../../../public/assets/settings.svg";
 import preferences from "../../../public/assets/preferences.svg";
@@ -27,13 +28,22 @@ import personImg from "../../../public/assets/Ellipse.svg";
 import crown from "../../../public/assets/crown.svg";
 import { Menubg } from "./svg-icons";
 
-function NavBar() {
+function NavBar({backbutton}) {
+  const router = useIonRouter();
+
+  const handleprofile = () => {
+    router.push("/profile");
+  };
   return (
     <>
       <IonHeader id="main-content">
         <IonToolbar>
           <IonRow className="flex px-4 justify-between items-center flex-nowrap w-full ">
-            <IonMenuButton />
+          {backbutton ? (
+                <IonIcon onClick={backbutton} color="white" icon={chevronBack} size="medium" />
+            ) : (
+              <IonMenuButton/>
+            )}
             <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>
             <IonIcon className="w-8 h-8" icon={verticalmenu}></IonIcon>
           </IonRow>
@@ -98,7 +108,7 @@ function NavBar() {
               <IonLabel>Support</IonLabel>
             </IonItem>
             <div className=" border-b mx-2 border-borderColor" />
-            <IonItem>
+            <IonItem onClick={handleprofile}>
               <IonIcon slot="start" icon={personImg} size="large" />
               <IonLabel>Devon Lane</IonLabel>
               <IonIcon color="light" slot="end" icon={chevronForward} size="small" />

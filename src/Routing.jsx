@@ -4,12 +4,16 @@ import Landing from './components/landingpage'
 import AccountSetup from './pages/AccountSetup'
 import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
 import Chat from './pages/Chat'
+import EditPersonalInfo from './pages/EditPersonalInfo'
 import Home from './pages/Home'
 import Otp from './pages/Otp'
+import Profile from './pages/Profile'
 import UploadPhoto from './pages/UploadPhoto'
 import VoiceCommunication from './pages/VoiceCommunication'
 import Welcome from './pages/Welcome'
-import Profile from './pages/Profile'
+import EditAppearanceHealth from './pages/EditAppearanceHealth'
+import EditHobbies from './pages/EditHobbies'
+import EditCareer from './pages/EditCareer'
 
 
 export default function Routing() {
@@ -49,6 +53,18 @@ export default function Routing() {
         </Route>
         <Route exact path="/profile">
           <Profile/>
+        </Route>
+        <Route exact path="/editpersonalinfo">
+          <EditPersonalInfo/>
+        </Route>
+        <Route exact path="/editappearance">
+          <EditAppearanceHealth/>
+        </Route>
+        <Route exact path="/edithobbies">
+          <EditHobbies/>
+        </Route>
+        <Route exact path="/editcareer">
+          <EditCareer/>
         </Route>
         </IonContent>
   </IonPage>

@@ -162,17 +162,18 @@ function Otp() {
                           <IonRow>
                             <IonCol size="auto">
                               <IonItem
-                                className="border border-bg-primary rounded-full w-64"
+                                className="border border-bg-primary  w-64"
                                 lines="none"
                                 button={true}
                                 detail={false}
+                                onClick={handleConfirm}
                               >
                                 <IonIcon
                                   className="mr-6 w-8 h-8"
                                   icon={brand}
                                 ></IonIcon>
 
-                                <IonLabel onClick={handleConfirm}>
+                                <IonLabel>
                                   <b>Continue with Veriff</b>{" "}
                                 </IonLabel>
                               </IonItem>
