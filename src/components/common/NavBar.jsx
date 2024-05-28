@@ -99,7 +99,11 @@ function NavBar() {
             <IonItem>
               <IonIcon slot="start" icon={personImg} size="large" />
               <IonLabel>Devon Lane</IonLabel>
-              <IonIcon slot="end" icon={chevronForward} size="small" />
+              <IonIcon
+                slot="end"
+                icon={chevronForward}
+                size="small"
+              />
             </IonItem>
           </IonList>
         </IonContent>
