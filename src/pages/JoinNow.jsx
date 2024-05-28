@@ -3,25 +3,23 @@ import {
   IonCol,
   IonContent,
   IonGrid,
-  IonLabel,
   IonPage,
   IonRow,
   IonText,
-  useIonRouter
+  useIonRouter,
 } from "@ionic/react";
 import { useState } from "react";
 import Logo from "../../public/assets/logo.svg";
 
-// import { MuiTelInput } from "mui-tel-input";
+import { MuiTelInput } from "mui-tel-input";
 
 const JoinNow = () => {
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState("");
   const router = useIonRouter();
 
   const handleotp = () => {
-    router.push('/otp');
+    router.push("/otp");
   };
-
 
   const handlePhoneChange = (newPhone) => {
     setPhone(newPhone);
@@ -29,7 +27,7 @@ const JoinNow = () => {
   return (
     <IonPage>
       <IonContent>
-        <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-between ">
+        <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-around ">
           <div className="flex flex-col gap-[14px]">
             <IonRow className="flex justify-center ">
               <IonCol size="auto">
@@ -58,10 +56,9 @@ const JoinNow = () => {
                   </IonText>
                 </IonCol>
               </IonRow>
+              <IonRow className="w-full max-w-xs mx-auto"></IonRow>
               <IonRow className="w-full max-w-xs mx-auto">
-              </IonRow>
-              <IonRow className="w-full max-w-xs mx-auto">
-                {/* <IonCol>
+                <IonCol>
                   <MuiTelInput
                     label="Phone number"
                     value={phone}
@@ -69,8 +66,11 @@ const JoinNow = () => {
                     defaultCountry="US"
                     fullWidth
                     sx={{
-                      borderBottom: "1px solid  rgba(221, 221, 221, 1) !important",
-                      "& .MuiFormLabel-root": { color: ' rgba(255, 255, 255, 0.6) !important' },
+                      borderBottom:
+                        "1px solid  rgba(221, 221, 221, 1) !important",
+                      "& .MuiFormLabel-root": {
+                        color: " rgba(255, 255, 255, 0.6) !important",
+                      },
                     }}
                     variant="standard"
                     inputProps={{
@@ -81,10 +81,9 @@ const JoinNow = () => {
                     focused={false}
                     placeholder="Select Country"
                   />
-                </IonCol> */}
+                </IonCol>
               </IonRow>
             </div>
-
           </div>
           <IonRow className="w-full max-w-xs mx-auto">
             <IonCol>
@@ -97,7 +96,6 @@ const JoinNow = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-
       </IonContent>
     </IonPage>
   );

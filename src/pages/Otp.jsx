@@ -1,5 +1,4 @@
 import {
-  IonBackButton,
   IonButton,
   IonButtons,
   IonCol,
@@ -58,21 +57,23 @@ function Otp() {
   return (
     <>
       <IonPage>
-        <IonButtons slot="start">
-          <IonBackButton
-            icon={chevronBack}
-            defaultHref=""
-            onClick={handleBackButtonClick}
-          />
-        </IonButtons>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton onClick={handleBackButtonClick}>
+                <IonIcon icon={chevronBack} defaultHref="" />
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
         <IonContent>
           <div className="flex flex-col items-center bg-black text-white h-full">
-            <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-between">
-              <div className="flex flex-col justify-around gap-6 py-6">
+            <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-around">
+              <div className="flex flex-col justify-around gap-6">
                 <IonRow className="flex justify-center ">
                   <IonCol size="auto">
                     <IonText>
-                      <h1 className="text-2xl font-semibold text-center mb-4">
+                      <h1 className="text-3xl font-semibold mb-4">
                         Enter the number we texted you
                       </h1>
                     </IonText>
@@ -125,14 +126,12 @@ function Otp() {
                     trigger="open-modal"
                   >
                     <IonToolbar>
-                    <IonButtons slot="end">
-                        <IonBackButton
-                            icon={closeOutline}
-                            defaultHref=""
-                            onClick={handleCloseModal}
-                        />
-                    </IonButtons>
-                </IonToolbar>
+                      <IonButtons slot="end">
+                        <IonButton onClick={handleCloseModal}>
+                          <IonIcon icon={closeOutline} defaultHref="" />
+                        </IonButton>
+                      </IonButtons>
+                    </IonToolbar>
                     <IonContent>
                       <IonList className="ion-justify-content-center ion-align-items-center">
                         <IonGrid className="flex flex-col w-full justify-center items-center">
