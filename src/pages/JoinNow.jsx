@@ -29,7 +29,7 @@ const JoinNow = () => {
   return (
     <IonPage>
       <IonContent>
-        <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-between ">
+        <IonGrid className="flex flex-col items-center bg-black text-white h-full justify-around ">
           <div className="flex flex-col gap-[14px]">
             <IonRow className="flex justify-center ">
               <IonCol size="auto">

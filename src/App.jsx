@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -32,12 +32,7 @@ setupIonicReact();
 
 const App = () => {
   const [theme, setTheme] = useState('light');
-  const toggleTheme = () => {
-      const newTheme = theme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      console.log({newTheme});
-      handleTheme(newTheme);
-  };
+
   const handleTheme = (value) => {
       setTheme(value);
       document.querySelector("html")?.setAttribute("data-theme", value);

@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonToolbar, useIonRouter, IonGrid, IonRow, IonCol } from '@ionic/react'
+import { IonButtons, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonToolbar, useIonRouter, IonGrid, IonRow, IonCol } from '@ionic/react'
 import { chevronBack } from 'ionicons/icons'
 import checkmark from '../../public/assets/done.svg'
 
@@ -14,15 +14,17 @@ function AccountSetup() {
 
     return (
         <IonPage>
+       <IonHeader>
+          <IonToolbar>
             <IonButtons slot="start">
-                <IonBackButton
-                    icon={chevronBack}
-                    defaultHref=""
-                    onClick={handleBack}
-                />
+              <IonButton onClick={handleBack}>
+                <IonIcon icon={chevronBack} defaultHref="" />
+              </IonButton>
             </IonButtons>
+          </IonToolbar>
+        </IonHeader>
             <IonContent>
-                <IonGrid className="flex flex-col h-full justify-between ">
+                <IonGrid className="flex flex-col h-full justify-around ">
 
                     <div>
                         <IonRow className="ion-align-items-center ion-justify-content-center">

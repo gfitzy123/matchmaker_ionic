@@ -36,8 +36,11 @@
 /* --item-background-color: #383839; */
 
 /* Mobile */
---ion-close-button:#FE0000
---ion-buttonpuse-background: rgba(255, 255, 255, 0.16)
+--ion-close-button:#FE0000;
+--ion-buttonpuse-background: rgba(255, 255, 255, 0.16);
+--ion-toolbar-background: #222224;
+/*Fonts */
+--ion-font-family:"Barlow";
 }
 
 :root[data-theme="light"] {
