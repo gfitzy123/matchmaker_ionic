@@ -31,7 +31,7 @@ import { messages as initialMessages } from '../data';
 const Chat = () => {
   const [messages, setMessages] = useState(initialMessages);
   const [inputValue, setInputValue] = useState('');
-  const [questionCount, setQuestionCount] = useState(0);
+  const [questionCount, setQuestionCount] = useState(3);
   const router = useIonRouter();
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState(null);
@@ -85,15 +85,15 @@ const Chat = () => {
       <IonContent>
         <IonGrid className="p-4">
         <IonRow className="flex items-center justify-center  text-sm mb-2  ">
-              <IonRow className="flex items-center  ">
+              <IonRow className="flex justify-center items-center w-full relative">
               <IonLabel className="mr-2"><b>{questionCount * 10}% </b>profile completed</IonLabel>
-                <IonRow className="flex ">
+              <div className="flex absolute right-0">
                   <IonImg src={person} alt="User 1" className="w-6 h-6 rounded-full border-2 border-gray-900" />
                   <IonImg src={person} alt="User 2" className="w-6 h-6 rounded-full border-2 border-gray-900" />
                   <IonImg src={person} alt="User 3" className="w-6 h-6 rounded-full border-2 border-gray-900" />
-                </IonRow>
+             <IonText>120 matches</IonText>
+                </div>
               </IonRow>
-             <IonLabel>120 matches</IonLabel>
             </IonRow>
           <IonRow>
             <IonCol>

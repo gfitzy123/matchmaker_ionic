@@ -1,45 +1,96 @@
-import { IonCol, IonContent, IonFooter, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react';
-import { close } from 'ionicons/icons';
+import { useState, useEffect } from "react";
+import {
+  IonCol,
+  IonContent,
+  IonFooter,
+  IonGrid,
+  IonIcon,
+  IonPage,
+  IonRow,
+  IonText,
+  useIonRouter,
+} from "@ionic/react";
+import { close } from "ionicons/icons";
 import pauseicon from "../../public/assets/pause.svg";
 import voiceicon from "../../public/assets/voice icon.svg";
-import NavBar from '../components/common/NavBar';
+import NavBar from "../components/common/NavBar";
+import { LiveAudioVisualizer } from "react-audio-visualize";
+import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
+
 function VoiceCommunication() {
   const router = useIonRouter();
+  const [blob, setBlob] = useState();
+  const recorder = useAudioRecorder();
+console.log(recorder.isPaused);
 
+useEffect(() => {
+recorder.startRecording();
+}, []);
+
+  const toggleRecorder = () => {
+    recorder.togglePauseResume();
+  };
 
   const handleAssessvoice = () => {
-    router.push('/assessvoicecommunication')
+    recorder.stopRecording();
+    router.push("/assessvoicecommunication");
   };
   return (
     <IonPage>
       <NavBar />
-      <IonContent className="flex flex-col items-center bg-black text-white h-full p-0">
-        <div className="flex justify-center items-center h-1/2 mb-5">
-
-          {/* Audio wave */}
+      <IonContent className="flex flex-col items-center justify-around bg-black text-white h-full p-0">
+        <div className="flex flex-col justify-center items-center h-1/2 mb-5">
+          {recorder.mediaRecorder && (
+            <div className="flex items-center flex-col gap-14">
+              <IonText>
+                <h1 className="text-2xl">Please Speak</h1>
+              </IonText>
+              <LiveAudioVisualizer
+                mediaRecorder={recorder.mediaRecorder}
+                width={250}
+                height={75}          
+                barColor={"#c6a15a"}
+              />
+            </div>
+          )}
         </div>
+
         <div className="text-center mx-5 leading-relaxed text-lg">
-          <p>Yeah, sure. So, I'm about 6 feet tall, got a medium build, kinda average, I guess. My hair's dark brown, like really dark, almost black. Eyes? They're hazel, you know, a mix of green and brown ...</p>
+          <p>
+            Yeah, sure. So, I'm about 6 feet tall, got a medium build, kinda
+            average, I guess. My hair's dark brown, like really dark, almost
+            black. Eyes? They're hazel, you know, a mix of green and brown ...
+          </p>
         </div>
       </IonContent>
       <IonFooter>
         <IonGrid>
           <IonRow className="flex justify-around">
             <IonCol size="auto">
-              <IonIcon icon={pauseicon} className=" m-2  p-4 rounded-full bg-pausebutton" />
+              <IonIcon
+                icon={pauseicon}
+                onClick={toggleRecorder}
+                className=" m-2  p-4 rounded-full bg-pausebutton"
+              />
             </IonCol>
             <IonCol size="auto">
-              <IonIcon onClick={handleAssessvoice} icon={voiceicon} className=" m-2 p-4 rounded-full" />
-
+              <IonIcon
+                icon={voiceicon}
+                className=" m-2 p-4 rounded-full"
+              />
             </IonCol>
             <IonCol size="auto">
-              <IonIcon icon={close} className=" p-4 rounded-full bg-closeButton" />
+              <IonIcon
+                icon={close}
+                onClick={handleAssessvoice}
+                className=" p-4 rounded-full bg-closeButton"
+              />
             </IonCol>
           </IonRow>
         </IonGrid>
       </IonFooter>
     </IonPage>
-  )
+  );
 }
 
-export default VoiceCommunication
+export default VoiceCommunication;

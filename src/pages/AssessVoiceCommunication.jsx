@@ -27,6 +27,7 @@ import { messages as initialMessages } from '../data';
 const AssessVoiceCommunication = () => {
     const [messages, setMessages] = useState(initialMessages);
     const [inputValue, setInputValue] = useState('');
+    const router = useIonRouter();
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -138,7 +139,7 @@ const AssessVoiceCommunication = () => {
                                 {inputValue ? (
                                     <IonIcon size="small" className="border p-2 rounded-full bg-primaryBtn" icon={sender} onClick={handleSend} />
                                 ) : (
-                                    <IonIcon size="small" className="border p-2 rounded-full bg-primaryBtn" icon={message} />
+                                    <IonIcon size="small" className="border p-2 rounded-full bg-primaryBtn" icon={message} onclick={() =>  router.push('/voicecommunication')}/>
                                 )}
                             </IonCol>
                         </IonCol>

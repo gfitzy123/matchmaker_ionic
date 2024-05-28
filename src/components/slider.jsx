@@ -25,7 +25,7 @@ const Slider = () => {
           </IonAvatar>
         ))}
         <IonButton className="w-full text-nowrap text-right py-2 text-sm leading-4" shape="round" fill="outline" onClick={() => ""}>
-          <span className="mr-1">See All</span> <img src="ArrowRight.svg" alt="" />
+          <span className="mr-1 text-nowrap">See All</span> <img src="ArrowRight.svg" alt="" />
         </IonButton>
       </IonList>
  

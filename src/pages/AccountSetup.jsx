@@ -28,7 +28,7 @@ function AccountSetup() {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={handleBack}>

@@ -10,7 +10,6 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import Logo from "../../public/assets/logo.svg";
-
 import { MuiTelInput } from "mui-tel-input";
 
 const JoinNow = () => {
@@ -36,7 +35,6 @@ const JoinNow = () => {
                 </div>
               </IonCol>
             </IonRow>
-
             <div>
               <IonRow>
                 <IonCol>

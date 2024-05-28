@@ -57,7 +57,7 @@ function Otp() {
   return (
     <>
       <IonPage>
-        <IonHeader>
+        <IonHeader class="ion-no-border">
           <IonToolbar>
             <IonButtons slot="start">
               <IonButton onClick={handleBackButtonClick}>
@@ -84,6 +84,7 @@ function Otp() {
                     {[...Array(6)].map((_, index) => (
                       <IonRow key={index}>
                         <IonInput
+                        type="tel"
                           maxlength={1}
                           className=" border-b border-gray-600 text-white w-10 text-center items-center"
                           ref={(inputElement) =>

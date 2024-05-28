@@ -81,7 +81,7 @@ padding: 0px 8px;
   --highlight-color-focused: unset;
 }
 .native-wrapper.sc-ion-input-md{
-  border-radius: 20px;
+  /* border-radius: 20px; */
   padding:0;
 }
 .input-label-placement-start.sc-ion-input-md-h .input-wrapper.sc-ion-input-md {

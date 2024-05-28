@@ -14,6 +14,7 @@ import {
   IonCol,
   IonText,
   IonButton,
+  IonMenuToggle,
 } from "@ionic/react";
 import namelogo from "../../../public/assets/namelogo.svg";
 import verticalmenu from "../../../public/assets/DotsThreeVertical.svg";
@@ -24,6 +25,7 @@ import preferences from "../../../public/assets/preferences.svg";
 import headset from "../../../public/assets/headset.svg";
 import personImg from "../../../public/assets/Ellipse.svg";
 import crown from "../../../public/assets/crown.svg";
+import { Menubg } from "./svg-icons";
 
 function NavBar() {
   return (
@@ -38,9 +40,9 @@ function NavBar() {
         </IonToolbar>
       </IonHeader>
       <IonMenu contentId="main-content">
-        <IonHeader>
-          <IonToolbar className="flex justify-between items-center">
-            <div className="flex justify-between items-center p-8">
+        <IonHeader class="ion-no-border">
+          <IonToolbar color="secondary" className="flex justify-between items-center">
+            <div className="flex justify-between items-center px-8">
               <svg
                 width="172"
                 height="14"
@@ -69,15 +71,15 @@ function NavBar() {
                 </defs>
               </svg>
               <IonButtons slot="end">
-                <ion-menu-toggle>
+                <IonMenuToggle>
                   <IonIcon size="small" icon={close} />
-                </ion-menu-toggle>
+                </IonMenuToggle>
               </IonButtons>
             </div>
-            <div className=" border-b mx-2 border-borderColor" />
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding">
+        <IonContent color="secondary">
+          <div className=" border-b mx-2 border-borderColor" />
           <IonList lines="none">
             <IonItem>
               <IonIcon slot="start" icon={chat} size="medium" />
@@ -99,15 +101,11 @@ function NavBar() {
             <IonItem>
               <IonIcon slot="start" icon={personImg} size="large" />
               <IonLabel>Devon Lane</IonLabel>
-              <IonIcon
-                slot="end"
-                icon={chevronForward}
-                size="small"
-              />
+              <IonIcon color="light" slot="end" icon={chevronForward} size="small" />
             </IonItem>
           </IonList>
         </IonContent>
-        <IonFooter className="p-4">
+        <IonFooter className="p-4 relative">
           <IonRow>
             <IonCol className="flex flex-col gap-3" size="10">
               <IonText className="flex flex-col gap-3">
@@ -122,6 +120,9 @@ function NavBar() {
               <IonIcon icon={crown} size="large"></IonIcon>
             </IonCol>
           </IonRow>
+          <div className="absolute top-0 left-0 -z-10 opacity-20 w-[343px] h-[193px]">
+            <Menubg/>
+          </div>
         </IonFooter>
       </IonMenu>
     </>

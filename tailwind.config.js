@@ -35,10 +35,12 @@ module.exports = {
       toggleTwo: "var(--toggle-btn-color-two)",
       listHover: "var(--list-hover-color)",
       hoverColor: "var(--hover-text-color)",
-      borderColor: "var(--border-color)",
+      borderColor: "rgb(var(--border-color))",
       itemBackground: "var(--item-background-color)",
       closeButton: "var(--ion-close-button)",
       "pausebutton": "rgb(var(--ion-color-primary-rgb))",
+      sidebarBg:"var( --sidebar-background-color)",
+      light:"var(--ion-color-secondary-contrast)"
     },
   },
   variants: {

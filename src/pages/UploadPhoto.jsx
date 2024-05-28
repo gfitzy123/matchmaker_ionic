@@ -38,7 +38,7 @@ function UploadPhoto() {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={handleConfirm}>
@@ -47,7 +47,6 @@ function UploadPhoto() {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
       <IonContent>
         <IonGrid className="flex justify-center items-center h-full">
           <IonRow className="ion-justify-content-center ion-align-items-center">
@@ -62,7 +61,6 @@ function UploadPhoto() {
                   <h1 className="text-lg">Upload photo on your profile</h1>
                 </IonLabel>
               </div>
-
               <div className="flex flex-col items-center gap-6">
                 <IonItem
                   className="border border-bg-primary rounded-full w-72 text-center"
@@ -73,7 +71,6 @@ function UploadPhoto() {
                 >
                   <IonLabel>Take Photo</IonLabel>
                 </IonItem>
-
                 <IonItem
                   className="border border-bg-primary rounded-full w-72 text-center"
                   lines="none"
@@ -82,7 +79,6 @@ function UploadPhoto() {
                 >
                   <IonLabel>Choose From Camera Roll</IonLabel>
                 </IonItem>
-
                 <IonItem
                   className="border border-bg-primary rounded-full w-72"
                   lines="none"
@@ -96,7 +92,6 @@ function UploadPhoto() {
             </div>
           </IonRow>
         </IonGrid>
-
         <IonModal
           isOpen={showModal}
           onDidDismiss={handleCloseModal}
@@ -110,7 +105,6 @@ function UploadPhoto() {
                     "Matchmaker AI" Would Like To Access The Camera
                   </h1>
                 </IonLabel>
-
                 <IonLabel className="text-4xl w-64">
                   <h2 className="text-lg text-center">
                     This lets you do things take and share photos, record
@@ -118,7 +112,6 @@ function UploadPhoto() {
                   </h2>
                 </IonLabel>
               </div>
-
               <div>
                 <IonGrid className="w-full">
                   <IonRow className="flex items-center justify-center  gap-10">
@@ -133,7 +126,6 @@ function UploadPhoto() {
                         <IonLabel onClick={handleConfirm}>Don't Allow</IonLabel>
                       </IonItem>
                     </IonCol>
-
                     <IonCol size="auto">
                       <IonItem
                         className="w-full"

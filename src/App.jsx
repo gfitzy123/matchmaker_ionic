@@ -25,7 +25,7 @@ import "./theme/tailwind.css";
 import "./theme/variables.css";
 
 setupConfig({
-  mode: "md", // or 'md' for Material Design
+  mode: "ios", // or 'md' for Material Design
 });
 
 setupIonicReact();
