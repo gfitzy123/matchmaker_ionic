@@ -162,7 +162,7 @@ function Otp() {
                           <IonRow>
                             <IonCol size="auto">
                               <IonItem
-                                className="border border-bg-primary  w-64"
+                                className="border border-bg-primary rounded-full  w-64"
                                 lines="none"
                                 button={true}
                                 detail={false}

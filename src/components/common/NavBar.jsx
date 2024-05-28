@@ -28,7 +28,7 @@ import personImg from "../../../public/assets/Ellipse.svg";
 import crown from "../../../public/assets/crown.svg";
 import { Menubg } from "./svg-icons";
 
-function NavBar({backbutton}) {
+function NavBar({backbutton,vertical,title}) {
   const router = useIonRouter();
 
   const handleprofile = () => {
@@ -44,14 +44,24 @@ function NavBar({backbutton}) {
             ) : (
               <IonMenuButton/>
             )}
-            <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>
-            <IonIcon className="w-8 h-8" icon={verticalmenu}></IonIcon>
+          {vertical && !title && (
+              <div className="flex items-center justify-center">
+                <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>
+              </div>
+            )}
+
+            {title || vertical ? (
+              <IonLabel className="flex-1 text-center">{title}</IonLabel>
+            ) : null}
+            {vertical && (
+              <IonIcon className="w-8 h-8" icon={verticalmenu}></IonIcon>
+            )}
           </IonRow>
         </IonToolbar>
       </IonHeader>
       <IonMenu contentId="main-content">
         <IonHeader class="ion-no-border">
-          <IonToolbar color="secondary" className="flex justify-between items-center">
+          <IonToolbar  className="flex justify-between items-center">
             <div className="flex justify-between items-center px-8">
               <svg
                 width="172"
@@ -88,7 +98,7 @@ function NavBar({backbutton}) {
             </div>
           </IonToolbar>
         </IonHeader>
-        <IonContent color="secondary">
+        <IonContent>
           <div className=" border-b mx-2 border-borderColor" />
           <IonList lines="none">
             <IonItem>
