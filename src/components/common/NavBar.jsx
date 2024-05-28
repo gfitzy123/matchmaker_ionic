@@ -16,6 +16,7 @@ import {
   IonButton,
   IonMenuToggle,
   useIonRouter,
+  IonTitle
 } from "@ionic/react";
 import namelogo from "../../../public/assets/namelogo.svg";
 import verticalmenu from "../../../public/assets/DotsThreeVertical.svg";
@@ -38,16 +39,16 @@ function NavBar({backbutton,vertical,title}) {
     <>
       <IonHeader id="main-content">
         <IonToolbar>
-          <IonRow className="flex px-4 justify-between items-center flex-nowrap w-full ">
+          <IonRow className="flex px-4 justify-around items-center flex-nowrap w-full ">
           {backbutton ? (
                 <IonIcon onClick={backbutton} color="white" icon={chevronBack} size="medium" />
             ) : (
               <IonMenuButton/>
             )}
           {vertical && !title && (
-              <div className="flex items-center justify-center">
+              <IonTitle>
                 <IonIcon className="w-44 h-4" icon={namelogo}></IonIcon>
-              </div>
+              </IonTitle>
             )}
 
             {title || vertical ? (
