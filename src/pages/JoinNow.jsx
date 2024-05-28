@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import Logo from "../../public/assets/logo.svg";
 
-import { MuiTelInput } from "mui-tel-input";
+// import { MuiTelInput } from "mui-tel-input";
 
 const JoinNow = () => {
   const [phone, setPhone] = useState('');
@@ -61,7 +61,7 @@ const JoinNow = () => {
               <IonRow className="w-full max-w-xs mx-auto">
               </IonRow>
               <IonRow className="w-full max-w-xs mx-auto">
-                <IonCol>
+                {/* <IonCol>
                   <MuiTelInput
                     label="Phone number"
                     value={phone}
@@ -81,7 +81,7 @@ const JoinNow = () => {
                     focused={false}
                     placeholder="Select Country"
                   />
-                </IonCol>
+                </IonCol> */}
               </IonRow>
             </div>
 
