@@ -97,7 +97,7 @@ function UploadPhoto() {
           onDidDismiss={handleCloseModal}
           ref={modal}
         >
-          <IonList className="ion-justify-content-center ion-align-items-center h-full ">
+          <IonList className="ion-justify-content-center bg-background ion-align-items-center h-full ">
             <div className="flex flex-col w-full justify-between items-center ">
               <div>
                 <IonLabel className="text-4xl w-full">

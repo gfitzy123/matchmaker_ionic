@@ -14,14 +14,21 @@ import { close } from "ionicons/icons";
 import pauseicon from "../../public/assets/pause.svg";
 import voiceicon from "../../public/assets/voice icon.svg";
 import { LiveAudioVisualizer } from "react-audio-visualize";
-import {  useAudioRecorder } from "react-audio-voice-recorder";
+import { useAudioRecorder } from "react-audio-voice-recorder";
+import playicon from "../../public/assets/play.svg";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 function VoiceCommunication() {
   const router = useIonRouter();
   const recorder = useAudioRecorder();
+  const { transcript, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
     recorder.startRecording();
+    resetTranscript();
+    SpeechRecognition.startListening({ continuous: true });
   }, []);
 
   const toggleRecorder = () => {
@@ -35,6 +42,7 @@ function VoiceCommunication() {
   const handleback = () => {
     router.push("/chat");
   };
+
   return (
     <IonPage>
       <IonContent className="flex flex-col items-center justify-around bg-black text-white h-full p-0">
@@ -53,13 +61,13 @@ function VoiceCommunication() {
             </div>
           )}
         </div>
-
         <div className="text-center mx-5 leading-relaxed text-lg">
-          <p>
+          <p>{transcript}</p>
+          {/* <p>
             Yeah, sure. So, I'm about 6 feet tall, got a medium build, kinda
             average, I guess. My hair's dark brown, like really dark, almost
             black. Eyes? They're hazel, you know, a mix of green and brown ...
-          </p>
+          </p> */}
         </div>
       </IonContent>
       <IonFooter>
@@ -67,7 +75,7 @@ function VoiceCommunication() {
           <IonRow className="flex justify-around">
             <IonCol size="auto">
               <IonIcon
-                icon={pauseicon}
+                icon={recorder.isPaused ? playicon : pauseicon}
                 onClick={toggleRecorder}
                 className=" m-2  p-4 rounded-full bg-pausebutton"
               />

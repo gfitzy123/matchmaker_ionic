@@ -88,7 +88,7 @@ const Chat = () => {
     <IonPage>
       <NavBar vertical />
       <IonContent>
-        <IonGrid className="p-4">
+        <IonGrid className="p-4 bg-dark">
           <IonRow className="flex items-center justify-center  text-sm mb-2  ">
             <IonRow className="flex justify-center items-center w-full relative">
               <IonLabel className="mr-2">
@@ -98,17 +98,17 @@ const Chat = () => {
                 <IonImg
                   src={person}
                   alt="User 1"
-                  className="w-6 h-6 rounded-full border-2 border-gray-900"
+                  className="w-6 h-6 rounded-full border-2"
                 />
                 <IonImg
                   src={person}
                   alt="User 2"
-                  className="w-6 h-6 rounded-full border-2 border-gray-900"
+                  className="w-6 h-6 rounded-full border-2"
                 />
                 <IonImg
                   src={person}
                   alt="User 3"
-                  className="w-6 h-6 rounded-full border-2 border-gray-900"
+                  className="w-6 h-6 rounded-full border-2"
                 />
                 <IonText>120 matches</IonText>
               </div>
@@ -137,14 +137,14 @@ const Chat = () => {
                       icon={person}
                       className="border rounded-full"
                     ></IonIcon>
-                    <IonText className="text-sm mb-2">
+                    <IonText className="text-sm mb-2 text-textSecondary">
                       <b>{message.type === "ai" ? "Matchmaker AI" : "You"}</b>
                     </IonText>
                   </IonRow>
                   <IonRow>
                     <IonCol>
                       <IonText
-                        className="text-sm"
+                        className="text-sm text-textSecondary"
                         onClick={message.type === "ai" ? handleLongPress : null}
                       >
                         {message.text}
@@ -175,10 +175,10 @@ const Chat = () => {
         </IonGrid>
         <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
           <IonRow className="flex items-center gap-3 w-full">
-            <IonCol className="flex justify-center  items-center">
+            <IonCol className="flex justify-center items-center">
               <IonInput
                 placeholder="Write a message..."
-                className="w-full text-white border rounded-full px-4 py-2"
+                className="w-full text-white border rounded-full "
                 value={inputValue}
                 onIonInput={handleInputChange}
               />

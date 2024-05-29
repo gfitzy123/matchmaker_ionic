@@ -18,7 +18,7 @@ const Slider = () => {
 
   return (
 
-      <IonList className="flex items-center gap-3 overflow-scroll whitespace-nowrap hide-scrollbar">
+      <IonList className="flex items-center bg-background gap-3 overflow-scroll whitespace-nowrap hide-scrollbar">
         {items.map((index) => (
           <IonAvatar className="h-full w-full" key={index} slot="start">
             <img className="min-w-4 min-h-4" src={`https://picsum.photos/30/30?random=${index}`} alt="avatar" />

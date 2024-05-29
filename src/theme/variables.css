@@ -32,12 +32,12 @@
   --list-hover-color: #383839;
   --hover-text-color: #ffffff;
   --border-color: 255, 255, 255, 0.2;
-  /* --ion-item-background: #303136  ; */
+  --ion-item-background: #303136;
   /* Mobile */
   --ion-close-button: #fe0000;
   --ion-buttonpuse-background: rgba(255, 255, 255, 0.16);
   --ion-toolbar-background: #222224;
-  --sidebar-background-color: #303136;
+  --dark-grey-background-color: #303136;
   --ion-color-step-100: rgba(198, 161, 90, 0.2);
   --ion-item-border-color: 255, 255, 255, 0.2;
   /*Fonts */

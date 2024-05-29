@@ -99,12 +99,12 @@ const AssessVoiceCommunication = () => {
                   </IonText>
                 )}
                 <IonGrid className="p-4">
-                  <IonRow className="flex gap-2">
+                  <IonRow className="flex items-center gap-2">
                     <IonIcon
                       icon={person}
                       className="border rounded-full"
                     ></IonIcon>
-                    <IonText className="text-sm mb-2">
+                    <IonText className="text-sm ">
                       <b>{message.type === "ai" ? "Matchmaker AI" : "You"}</b>
                     </IonText>
                     {message.type === "user" && (

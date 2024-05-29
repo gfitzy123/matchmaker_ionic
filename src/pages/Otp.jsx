@@ -126,14 +126,14 @@ function Otp() {
                     ref={modalRef}
                     trigger="open-modal"
                   >
-                    <IonToolbar>
+                    <IonToolbar color="secondary">
                       <IonButtons slot="end">
                         <IonButton onClick={handleCloseModal}>
                           <IonIcon icon={closeOutline} defaultHref="" />
                         </IonButton>
                       </IonButtons>
                     </IonToolbar>
-                    <IonContent>
+                    <IonContent color="secondary">
                       <IonList className="ion-justify-content-center ion-align-items-center">
                         <IonGrid className="flex flex-col w-full justify-center items-center">
                           <IonRow className="relative">
