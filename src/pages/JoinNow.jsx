@@ -10,19 +10,17 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import Logo from "../../public/assets/logo.svg";
-import { MuiTelInput } from "mui-tel-input";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const JoinNow = () => {
-  const [phone, setPhone] = useState("");
+  const [value, setValue] = useState();
   const router = useIonRouter();
 
   const handleotp = () => {
     router.push("/otp");
   };
 
-  const handlePhoneChange = (newPhone) => {
-    setPhone(newPhone);
-  };
   return (
     <IonPage>
       <IonContent>
@@ -48,39 +46,35 @@ const JoinNow = () => {
               <IonRow>
                 <IonCol>
                   <IonText>
-                    <p className="text-center mb-8 text-zinc-300 text-base">
+                    <p className="text-center mb-8 text-base text-textSecondary">
                       Enter your phone number to register in the app.
                     </p>
                   </IonText>
                 </IonCol>
               </IonRow>
               <IonRow className="w-full max-w-xs mx-auto"></IonRow>
+              <IonRow className="w-full max-w-xs mx-auto"></IonRow>
               <IonRow className="w-full max-w-xs mx-auto">
-              </IonRow>
-              <IonRow className="w-full max-w-xs mx-auto">
-                <IonCol>
-                  <MuiTelInput
-                    label="Phone number"
-                    value={phone}
-                    onChange={handlePhoneChange}
-                    defaultCountry="US"
-                    fullWidth
-                    sx={{
-                      borderBottom:
-                        "1px solid  rgba(221, 221, 221, 1) !important",
-                      "& .MuiFormLabel-root": {
-                        color: " rgba(255, 255, 255, 0.6) !important",
-                      },
-                    }}
-                    variant="standard"
-                    inputProps={{
-                      style: {
-                        color: "white",
-                      },
-                    }}
-                    focused={false}
-                    placeholder="Select Country"
-                  />
+                <IonCol className="flex flex-col border-b">
+                  <IonText>
+                    <h5 className="text-xs text-textSecondary">Phone Number</h5>
+                  </IonText>
+                  <div className="flex">
+                    <PhoneInput
+                      initialValueFormat="national"
+                      countryCallingCodeEditable={false}
+                      defaultCountry="US"
+                      international
+                      placeholder="000-000-0000"
+                      value={value}
+                      onChange={setValue}
+                    />
+                    <input
+                      className="outline-none bg-primaryBtn"
+                      placeholder="000-000-0000"
+                      type="tel"
+                    />
+                  </div>
                 </IonCol>
               </IonRow>
             </div>

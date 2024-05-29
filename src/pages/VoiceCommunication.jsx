@@ -13,19 +13,16 @@ import {
 import { close } from "ionicons/icons";
 import pauseicon from "../../public/assets/pause.svg";
 import voiceicon from "../../public/assets/voice icon.svg";
-import NavBar from "../components/common/NavBar";
 import { LiveAudioVisualizer } from "react-audio-visualize";
-import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
+import {  useAudioRecorder } from "react-audio-voice-recorder";
 
 function VoiceCommunication() {
   const router = useIonRouter();
-  const [blob, setBlob] = useState();
   const recorder = useAudioRecorder();
-console.log(recorder.isPaused);
 
-useEffect(() => {
-recorder.startRecording();
-}, []);
+  useEffect(() => {
+    recorder.startRecording();
+  }, []);
 
   const toggleRecorder = () => {
     recorder.togglePauseResume();
@@ -36,7 +33,7 @@ recorder.startRecording();
     router.push("/assessvoicecommunication");
   };
   const handleback = () => {
-    router.push('/chat')
+    router.push("/chat");
   };
   return (
     <IonPage>
@@ -50,7 +47,7 @@ recorder.startRecording();
               <LiveAudioVisualizer
                 mediaRecorder={recorder.mediaRecorder}
                 width={250}
-                height={75}          
+                height={75}
                 barColor={"#c6a15a"}
               />
             </div>
@@ -76,10 +73,7 @@ recorder.startRecording();
               />
             </IonCol>
             <IonCol size="auto">
-              <IonIcon
-                icon={voiceicon}
-                className=" m-2 p-4 rounded-full"
-              />
+              <IonIcon icon={voiceicon} className=" m-2 p-4 rounded-full" />
             </IonCol>
             <IonCol size="auto">
               <IonIcon

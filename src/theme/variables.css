@@ -25,6 +25,7 @@
 
   --ion-background-color: #222224;
   --ion-text-color: #ffffff;
+  --ion-text-color-secondary: #DDDDDD;
   --toggle-btn-color-one: #757575;
   --toggle-btn-color-two: #4b4b4b;
   --list-hover-color: #383839;
@@ -37,6 +38,7 @@
   --ion-toolbar-background: #222224;
   --sidebar-background-color: #303136;
   --ion-color-step-100: rgba(198, 161, 90, 0.2);
+  --ion-item-border-color: 255, 255, 255, 0.2;
   /*Fonts */
   --ion-font-family: "Barlow";
 }

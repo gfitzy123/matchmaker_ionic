@@ -40,7 +40,8 @@ module.exports = {
       closeButton: "var(--ion-close-button)",
       "pausebutton": "rgb(var(--ion-color-primary-rgb))",
       sidebarBg:"var( --sidebar-background-color)",
-      light:"var(--ion-color-secondary-contrast)"
+      light:"var(--ion-color-secondary-contrast)",
+      textSecondary: "var( --ion-text-color-secondary)"
     },
   },
   variants: {

@@ -1,11 +1,7 @@
 import React from "react";
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonItem,
   IonLabel,
   IonInput,
   IonTextarea,
@@ -61,14 +57,13 @@ const EditAppearanceHealth = () => {
               <IonToggle color="primary" />
             </div>
           </div>
-        <IonButton
-          expand="block"
-          className="bg-yellow-500 text-black font-semibold rounded-lg"
-        >
-          SAVE
-        </IonButton>
+          <IonButton
+            expand="block"
+            className="bg-yellow-500 text-black font-semibold rounded-lg"
+          >
+            SAVE
+          </IonButton>
         </div>
-
       </IonContent>
     </IonPage>
   );

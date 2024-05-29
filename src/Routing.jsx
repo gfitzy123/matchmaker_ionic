@@ -1,26 +1,24 @@
-import { IonContent, IonPage } from '@ionic/react'
-import { Redirect, Route } from 'react-router'
-import Landing from './components/landingpage'
-import AccountSetup from './pages/AccountSetup'
-import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
-import Chat from './pages/Chat'
-import EditPersonalInfo from './pages/EditPersonalInfo'
-import Home from './pages/Home'
-import Otp from './pages/Otp'
-import Profile from './pages/Profile'
-import UploadPhoto from './pages/UploadPhoto'
-import VoiceCommunication from './pages/VoiceCommunication'
-import Welcome from './pages/Welcome'
-import EditAppearanceHealth from './pages/EditAppearanceHealth'
-import EditHobbies from './pages/EditHobbies'
-import EditCareer from './pages/EditCareer'
-
+import { IonContent, IonPage } from "@ionic/react";
+import { Redirect, Route } from "react-router";
+import Landing from "./components/landingpage";
+import AccountSetup from "./pages/AccountSetup";
+import AssessVoiceCommunication from "./pages/AssessVoiceCommunication";
+import Chat from "./pages/Chat";
+import EditPersonalInfo from "./pages/EditPersonalInfo";
+import Home from "./pages/Home";
+import Otp from "./pages/Otp";
+import Profile from "./pages/Profile";
+import UploadPhoto from "./pages/UploadPhoto";
+import VoiceCommunication from "./pages/VoiceCommunication";
+import Welcome from "./pages/Welcome";
+import EditAppearanceHealth from "./pages/EditAppearanceHealth";
+import EditHobbies from "./pages/EditHobbies";
+import EditCareer from "./pages/EditCareer";
 
 export default function Routing() {
   return (
     <IonPage>
-        <IonContent>
-   
+      <IonContent>
         <Route exact path="/joinnow">
           <Home />
         </Route>
@@ -34,7 +32,7 @@ export default function Routing() {
           <AccountSetup />
         </Route>
         <Route exact path="/otp">
-          <Otp/>
+          <Otp />
         </Route>
         <Route exact path="/uploadphoto">
           <UploadPhoto />
@@ -43,30 +41,30 @@ export default function Routing() {
           <Welcome />
         </Route>
         <Route exact path="/chat">
-          <Chat/>
+          <Chat />
         </Route>
         <Route exact path="/voicecommunication">
-          <VoiceCommunication/>
+          <VoiceCommunication />
         </Route>
         <Route exact path="/assessvoicecommunication">
-          <AssessVoiceCommunication/>
+          <AssessVoiceCommunication />
         </Route>
         <Route exact path="/profile">
-          <Profile/>
+          <Profile />
         </Route>
         <Route exact path="/editpersonalinfo">
-          <EditPersonalInfo/>
+          <EditPersonalInfo />
         </Route>
         <Route exact path="/editappearance">
-          <EditAppearanceHealth/>
+          <EditAppearanceHealth />
         </Route>
         <Route exact path="/edithobbies">
-          <EditHobbies/>
+          <EditHobbies />
         </Route>
         <Route exact path="/editcareer">
-          <EditCareer/>
+          <EditCareer />
         </Route>
-        </IonContent>
-  </IonPage>
-  )
+      </IonContent>
+    </IonPage>
+  );
 }
