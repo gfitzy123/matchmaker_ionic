@@ -49,12 +49,12 @@ const EditAppearanceHealth = () => {
               className="border-b border-bg-primary"
             />
             <div className="flex justify-between">
-              <IonLabel className="text-gray-400">COVID Vaccinated</IonLabel>
-              <IonToggle checked color="primary" />
+              <IonLabel >COVID Vaccinated</IonLabel>
+              <IonToggle className="bg-toggleOne rounded-full" color="primary" />
             </div>
             <div className="flex justify-between">
-              <IonLabel className="text-gray-400">Smoking</IonLabel>
-              <IonToggle color="primary" />
+              <IonLabel >Smoking</IonLabel>
+              <IonToggle className="bg-toggleOne rounded-full" color="primary" />
             </div>
           </div>
           <IonButton

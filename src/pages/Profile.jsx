@@ -65,6 +65,7 @@ const Profile = () => {
       <IonContent className="p-4">
         <div className="flex flex-col items-start gap-10 w-full">
           <Swiper
+          
             modules={[
               Autoplay,
               Keyboard,
@@ -94,8 +95,9 @@ const Profile = () => {
                   Upload Photo to your Profile
                 </IonLabel>
                 <IonIcon
-                  className="w-24 h-24 mt-4"
+                  className="w-24 h-24 mt-4 "
                   icon={addCircleOutline}
+                  color="primary"
                 ></IonIcon>
               </div>
             </SwiperSlide>

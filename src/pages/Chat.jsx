@@ -1,6 +1,8 @@
 import {
   IonButton,
+  IonCol,
   IonContent,
+  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
@@ -9,9 +11,7 @@ import {
   IonPage,
   IonPopover,
   IonProgressBar,
-  IonGrid,
   IonRow,
-  IonCol,
   useIonRouter,
   IonImg,
   IonText,

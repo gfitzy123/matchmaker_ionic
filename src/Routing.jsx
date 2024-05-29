@@ -1,19 +1,21 @@
-import { IonContent, IonPage } from "@ionic/react";
-import { Redirect, Route } from "react-router";
-import Landing from "./components/landingpage";
-import AccountSetup from "./pages/AccountSetup";
-import AssessVoiceCommunication from "./pages/AssessVoiceCommunication";
-import Chat from "./pages/Chat";
-import EditPersonalInfo from "./pages/EditPersonalInfo";
-import Home from "./pages/Home";
-import Otp from "./pages/Otp";
-import Profile from "./pages/Profile";
-import UploadPhoto from "./pages/UploadPhoto";
-import VoiceCommunication from "./pages/VoiceCommunication";
-import Welcome from "./pages/Welcome";
-import EditAppearanceHealth from "./pages/EditAppearanceHealth";
-import EditHobbies from "./pages/EditHobbies";
-import EditCareer from "./pages/EditCareer";
+import { IonContent, IonPage } from '@ionic/react'
+import { Redirect, Route } from 'react-router'
+import Landing from './components/landingpage'
+import AccountSetup from './pages/AccountSetup'
+import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
+import Chat from './pages/Chat'
+import EditPersonalInfo from './pages/EditPersonalInfo'
+import Home from './pages/Home'
+import Otp from './pages/Otp'
+import Profile from './pages/Profile'
+import UploadPhoto from './pages/UploadPhoto'
+import VoiceCommunication from './pages/VoiceCommunication'
+import Welcome from './pages/Welcome'
+import EditAppearanceHealth from './pages/EditAppearanceHealth'
+import EditHobbies from './pages/EditHobbies'
+import EditCareer from './pages/EditCareer'
+import Preferences from './pages/Preferences'
+
 
 export default function Routing() {
   return (
@@ -64,7 +66,10 @@ export default function Routing() {
         <Route exact path="/editcareer">
           <EditCareer />
         </Route>
-      </IonContent>
-    </IonPage>
-  );
+        <Route exact path="/preferences">
+          <Preferences/>
+        </Route>
+        </IonContent>
+  </IonPage>
+  )
 }

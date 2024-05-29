@@ -1,3 +1,5 @@
+import { lockClosed } from "ionicons/icons";
+
 export const messages = [
   {
     type: "ai",
@@ -13,6 +15,17 @@ export const IMAGE_URLS = Array.from(
   { length: 5 },
   (_, index) => `https://picsum.photos/300/300?random=${index}`
 );
+
+export const itemData = [
+  { label: 'Dating Intentions', value: 'Relationship' },
+  { label: 'Build', value: 'Athletic, Fit, Slender' },
+  { label: 'Education Level', value: "Master's Degree" },
+  { label: 'COVID Vaccinated', value: 'Yes' },
+  { label: 'Church Attendance', value: 'Never' },
+  { label: 'Drinking Intentions', value: 'Light' },
+  { label: 'Age bracket', icon: lockClosed },
+  { label: 'Income bracket', icon: lockClosed },
+];
 
 export const RANDOMCHIP = [
   "Art",
