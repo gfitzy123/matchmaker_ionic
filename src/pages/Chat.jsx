@@ -198,13 +198,11 @@ const Chat = () => {
                     </IonRow>
                     <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
                       <div
-                        className={`w-[200%] ${
-                          showMatchedImages ? "hidden" : ""
-                        }`}
+                        className={`w-[200%] `}
                       >
-                        <Slider handleClick={handleSeeMoreClick} />
+                        {/* <Slider handleClick={handleSeeMoreClick} /> */}
                       </div>
-                      {showMatchedImages && <MatchedImages />}
+                       <MatchedImages />
                     </div>
                   </>
                 )}
