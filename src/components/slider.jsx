@@ -18,13 +18,13 @@ const Slider = ({handleClick}) => {
 
   return (
 
-      <IonList className="flex items-center bg-background gap-3 overflow-scroll whitespace-nowrap hide-scrollbar">
+      <IonList className="flex items-center  bg-background gap-3 overflow-scroll whitespace-nowrap hide-scrollbar">
         {items.map((index) => (
           <IonAvatar className="h-full w-full" key={index} slot="start">
             <img className="min-w-4 min-h-4" src={`https://picsum.photos/30/30?random=${index}`} alt="avatar" />
           </IonAvatar>
         ))}
-        <IonButton className="w-full text-nowrap text-right py-2 text-sm leading-4" shape="round" fill="outline" onClick={handleClick}>
+        <IonButton fill="clear" className="w-full text-nowrap text-right text-light border rounded-2xl border-light text-sm leading-4" shape="round" onClick={() => ""}>
           <span className="mr-1 text-nowrap">See All</span> <img src="ArrowRight.svg" alt="" />
         </IonButton>
       </IonList>

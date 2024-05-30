@@ -31,14 +31,14 @@ function AccountSetup() {
       <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton onClick={handleBack}>
+            <IonButton color="light" onClick={handleBack}>
               <IonIcon icon={chevronBack} defaultHref="" />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonGrid className="flex flex-col h-full justify-around ">
+        <IonGrid className="flex flex-col px-4 h-full justify-around ">
           <div>
             <IonRow className="ion-align-items-center ion-justify-content-center">
               <IonCol size="auto">
@@ -61,16 +61,16 @@ function AccountSetup() {
 
           <div>
             <IonRow className="ion-align-items-center ion-justify-content-center">
-              <IonCol size="auto">
-                <IonItem
-                  className="border border-bg-primary rounded-full w-64 text-center"
+              <IonCol>
+                <IonButton
+                  className="rounded-full w-full text-center"
                   lines="none"
                   button={true}
                   detail={false}
                   onClick={handleConfirm}
                 >
                   <IonLabel>Continue</IonLabel>
-                </IonItem>
+                </IonButton>
               </IonCol>
             </IonRow>
           </div>

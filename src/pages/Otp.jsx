@@ -60,7 +60,7 @@ function Otp() {
         <IonHeader class="ion-no-border">
           <IonToolbar>
             <IonButtons slot="start">
-              <IonButton onClick={handleBackButtonClick}>
+              <IonButton color="light" onClick={handleBackButtonClick}>
                 <IonIcon icon={chevronBack} defaultHref="" />
               </IonButton>
             </IonButtons>
@@ -134,37 +134,31 @@ function Otp() {
                       </IonButtons>
                     </IonToolbar>
                     <IonContent color="secondary">
-                      <IonList className="ion-justify-content-center ion-align-items-center">
-                        <IonGrid className="flex flex-col w-full justify-center items-center">
-                          <IonRow className="relative">
-                            <IonCol size="auto">
+                        <IonGrid className="flex flex-col w-full h-full px-8 justify-around items-center">
+                          <IonRow >
                               <IonItem lines="none">
                                 <IonIcon
                                   size="large"
                                   icon={Group}
-                                  className="z-10 w-24 h-24"
+                                  className="w-24 h-12"
                                 />
                               </IonItem>
-                            </IonCol>
                           </IonRow>
                           <IonRow>
-                            <IonCol>
                               <IonItem lines="none">
-                                <IonLabel className="text-2xl w-64">
+                                <IonLabel className="text-2xl w-full text-center">
                                   <h1>
                                     The Matchmaker AI has partnered with{" "}
                                     <b>Veriff</b> to verify your income
                                   </h1>
                                 </IonLabel>
                               </IonItem>
-                            </IonCol>
                           </IonRow>
-                          <IonRow>
-                            <IonCol size="auto">
-                              <IonItem
-                                className="border border-bg-primary rounded-full w-64"
+                          <IonRow className="w-full">
+                              <IonButton
+                                className="border border-light text-light rounded-full w-full"
                                 lines="none"
-                                button={true}
+                                fill="clear"
                                 detail={false}
                                 onClick={handleConfirm}
                               >
@@ -176,11 +170,9 @@ function Otp() {
                                 <IonLabel>
                                   <b>Continue with Veriff</b>{" "}
                                 </IonLabel>
-                              </IonItem>
-                            </IonCol>
+                              </IonButton>
                           </IonRow>
                         </IonGrid>
-                      </IonList>
                     </IonContent>
                   </IonModal>
                 </IonCol>

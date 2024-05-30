@@ -12,9 +12,7 @@ import Otp from './pages/Otp'
 import Preferences from './pages/Preferences'
 import Profile from './pages/Profile'
 import UploadPhoto from './pages/UploadPhoto'
-import VoiceCommunication from './pages/VoiceCommunication'
 import Welcome from './pages/Welcome'
-
 
 export default function Routing() {
   return (
@@ -40,9 +38,6 @@ export default function Routing() {
         </Route>
         <Route exact path="/chat">
           <Chat />
-        </Route>
-        <Route exact path="/voicecommunication">
-          <VoiceCommunication />
         </Route>
         <Route exact path="/assessvoicecommunication">
           <AssessVoiceCommunication />

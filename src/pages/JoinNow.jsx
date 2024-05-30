@@ -66,13 +66,13 @@ const JoinNow = () => {
                       defaultCountry="US"
                       international
                       placeholder="000-000-0000"
-                      onChange={()=> ""}
+                      onChange={() => ""}
                     />
                     <Input
-                      className="outline-none bg-primaryBtn"
+                      className="outline-none bg-background"
                       placeholder="000-000-0000"
                       type="tel"
-                      onChange={()=> ""}
+                      onChange={() => ""}
                     />
                   </div>
                 </IonCol>

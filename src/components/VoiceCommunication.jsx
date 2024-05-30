@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   IonCol,
   IonContent,
@@ -8,22 +8,19 @@ import {
   IonPage,
   IonRow,
   IonText,
-  useIonRouter,
 } from "@ionic/react";
-import { close } from "ionicons/icons";
-import pauseicon from "../../public/assets/pause.svg";
+import { close, pause, play } from "ionicons/icons";
 import voiceicon from "../../public/assets/voice icon.svg";
 import { LiveAudioVisualizer } from "react-audio-visualize";
 import { useAudioRecorder } from "react-audio-voice-recorder";
-import playicon from "../../public/assets/play.svg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-function VoiceCommunication() {
-  const router = useIonRouter();
+function VoiceCommunication({ setIsCommunicationModal, setTranscribedText }) {
   const recorder = useAudioRecorder();
-  const { transcript, resetTranscript } = useSpeechRecognition();
+  const { transcript, resetTranscript, listening } = useSpeechRecognition();
+  const [text, setText] = useState("");
 
   useEffect(() => {
     recorder.startRecording();
@@ -31,16 +28,22 @@ function VoiceCommunication() {
     SpeechRecognition.startListening({ continuous: true });
   }, []);
 
-  const toggleRecorder = () => {
-    recorder.togglePauseResume();
+  const toggleRecorder = async () => {
+     recorder.togglePauseResume();
+    if (listening) {
+      await SpeechRecognition.stopListening();
+      setText((pre) => pre + " " + transcript);
+      resetTranscript();
+    } else {
+      SpeechRecognition.startListening({ continuous: true });
+    }
   };
 
-  const handleAssessvoice = () => {
+  const handleClose = () => {
+    setTranscribedText(text + " " + transcript);
     recorder.stopRecording();
-    router.push("/assessvoicecommunication");
-  };
-  const handleback = () => {
-    router.push("/chat");
+   SpeechRecognition.stopListening();
+    setIsCommunicationModal(false);
   };
 
   return (
@@ -50,7 +53,9 @@ function VoiceCommunication() {
           {recorder.mediaRecorder && (
             <div className="flex items-center flex-col gap-14">
               <IonText>
-                <h1 className="text-2xl">Please Speak</h1>
+                <h1 className="text-2xl">
+                  {recorder.isPaused ? "Paused" : "Please Speak"}
+                </h1>
               </IonText>
               <LiveAudioVisualizer
                 mediaRecorder={recorder.mediaRecorder}
@@ -62,12 +67,7 @@ function VoiceCommunication() {
           )}
         </div>
         <div className="text-center mx-5 leading-relaxed text-lg">
-          <p>{transcript}</p>
-          {/* <p>
-            Yeah, sure. So, I'm about 6 feet tall, got a medium build, kinda
-            average, I guess. My hair's dark brown, like really dark, almost
-            black. Eyes? They're hazel, you know, a mix of green and brown ...
-          </p> */}
+          <p>{recorder.isPaused ? text : text + " " + transcript}</p>
         </div>
       </IonContent>
       <IonFooter>
@@ -75,7 +75,7 @@ function VoiceCommunication() {
           <IonRow className="flex justify-around">
             <IonCol size="auto">
               <IonIcon
-                icon={recorder.isPaused ? playicon : pauseicon}
+                icon={recorder.isPaused ? play : pause}
                 onClick={toggleRecorder}
                 className=" m-2  p-4 rounded-full bg-pausebutton"
               />
@@ -86,7 +86,7 @@ function VoiceCommunication() {
             <IonCol size="auto">
               <IonIcon
                 icon={close}
-                onClick={handleAssessvoice}
+                onClick={handleClose}
                 className=" p-4 rounded-full bg-closeButton"
               />
             </IonCol>

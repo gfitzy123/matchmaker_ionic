@@ -41,16 +41,16 @@ function UploadPhoto() {
       <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton onClick={handleConfirm}>
-              <IonIcon icon={chevronBack} defaultHref="" />
+            <IonButton color="light" onClick={handleConfirm}>
+              <IonIcon  icon={chevronBack} defaultHref="" />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonGrid className="flex justify-center items-center h-full">
-          <IonRow className="ion-justify-content-center ion-align-items-center">
-            <div className="flex flex-col items-center gap-[120px] ">
+        <IonGrid className="flex justify-center items-center w-full h-full">
+          <IonRow className="ion-justify-content-center w-full ion-align-items-center">
+            <div className="flex flex-col w-full items-center gap-[120px] ">
               <div className="flex flex-col items-center">
                 <IonIcon
                   size="large"
@@ -61,34 +61,40 @@ function UploadPhoto() {
                   <h1 className="text-lg">Upload photo on your profile</h1>
                 </IonLabel>
               </div>
-              <div className="flex flex-col items-center gap-6">
-                <IonItem
-                  className="border border-bg-primary rounded-full w-72 text-center"
+              <IonList className="flex flex-col w-full p-4 items-center gap-6 bg-background">
+                <IonButton
+                  className="border border-light rounded-full w-full text-center"
                   lines="none"
                   button
+                  color="light"
+                  fill="clear"
                   detail={false}
                   onClick={handlewelcome}
                 >
                   <IonLabel>Take Photo</IonLabel>
-                </IonItem>
-                <IonItem
-                  className="border border-bg-primary rounded-full w-72 text-center"
+                </IonButton>
+                <IonButton
+                  className="border border-light rounded-full w-full text-center"
                   lines="none"
                   button
+                  color="light"
+                  fill="clear"
                   detail={false}
                 >
                   <IonLabel>Choose From Camera Roll</IonLabel>
-                </IonItem>
-                <IonItem
-                  className="border border-bg-primary rounded-full w-72"
+                </IonButton>
+                <IonButton
+                  className="border border-light rounded-full pr-9 w-full"
                   lines="none"
                   button
+                  color="light"
+                  fill="clear"
                   detail={false}
                 >
-                  <IonIcon className="mr-6 w-8 h-8" icon={Insta}></IonIcon>
+                  <IonIcon slot="start" className="mr-6 w-6 h-6" icon={Insta}></IonIcon>
                   <IonLabel>Use From Your Instagram</IonLabel>
-                </IonItem>
-              </div>
+                </IonButton>
+              </IonList>
             </div>
           </IonRow>
         </IonGrid>

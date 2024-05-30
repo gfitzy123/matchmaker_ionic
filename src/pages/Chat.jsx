@@ -15,6 +15,7 @@ import {
   IonRow,
   IonText,
   useIonRouter,
+  IonModal,
 } from "@ionic/react";
 import {
   arrowBackOutline,
@@ -33,14 +34,17 @@ import MatchedImages from "../components/MatchedImages";
 import NavBar from "../components/common/NavBar";
 import Slider from "../components/slider";
 import { messages as initialMessages } from "../data";
+import VoiceCommunication from "../components/VoiceCommunication";
+import voiceicon from "../../public/assets/voice icon.svg";
 
 const Chat = () => {
   const [messages, setMessages] = useState(initialMessages);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(3);
-  const router = useIonRouter();
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState(null);
+  const [isCommunicationModal, setIsCommunicationModal] = useState(false);
+  const [transcribedText, setTranscribedText] = useState("");
   const popoverRef = useRef(null);
   const [showMatchedImages, setShowMatchedImages] = useState(false);
 
@@ -86,9 +90,7 @@ const Chat = () => {
     setShowPopover(false);
   };
 
-  const handleVoice = () => {
-    router.push("/voicecommunication");
-  };
+  const handleVoice = () => {};
 
   return (
     <IonPage>
@@ -133,19 +135,24 @@ const Chat = () => {
                 {message.type === "user" && (
                   <IonLabel>
                     <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
-                      PERSONAL INFORMATION
+                      {transcribedText.length > 0
+                        ? "APPEARANCE AND HEALTH"
+                        : "PERSONAL INFORMATION"}
                     </h4>
                   </IonLabel>
                 )}
                 <IonGrid className="p-4">
-                  <IonRow className="flex gap-2">
+                  <IonRow className="flex gap-2 items-center">
                     <IonIcon
                       icon={person}
                       className="border rounded-full"
                     ></IonIcon>
-                    <IonText className="text-sm mb-2 text-textSecondary">
+                    <IonText className="text-sm text-center text-textSecondary">
                       <b>{message.type === "ai" ? "Matchmaker AI" : "You"}</b>
                     </IonText>
+                    {transcribedText.length > 0 && (
+                      <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
+                    )}
                   </IonRow>
                   <IonRow>
                     <IonCol>
@@ -153,10 +160,31 @@ const Chat = () => {
                         className="text-sm text-textSecondary"
                         onClick={message.type === "ai" ? handleLongPress : null}
                       >
-                        {message.text}
+                        {transcribedText.length > 0
+                          ? transcribedText
+                          : message.text}
                       </IonText>
                     </IonCol>
                   </IonRow>
+                  {transcribedText.length > 0 && (
+                    <IonRow className="flex flex-nowrap items-center mt-2 bg-pausebutton p-2">
+                      <IonCol size="auto">
+                        <IonText>
+                          <h4 className="mb-0">Assess voice communication</h4>
+                        </IonText>
+                      </IonCol>
+                      <IonCol size="auto">
+                        <IonRow className="flex items-center">
+                          <IonButton fill="clear" size="small" className="mr-2">
+                            <IonIcon icon={thumbsup} slot="icon-only" />
+                          </IonButton>
+                          <IonButton fill="clear" size="small">
+                            <IonIcon icon={thumbsdown} slot="icon-only" />
+                          </IonButton>
+                        </IonRow>
+                      </IonCol>
+                    </IonRow>
+                  )}
                 </IonGrid>
                 {message.type === "ai" && (
                   <>
@@ -189,23 +217,21 @@ const Chat = () => {
             <IonCol className="flex justify-center items-center">
               <IonInput
                 placeholder="Write a message..."
-                className="w-full text-white border bg-secondary rounded-full "
+                className="w-full text-white bg-secondary rounded-full "
                 value={inputValue}
                 onIonInput={handleInputChange}
               />
-              <IonCol>
+              <IonCol className="flex w-full h-full items-center">
                 {inputValue ? (
                   <IonIcon
-                    size="small"
-                    className="border p-2 rounded-full bg-primaryBtn"
+                    className="p-3 w-5 h-5 rounded-full bg-secondary"
                     icon={sender}
                     onClick={handleSend}
                   />
                 ) : (
                   <IonIcon
-                    size="small"
-                    onClick={handleVoice}
-                    className="border p-2 rounded-full bg-primaryBtn"
+                    onClick={() => setIsCommunicationModal(true)}
+                    className="p-3 w-5 h-5 rounded-full bg-secondary"
                     icon={message}
                   />
                 )}
@@ -247,6 +273,12 @@ const Chat = () => {
           </IonItem>
         </IonList>
       </IonPopover>
+      <IonModal isOpen={isCommunicationModal}>
+        <VoiceCommunication
+          setTranscribedText={setTranscribedText}
+          setIsCommunicationModal={setIsCommunicationModal}
+        />
+      </IonModal>
     </IonPage>
   );
 };

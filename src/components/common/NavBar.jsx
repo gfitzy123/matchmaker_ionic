@@ -76,7 +76,7 @@ function NavBar({ backbutton, vertical, title }) {
                 size="medium"
               />
             ) : (
-              <IonMenuButton />
+              <IonMenuButton color="light" />
             )}
             {vertical && !title && (
               <IonTitle>
@@ -117,7 +117,6 @@ function NavBar({ backbutton, vertical, title }) {
           </IonItem>
         </IonList>
       </IonPopover>
-
       <IonModal
         id="confirm-modal"
         isOpen={showModal}
@@ -158,7 +157,6 @@ function NavBar({ backbutton, vertical, title }) {
           </IonFooter>
         </IonContent>
       </IonModal>
-
       <IonMenu contentId="main-content">
         <IonHeader class="ion-no-border">
           <IonToolbar color="secondary" className="flex justify-between items-center">
@@ -192,7 +190,7 @@ function NavBar({ backbutton, vertical, title }) {
               <IonLabel>Support</IonLabel>
             </IonItem>
             <IonItem className="border-b mx-4 max-h-3 py-2 border-borderColor"></IonItem>
-            <IonItem onClick={handleprofile}>
+            <IonItem className="pt-2" onClick={handleprofile}>
               <IonIcon slot="start" icon={personImg} size="large" />
               <IonLabel>Devon Lane</IonLabel>
               <IonIcon
