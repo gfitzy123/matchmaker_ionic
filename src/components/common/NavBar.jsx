@@ -161,8 +161,8 @@ function NavBar({ backbutton, vertical, title }) {
 
       <IonMenu contentId="main-content">
         <IonHeader class="ion-no-border">
-          <IonToolbar className="flex justify-between items-center">
-            <div className="flex justify-between items-center px-8">
+          <IonToolbar color="secondary" className="flex justify-between items-center">
+            <div className="flex justify-between items-center px-8 pt-8">
               <Logo />
               <IonButtons slot="end">
                 <IonMenuToggle>
@@ -172,7 +172,7 @@ function NavBar({ backbutton, vertical, title }) {
             </div>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent color="secondary">
           <IonItem className=" border-b mx-8 max-h-1 border-borderColor"></IonItem>
           <IonList inset={true} lines="none">
             <IonItem>

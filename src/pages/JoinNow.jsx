@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   IonButton,
   IonCol,
@@ -8,13 +9,12 @@ import {
   IonText,
   useIonRouter,
 } from "@ionic/react";
-import { useState } from "react";
 import Logo from "../../public/assets/logo.svg";
 import PhoneInput from "react-phone-number-input";
+import Input from "react-phone-number-input/input";
 import "react-phone-number-input/style.css";
 
 const JoinNow = () => {
-  const [value, setValue] = useState();
   const router = useIonRouter();
 
   const handleotp = () => {
@@ -66,13 +66,13 @@ const JoinNow = () => {
                       defaultCountry="US"
                       international
                       placeholder="000-000-0000"
-                      value={value}
-                      onChange={setValue}
+                      onChange={()=> ""}
                     />
-                    <input
+                    <Input
                       className="outline-none bg-primaryBtn"
                       placeholder="000-000-0000"
                       type="tel"
+                      onChange={()=> ""}
                     />
                   </div>
                 </IonCol>

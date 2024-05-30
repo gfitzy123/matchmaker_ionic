@@ -176,9 +176,9 @@ const Chat = () => {
         <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
           <IonRow className="flex items-center gap-3 w-full">
             <IonCol className="flex justify-center items-center">
-              <IonInput
+              <IonInput 
                 placeholder="Write a message..."
-                className="w-full text-white border rounded-full "
+                className="w-full text-white border bg-secondary rounded-full "
                 value={inputValue}
                 onIonInput={handleInputChange}
               />
