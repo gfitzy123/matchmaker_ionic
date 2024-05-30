@@ -106,3 +106,7 @@ ion-modal#confirm-modal::part(backdrop) {
   width: 35px;
   pointer-events: none;
 }
+.swiper-pagination-bullet-active {
+  width:  24px;
+  border-radius:  20%;
+}

@@ -4,6 +4,7 @@ import {
   IonContent,
   IonGrid,
   IonIcon,
+  IonImg,
   IonInput,
   IonItem,
   IonLabel,
@@ -12,9 +13,8 @@ import {
   IonPopover,
   IonProgressBar,
   IonRow,
-  useIonRouter,
-  IonImg,
   IonText,
+  useIonRouter,
 } from "@ionic/react";
 import {
   arrowBackOutline,
@@ -23,12 +23,13 @@ import {
   volumeMediumOutline,
 } from "ionicons/icons";
 import { useRef, useState } from "react";
+import "tailwindcss/tailwind.css";
 import SelectionPlus from "../../public/assets/SelectionPlus.svg";
 import message from "../../public/assets/msg.svg";
 import sender from "../../public/assets/sender.svg";
 import thumbsdown from "../../public/assets/thumb down.svg";
 import thumbsup from "../../public/assets/thumb up.svg";
-import "tailwindcss/tailwind.css";
+import MatchedImages from "../components/MatchedImages";
 import NavBar from "../components/common/NavBar";
 import Slider from "../components/slider";
 import { messages as initialMessages } from "../data";
@@ -41,6 +42,11 @@ const Chat = () => {
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState(null);
   const popoverRef = useRef(null);
+  const [showMatchedImages, setShowMatchedImages] = useState(false);
+
+  const handleSeeMoreClick = () => {
+    setShowMatchedImages(true);
+  };
 
   const handleSend = () => {
     if (inputValue.trim()) {
@@ -163,9 +169,14 @@ const Chat = () => {
                       </IonButton>
                     </IonRow>
                     <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
-                      <div className="w-[200%]">
-                        <Slider />
+                      <div
+                        className={`w-[200%] ${
+                          showMatchedImages ? "hidden" : ""
+                        }`}
+                      >
+                        <Slider handleClick={handleSeeMoreClick} />
                       </div>
+                      {showMatchedImages && <MatchedImages />}
                     </div>
                   </>
                 )}
@@ -176,7 +187,7 @@ const Chat = () => {
         <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
           <IonRow className="flex items-center gap-3 w-full">
             <IonCol className="flex justify-center items-center">
-              <IonInput 
+              <IonInput
                 placeholder="Write a message..."
                 className="w-full text-white border bg-secondary rounded-full "
                 value={inputValue}

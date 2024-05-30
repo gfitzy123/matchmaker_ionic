@@ -97,7 +97,7 @@ function NavBar({ backbutton, vertical, title }) {
           </IonRow>
         </IonToolbar>
       </IonHeader>
-      <IonPopover trigger="bottom-start" side="bottom" alignment="start">
+      <IonPopover className="border-0" trigger="bottom-start" side="bottom" alignment="start">
         <IonList>
           <IonItem>
             <IonIcon
@@ -175,7 +175,7 @@ function NavBar({ backbutton, vertical, title }) {
         <IonContent color="secondary">
           <IonItem className=" border-b mx-8 max-h-1 border-borderColor"></IonItem>
           <IonList inset={true} lines="none">
-            <IonItem>
+            <IonItem onClick={handlechat}>
               <IonIcon slot="start" icon={chat} size="medium" />
               <IonLabel>Chat with AI</IonLabel>
             </IonItem>

@@ -13,8 +13,13 @@ export const messages = [
 
 export const IMAGE_URLS = Array.from(
   { length: 5 },
-  (_, index) => `https://picsum.photos/300/300?random=${index}`
+  (_, index) => ({
+    url: `https://picsum.photos/300/300?random=${index}`,
+    name: `Name ${index + 1}`,
+    details: `${20 + index} years • City ${index + 1}`,
+  })
 );
+
 
 export const itemData = [
   { label: 'Dating Intentions', value: 'Relationship' },

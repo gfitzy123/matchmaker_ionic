@@ -1,20 +1,19 @@
 import { IonContent, IonPage } from '@ionic/react'
 import { Redirect, Route } from 'react-router'
-import Landing from './components/landingpage'
 import AccountSetup from './pages/AccountSetup'
 import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
 import Chat from './pages/Chat'
+import EditAppearanceHealth from './pages/EditAppearanceHealth'
+import EditCareer from './pages/EditCareer'
+import EditHobbies from './pages/EditHobbies'
 import EditPersonalInfo from './pages/EditPersonalInfo'
 import Home from './pages/Home'
 import Otp from './pages/Otp'
+import Preferences from './pages/Preferences'
 import Profile from './pages/Profile'
 import UploadPhoto from './pages/UploadPhoto'
 import VoiceCommunication from './pages/VoiceCommunication'
 import Welcome from './pages/Welcome'
-import EditAppearanceHealth from './pages/EditAppearanceHealth'
-import EditHobbies from './pages/EditHobbies'
-import EditCareer from './pages/EditCareer'
-import Preferences from './pages/Preferences'
 
 
 export default function Routing() {
@@ -26,9 +25,6 @@ export default function Routing() {
         </Route>
         <Route exact path="/">
           <Redirect to="/joinnow" />
-        </Route>
-        <Route exact path="/landingpage">
-          <Landing />
         </Route>
         <Route exact path="/accountsetup">
           <AccountSetup />
