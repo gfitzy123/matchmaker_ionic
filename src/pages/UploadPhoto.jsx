@@ -19,6 +19,7 @@ import { chevronBack } from "ionicons/icons";
 import profile from "../../public/assets/UserSquare.svg";
 import Insta from "../../public/assets/insta.svg";
 import { useRef, useState } from "react";
+import { Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 
 function UploadPhoto() {
   const modal = useRef(null);
@@ -35,6 +36,23 @@ function UploadPhoto() {
   function handleCloseModal() {
     setShowModal(false);
   }
+  const handleCamera = async() => {
+    await Camera.getPhoto({
+     quality: 100,
+     allowEditing: true,
+     resultType: CameraResultType.DataUrl,
+     saveToGallery: true,
+     source: CameraSource.Camera
+    });
+   };
+   const handlePhoto = async() => {
+    await Camera.getPhoto({
+     quality: 100,
+     allowEditing: false,
+     resultType: CameraResultType.DataUrl,
+     source: CameraSource.Photos
+    });
+   };
 
   return (
     <IonPage>
@@ -69,7 +87,7 @@ function UploadPhoto() {
                   color="light"
                   fill="clear"
                   detail={false}
-                  onClick={handlewelcome}
+                  onClick={handleCamera}
                 >
                   <IonLabel>Take Photo</IonLabel>
                 </IonButton>
@@ -80,6 +98,7 @@ function UploadPhoto() {
                   color="light"
                   fill="clear"
                   detail={false}
+                  onClick={handlePhoto}
                 >
                   <IonLabel>Choose From Camera Roll</IonLabel>
                 </IonButton>
@@ -90,6 +109,7 @@ function UploadPhoto() {
                   color="light"
                   fill="clear"
                   detail={false}
+                  onClick={handlewelcome}
                 >
                   <IonIcon slot="start" className="mr-6 w-6 h-6" icon={Insta}></IonIcon>
                   <IonLabel>Use From Your Instagram</IonLabel>

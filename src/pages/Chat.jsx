@@ -135,7 +135,7 @@ const Chat = () => {
                 {message.type === "user" && (
                   <IonLabel>
                     <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
-                      {transcribedText.length > 0
+                      {transcribedText.length > 1
                         ? "APPEARANCE AND HEALTH"
                         : "PERSONAL INFORMATION"}
                     </h4>
@@ -150,7 +150,7 @@ const Chat = () => {
                     <IonText className="text-sm text-center text-textSecondary">
                       <b>{message.type === "ai" ? "Matchmaker AI" : "You"}</b>
                     </IonText>
-                    {transcribedText.length > 0 && (
+                    {transcribedText.length > 1 && (
                       <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
                     )}
                   </IonRow>
@@ -160,13 +160,13 @@ const Chat = () => {
                         className="text-sm text-textSecondary"
                         onClick={message.type === "ai" ? handleLongPress : null}
                       >
-                        {transcribedText.length > 0
+                        {transcribedText.length > 1
                           ? transcribedText
                           : message.text}
                       </IonText>
                     </IonCol>
                   </IonRow>
-                  {transcribedText.length > 0 && (
+                  {transcribedText.length > 1 && (
                     <IonRow className="flex flex-nowrap items-center mt-2 bg-pausebutton p-2">
                       <IonCol size="auto">
                         <IonText>
