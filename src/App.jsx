@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import 'regenerator-runtime/runtime';
+import { useState, useEffect } from "react";
+import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
+import "regenerator-runtime/runtime";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -24,6 +24,7 @@ import { setupConfig } from "@ionic/core";
 import Routing from "./Routing";
 import "./theme/tailwind.css";
 import "./theme/variables.css";
+import { HomeProvider } from "./context/Home";
 
 setupConfig({
   mode: "ios", // or 'md' for Material Design
@@ -32,7 +33,7 @@ setupConfig({
 setupIonicReact();
 
 const App = () => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   const handleTheme = (value) => {
     setTheme(value);
@@ -49,7 +50,9 @@ const App = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Routing />
+          <HomeProvider>
+            <Routing />
+          </HomeProvider>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

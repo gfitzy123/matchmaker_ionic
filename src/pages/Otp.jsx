@@ -9,11 +9,11 @@ import {
   IonInput,
   IonItem,
   IonLabel,
-  IonList,
   IonModal,
   IonPage,
   IonRow,
   IonText,
+  IonToast,
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
@@ -21,15 +21,19 @@ import { chevronBack, closeOutline } from "ionicons/icons";
 import { useRef, useState } from "react";
 import Group from "../../public/assets/Group 1000001992.svg";
 import brand from "../../public/assets/bg.svg";
+import { useHomeContext } from "../context/Home";
+
 function Otp() {
   const inputRefs = useRef([]);
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
   const router = useIonRouter();
-
-  function handleOpenModal() {
-    setShowModal(true);
-  }
+  const [inputOtp, setInputOtp] = useState("");
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+  });
+  const { opt } = useHomeContext();
 
   function handleCloseModal() {
     setShowModal(false);
@@ -39,21 +43,78 @@ function Otp() {
     handleCloseModal();
     router.push("/accountsetup");
   };
+
   const handleInputChange = (index, event) => {
     const { value } = event.target;
     if (value.length === 1 && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].setFocus();
     }
+    setInputOtp((prevOtp) => prevOtp + value);
   };
 
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace" && !event.target.value && index > 0) {
       inputRefs.current[index - 1].setFocus();
+      setInputOtp((prevOtp) => prevOtp.slice(0, -1));
     }
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("handleSubmit", inputOtp);
+    console.log("handleSubmit", opt);
+
+    if (opt) {
+      try {
+        let confirmResult = opt;
+        confirmResult
+          .confirm(inputOtp)
+          .then(async (result) => {
+            setToast({
+              show: true,
+              message: "Phone Verified Successfully",
+            });
+            const user = result.user;
+            const userDoc = doc(db, "Users", user.uid);
+            const userDocData = await getDoc(userDoc);
+            console.log("userDocData", userDocData.exists());
+            setShowModal(true);
+
+            if (userDocData.exists()) {
+              router.push("/chat");
+            } else {
+            }
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("otp_Error", errorCode, errorMessage);
+            if (errorCode === "auth/invalid-verification-code") {
+              setToast({
+                show: true,
+                message: "Error verifying OTP",
+              });
+            } else {
+              setToast({
+                show: true,
+                message: "Phone Verification Failed",
+              });
+            }
+          });
+      } catch (e) {
+        console.log("verifyOTP_Error", e);
+      }
+    }
+  };
+  const handleClearOtp = () => {
+    setInputOtp("");
+    inputRefs.current.forEach((inputRef) => (inputRef.value = ""));
+  };
+
   const handleBackButtonClick = () => {
     router.push("/joinnow");
   };
+
   return (
     <>
       <IonPage>
@@ -84,7 +145,7 @@ function Otp() {
                     {[...Array(6)].map((_, index) => (
                       <IonRow key={index}>
                         <IonInput
-                        type="tel"
+                          type="tel"
                           maxlength={1}
                           className=" border-b border-gray-600 text-white w-10 text-center items-center"
                           ref={(inputElement) =>
@@ -97,6 +158,7 @@ function Otp() {
                     ))}
                   </div>
                   <IonIcon
+                    onClick={handleClearOtp}
                     className=" w-[22px] h-[22px]"
                     icon={closeOutline}
                   ></IonIcon>
@@ -114,7 +176,7 @@ function Otp() {
               <IonRow className="w-full max-w-xs mx-auto ">
                 <IonCol>
                   <IonButton
-                    onClick={handleOpenModal}
+                    onClick={handleSubmit}
                     className="mt-8 bg-secondary w-full"
                   >
                     SUBMIT
@@ -134,51 +196,62 @@ function Otp() {
                       </IonButtons>
                     </IonToolbar>
                     <IonContent color="secondary">
-                        <IonGrid className="flex flex-col w-full h-full px-8 justify-around items-center">
-                          <IonRow >
-                              <IonItem lines="none">
-                                <IonIcon
-                                  size="large"
-                                  icon={Group}
-                                  className="w-24 h-12"
-                                />
-                              </IonItem>
-                          </IonRow>
-                          <IonRow>
-                              <IonItem lines="none">
-                                <IonLabel className="text-2xl w-full text-center">
-                                  <h1>
-                                    The Matchmaker AI has partnered with{" "}
-                                    <b>Veriff</b> to verify your income
-                                  </h1>
-                                </IonLabel>
-                              </IonItem>
-                          </IonRow>
-                          <IonRow className="w-full">
-                              <IonButton
-                                className="border border-light text-light rounded-full w-full"
-                                lines="none"
-                                fill="clear"
-                                detail={false}
-                                onClick={handleConfirm}
-                              >
-                                <IonIcon
-                                  className="mr-6 w-8 h-8"
-                                  icon={brand}
-                                ></IonIcon>
+                      <IonGrid className="flex flex-col w-full h-full px-8 justify-around items-center">
+                        <IonRow>
+                          <IonItem lines="none">
+                            <IonIcon
+                              size="large"
+                              icon={Group}
+                              className="w-24 h-12"
+                            />
+                          </IonItem>
+                        </IonRow>
+                        <IonRow>
+                          <IonItem lines="none">
+                            <IonLabel className="text-2xl w-full text-center">
+                              <h1>
+                                The Matchmaker AI has partnered with{" "}
+                                <b>Veriff</b> to verify your income
+                              </h1>
+                            </IonLabel>
+                          </IonItem>
+                        </IonRow>
+                        <IonRow className="w-full">
+                          <IonButton
+                            className="border border-light text-light rounded-full w-full"
+                            lines="none"
+                            fill="clear"
+                            detail={false}
+                            onClick={handleConfirm}
+                          >
+                            <IonIcon
+                              className="mr-6 w-8 h-8"
+                              icon={brand}
+                            ></IonIcon>
 
-                                <IonLabel>
-                                  <b>Continue with Veriff</b>{" "}
-                                </IonLabel>
-                              </IonButton>
-                          </IonRow>
-                        </IonGrid>
+                            <IonLabel>
+                              <b>Continue with Veriff</b>{" "}
+                            </IonLabel>
+                          </IonButton>
+                        </IonRow>
+                      </IonGrid>
                     </IonContent>
                   </IonModal>
                 </IonCol>
               </IonRow>
             </IonGrid>
           </div>
+          <IonToast
+            isOpen={toast.show}
+            onDidDismiss={() =>
+              setToast({
+                show: false,
+                message: "",
+              })
+            }
+            message={toast.message}
+            duration={2000}
+          />
         </IonContent>
       </IonPage>
     </>

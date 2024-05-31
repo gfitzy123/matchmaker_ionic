@@ -19,17 +19,13 @@ function MatchedImages() {
     <div className="flex flex-col gap-4 ">
       <SwipImage
         images={IMAGE_URLS}
-        showHeart={true}
+        showHeart={false}
         showName={true}
         showDetails={true}
-        showClose={true}
+        showClose={false}
         likeData={{ likedImages, toggleHeart }}
-        swiperConfig={{
-          slidesPerView: 1.1,
-          centeredSlides: true,
-          spaceBetween: 16,
-        }}
-        // direction="vertical"
+     
+     
       />
       <div className="flex gap-4 w-full">
         <IonButton

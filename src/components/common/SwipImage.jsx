@@ -31,11 +31,32 @@ function SwipImage({
   swiperConfig = {},
 }) {
   const { likedImages = [], toggleHeart = () => {} } = likeData;
+  
+  const defaultSwiperConfig = {
+    horizontal: {
+      slidesPerView: 1.2,
+      centeredSlides: false,
+      spaceBetween: 16,
+    },
+    vertical: {
+      slidesPerView: 10,
+      centeredSlides: false,
+      spaceBetween: 16,
+    },
+    default: {
+      slidesPerView: 1,
+      centeredSlides: false,
+      spaceBetween: 0,
+    }
+  };
+
+  const direction = swiperConfig.direction;
+  const currentConfig = defaultSwiperConfig[direction] || defaultSwiperConfig.default;
+
   const {
-    slidesPerView = 1,
-    centeredSlides = false,
-    spaceBetween = 50,
-    direction,
+    slidesPerView = currentConfig.slidesPerView,
+    centeredSlides = currentConfig.centeredSlides,
+    spaceBetween = currentConfig.spaceBetween,
   } = swiperConfig;
 
   const modules = [Autoplay, Keyboard, Navigation, Scrollbar, Zoom, A11y];
@@ -52,7 +73,7 @@ function SwipImage({
       spaceBetween={spaceBetween}
       navigation
       pagination={{ clickable: true }}
-      className={`w-full  ${showName && "rounded-lg"}`}
+     className={`w-full ${direction==='vertical' && 'h-[400px]'} ${direction==='horizontal' && "rounded-lg"}`}
     >
       {images.map((image, index) => (
         <SwiperSlide key={index}>

@@ -24,7 +24,7 @@ const Slider = ({handleClick}) => {
             <img className="min-w-4 min-h-4" src={`https://picsum.photos/30/30?random=${index}`} alt="avatar" />
           </IonAvatar>
         ))}
-        <IonButton fill="clear" className="w-full text-nowrap text-right text-light border rounded-2xl border-light text-sm leading-4" shape="round" onClick={() => ""}>
+        <IonButton fill="clear" className="w-full text-nowrap text-right text-light border rounded-2xl border-light text-sm leading-4" shape="round" onClick={handleClick}>
           <span className="mr-1 text-nowrap">See All</span> <img src="ArrowRight.svg" alt="" />
         </IonButton>
       </IonList>
