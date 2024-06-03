@@ -22,6 +22,8 @@ import { useRef, useState } from "react";
 import Group from "../../public/assets/Group 1000001992.svg";
 import brand from "../../public/assets/bg.svg";
 import { useHomeContext } from "../context/Home";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 function Otp() {
   const inputRefs = useRef([]);
