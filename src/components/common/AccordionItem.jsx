@@ -1,7 +1,7 @@
 import { IonAccordion, IonAccordionGroup, IonButton, IonChip, IonCol, IonIcon, IonItem, IonLabel, IonRow, useIonRouter } from '@ionic/react'
 import React, { useEffect, useRef } from 'react'
 import { ACCORDION_DATA } from '../../data'
-import { caretDown, checkbox } from 'ionicons/icons'
+import { chevronDownOutline, checkmarkOutline } from 'ionicons/icons'
 
 function AccordionItem() {
   const router = useIonRouter();
@@ -30,7 +30,7 @@ function AccordionItem() {
     {ACCORDION_DATA.map((section) => (
       <IonAccordion
         key={section.value}
-        toggleIcon={caretDown}
+        toggleIcon={chevronDownOutline}
         toggleIconSlot="start"
         value={section.value}
       >
@@ -47,22 +47,22 @@ function AccordionItem() {
         <IonCol className="flex flex-col gap-4 px-4" slot="content">
           {section.content.map((item, index) => (
             <IonRow
-              className={`flex pl-4 ${
+              className={`flex items-center ${
                 item.isIcon ? "justify-between" : ""
               }`}
               key={index}
             >
               <IonLabel
-                className={item.label.length > 16 ? "w-full" : "w-2/4"}
+                className={`${item.label.length > 16 ? "w-full" : "w-1/4"} text-xs text-textSecondary`}
               >
                 {item.label}:
               </IonLabel>
               {item.isIcon ? (
-                <IonIcon className="w-8 h-8" icon={checkbox}></IonIcon>
+                <IonIcon color='primary' className="w-6 h-6 px-2" icon={checkmarkOutline}></IonIcon>
               ) : item.isChip ? (
                 <IonRow className="w-full">
                   {item.value.map((chip, chipIndex) => (
-                    <IonChip key={chipIndex} className="bg-secondary">
+                    <IonChip key={chipIndex} className="bg-secondary text-light">
                       {chip}
                     </IonChip>
                   ))}

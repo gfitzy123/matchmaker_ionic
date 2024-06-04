@@ -136,17 +136,17 @@ const Chat = () => {
                 <IonImg
                   src={person}
                   alt="User 1"
-                  className="w-6 h-6 rounded-full border-2"
+                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
                 />
                 <IonImg
                   src={person}
                   alt="User 2"
-                  className="w-6 h-6 rounded-full border-2"
+                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
                 />
                 <IonImg
                   src={person}
                   alt="User 3"
-                  className="w-6 h-6 rounded-full border-2"
+                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
                 />
                 <IonText>120 matches</IonText>
               </div>

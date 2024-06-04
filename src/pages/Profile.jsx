@@ -28,8 +28,8 @@ const Profile = () => {
         upload={true}
         pagination={true}
       />
-          <div className="relative pl-4 w-full">
-            <div className="absolute w-1/4  right-3  bottom-9 z-10">
+          <div className="relative px-4 w-full flex flex-col gap-3">
+            <div className="absolute right-4 bottom-12 z-10">
               <IonIcon
                 size="large"
                 className="p-3 rounded-full bg-secondary"
@@ -43,7 +43,9 @@ const Profile = () => {
             <IonProgressBar value={0.8} />
           </div>
         </div>
+        <div className="py-10">
         <AccordionItem />
+        </div>
       </IonContent>
     </IonPage>
   );
