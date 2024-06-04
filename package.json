@@ -15,10 +15,11 @@
     "start:dev": "yarn watch:css & ionic capacitor run ios -l --external"
   },
   "dependencies": {
+    "@capacitor-community/speech-recognition": "^5.1.0",
     "@capacitor/android": "6.0.0",
     "@capacitor/app": "6.0.0",
     "@capacitor/camera": "^6.0.0",
-    "@capacitor/core": "6.0.0",
+    "@capacitor/core": "^6.0.0",
     "@capacitor/haptics": "6.0.0",
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/status-bar": "6.0.0",
@@ -45,7 +46,7 @@
     "swiper": "^11.1.3"
   },
   "devDependencies": {
-    "@capacitor/cli": "6.0.0",
+    "@capacitor/cli": "^6.0.0",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",

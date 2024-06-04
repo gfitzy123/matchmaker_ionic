@@ -21,7 +21,6 @@ import Logo from "../../public/assets/logo.svg";
 import { authentication } from "../config/firebase";
 import { useHomeContext } from "../context/Home";
 
-
 const JoinNow = () => {
   const router = useIonRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -68,7 +67,6 @@ const JoinNow = () => {
   const handleInput = (value) => {
     setPhoneNumber(value);
   };
-
 
   return (
     <IonPage>

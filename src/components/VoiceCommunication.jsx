@@ -13,36 +13,67 @@ import { close, pause, play } from "ionicons/icons";
 import voiceicon from "../../public/assets/voice icon.svg";
 import { LiveAudioVisualizer } from "react-audio-visualize";
 import { useAudioRecorder } from "react-audio-voice-recorder";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 
 function VoiceCommunication({ setIsCommunicationModal, setTranscribedText }) {
   const recorder = useAudioRecorder();
-  const { transcript, resetTranscript, listening } = useSpeechRecognition();
   const [text, setText] = useState("");
+  const [listening, setListening] = useState(false);
 
   useEffect(() => {
-    recorder.startRecording();
-    resetTranscript();
-    SpeechRecognition.startListening({ continuous: true });
+    const startRecording = async () => {
+      startListening();
+      recorder.startRecording();
+    };
+    startRecording();
   }, []);
 
+  const startListening = async () => {
+    const { available } = await SpeechRecognition.available();
+    await SpeechRecognition.requestPermissions();
+    try {
+      if (available) {
+        await SpeechRecognition.start({
+          language: "en-US",
+          partialResults: true,
+          popup: false,
+        });
+
+        SpeechRecognition.addListener("partialResults", (data) => {
+          if (data.matches && data.matches.length > 0) {
+            setText(data.matches[0]);
+          }
+        });
+
+        setListening(true);
+      }
+    } catch (error) {
+      console.error("Error starting speech recognition:", error);
+    }
+  };
+
+  const stopListening = async () => {
+    try {
+      await SpeechRecognition.stop();
+      setListening(false);
+    } catch (error) {
+      console.error("Error stopping speech recognition:", error);
+    }
+  };
+
   const toggleRecorder = async () => {
-     recorder.togglePauseResume();
+    recorder.togglePauseResume();
     if (listening) {
-      await SpeechRecognition.stopListening();
-      setText((pre) => pre + " " + transcript);
-      resetTranscript();
+      await stopListening();
     } else {
-      SpeechRecognition.startListening({ continuous: true });
+      await startListening();
     }
   };
 
   const handleClose = () => {
-    setTranscribedText(text + " " + transcript);
+    setTranscribedText((prevText) => prevText + " " + text);
     recorder.stopRecording();
-   SpeechRecognition.stopListening();
+    stopListening();
     setIsCommunicationModal(false);
   };
 
@@ -50,6 +81,9 @@ function VoiceCommunication({ setIsCommunicationModal, setTranscribedText }) {
     <IonPage>
       <IonContent className="flex flex-col items-center justify-around bg-black text-white h-full p-0">
         <div className="flex flex-col justify-center items-center h-1/2 mb-5">
+        <div className="text-center mx-5 leading-relaxed text-lg">
+          <p>{text}</p>
+        </div>
           {recorder.mediaRecorder && (
             <div className="flex items-center flex-col gap-14">
               <IonText>
@@ -66,9 +100,7 @@ function VoiceCommunication({ setIsCommunicationModal, setTranscribedText }) {
             </div>
           )}
         </div>
-        <div className="text-center mx-5 leading-relaxed text-lg">
-          <p>{recorder.isPaused ? text : text + " " + transcript}</p>
-        </div>
+
       </IonContent>
       <IonFooter>
         <IonGrid>
