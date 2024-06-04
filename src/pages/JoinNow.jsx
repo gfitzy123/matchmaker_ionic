@@ -20,31 +20,37 @@ import "react-phone-number-input/style.css";
 import Logo from "../../public/assets/logo.svg";
 import { authentication } from "../config/firebase";
 import { useHomeContext } from "../context/Home";
+import {
+  parsePhoneNumber,
+  getCountryCallingCode
+} from "react-phone-number-input";
 
 const JoinNow = () => {
   const router = useIonRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
   const recaptchaRef = React.createRef();
-  const {setOpt} =useHomeContext();
+  const { setOpt } = useHomeContext();
+  const [countryCode, setCountryCode] = useState("US");
 
   const generatorRecaptcha = () => {
-    (window ).recaptchaVerifier = new RecaptchaVerifier(authentication,
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      authentication,
       "recaptcha-container",
       {
-				size: "invisible",
-				callback: async (response) => {
-					// Reset the reCAPTCHA after 500ms
-					console.log("response", response);
-					setTimeout(() => {
-						console.log("recaptchaRef", recaptchaRef);
+        size: "invisible",
+        callback: async (response) => {
+          // Reset the reCAPTCHA after 500ms
+          console.log("response", response);
+          setTimeout(() => {
+            console.log("recaptchaRef", recaptchaRef);
 
-						const ref = recaptchaRef.current; 
-						if (ref) {
-							ref.reset();
-						}
-					}, 500);
-				},
-			},
+            const ref = recaptchaRef.current;
+            if (ref) {
+              ref.reset();
+            }
+          }, 500);
+        },
+      }
     );
   };
 
@@ -53,11 +59,15 @@ const JoinNow = () => {
 
     generatorRecaptcha();
 
-    let appVerifier = (window).recaptchaVerifier;
+    let appVerifier = window.recaptchaVerifier;
     try {
-      const result = await signInWithPhoneNumber(getAuth(), phoneNumber, appVerifier);
+      const result = await signInWithPhoneNumber(
+        getAuth(),
+        phoneNumber,
+        appVerifier
+      );
       console.log("signInWithPhoneNumber: result", result);
-      setOpt(result)
+      setOpt(result);
       router.push("/otp");
     } catch (error) {
       console.log("loginWithPhoneNumber_Error", error);
@@ -66,6 +76,14 @@ const JoinNow = () => {
 
   const handleInput = (value) => {
     setPhoneNumber(value);
+    if (value) {
+      const callingCode = getCountryCallingCode(countryCode);
+      if (!new RegExp(`^\\+${callingCode}$`).test(value)) {
+        const phoneNumber = parsePhoneNumber(value)
+        if(phoneNumber?.country){
+          setCountryCode(phoneNumber.country)          
+        }
+      }}
   };
 
   return (
@@ -110,20 +128,21 @@ const JoinNow = () => {
                     <PhoneInput
                       initialValueFormat="national"
                       countryCallingCodeEditable={false}
-                      defaultCountry="US"
+                      onCountryChange={(e) => setCountryCode(e)}
+                      defaultCountry={countryCode}
                       international
-                      placeholder="000-000-0000"
-                      onChange={()=>""}
+                      onChange={() => ""}
                     />
                     <Input
                       className="outline-none bg-background"
                       placeholder="000-000-0000"
                       type="tel"
+                      defaultCountry={countryCode}
                       value={phoneNumber}
                       onChange={handleInput}
                     />
                   </div>
-                    <div id="recaptcha-container"></div>
+                  <div id="recaptcha-container"></div>
                 </IonCol>
               </IonRow>
             </div>
@@ -132,7 +151,7 @@ const JoinNow = () => {
             <IonCol>
               <IonButton
                 className="mt-8 bg-secondary w-full"
-                onClick={(e)=>handlePhoneNumberLogin(e)}
+                onClick={(e) => handlePhoneNumberLogin(e)}
               >
                 CONTINUE
               </IonButton>
