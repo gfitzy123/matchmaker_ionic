@@ -110,3 +110,7 @@ ion-modal#confirm-modal::part(backdrop) {
   width:  24px;
   border-radius:  20%;
 }
+.veriff-description {
+  color: #ffffff !important;
+
+}

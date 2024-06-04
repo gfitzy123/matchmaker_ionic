@@ -17,19 +17,21 @@ import {
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
+import { doc, getDoc } from "firebase/firestore";
 import { chevronBack, closeOutline } from "ionicons/icons";
 import { useRef, useState } from "react";
+import { useHistory } from "react-router";
 import Group from "../../public/assets/Group 1000001992.svg";
 import brand from "../../public/assets/bg.svg";
-import { useHomeContext } from "../context/Home";
-import { doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { useHomeContext } from "../context/Home";
 
 function Otp() {
   const inputRefs = useRef([]);
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
   const router = useIonRouter();
+  const history = useHistory();
   const [inputOtp, setInputOtp] = useState("");
   const [toast, setToast] = useState({
     show: false,
@@ -43,7 +45,7 @@ function Otp() {
 
   const handleConfirm = () => {
     handleCloseModal();
-    router.push("/accountsetup");
+    router.push("/identity");
   };
 
   const handleInputChange = (index, event) => {
@@ -69,6 +71,7 @@ function Otp() {
     if (opt) {
       try {
         let confirmResult = opt;
+        console.log("confirmResult", confirmResult);
         confirmResult
           .confirm(inputOtp)
           .then(async (result) => {
@@ -78,6 +81,8 @@ function Otp() {
             });
             const user = result.user;
             const userDoc = doc(db, "Users", user.uid);
+            console.log("userDoc", userDoc);
+            console.log(user.uid);
             const userDocData = await getDoc(userDoc);
             console.log("userDocData", userDocData.exists());
             setShowModal(true);
@@ -85,6 +90,14 @@ function Otp() {
             if (userDocData.exists()) {
               router.push("/chat");
             } else {
+              setTimeout(() => {
+                history.push("/identity", {
+                  state: {
+                    email: user?.email,
+                    uid: user?.uid,
+                  },
+                });
+              }, 1000);
             }
           })
           .catch((error) => {

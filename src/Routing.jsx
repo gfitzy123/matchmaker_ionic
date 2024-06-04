@@ -1,18 +1,20 @@
-import { IonContent, IonPage } from '@ionic/react'
-import { Redirect, Route } from 'react-router'
-import AccountSetup from './pages/AccountSetup'
-import AssessVoiceCommunication from './pages/AssessVoiceCommunication'
-import Chat from './pages/Chat'
-import EditAppearanceHealth from './pages/EditAppearanceHealth'
-import EditCareer from './pages/EditCareer'
-import EditHobbies from './pages/EditHobbies'
-import EditPersonalInfo from './pages/EditPersonalInfo'
-import Home from './pages/Home'
-import Otp from './pages/Otp'
-import Preferences from './pages/Preferences'
-import Profile from './pages/Profile'
-import UploadPhoto from './pages/UploadPhoto'
-import Welcome from './pages/Welcome'
+import { IonContent, IonPage } from "@ionic/react";
+import { Redirect, Route } from "react-router";
+import AccountSetup from "./pages/AccountSetup";
+import AssessVoiceCommunication from "./pages/AssessVoiceCommunication";
+import Chat from "./pages/Chat/Chat";
+import EditAppearanceHealth from "./pages/EditAppearanceHealth";
+import EditCareer from "./pages/EditCareer";
+import EditHobbies from "./pages/EditHobbies";
+import EditPersonalInfo from "./pages/EditPersonalInfo";
+import Home from "./pages/Home";
+import IdentityVerification from "./pages/IdentityVerification";
+import Otp from "./pages/Otp";
+import Plaid from "./pages/Plaid";
+import Preferences from "./pages/Preferences";
+import Profile from "./pages/Profile";
+import UploadPhoto from "./pages/UploadPhoto";
+import Welcome from "./pages/Welcome";
 
 export default function Routing() {
   return (
@@ -58,9 +60,15 @@ export default function Routing() {
           <EditCareer />
         </Route>
         <Route exact path="/preferences">
-          <Preferences/>
+          <Preferences />
         </Route>
-        </IonContent>
-  </IonPage>
-  )
+        <Route exact path="/identity">
+          <IdentityVerification />
+        </Route>
+        <Route exact path="/plaid">
+          <Plaid />
+        </Route>
+      </IonContent>
+    </IonPage>
+  );
 }

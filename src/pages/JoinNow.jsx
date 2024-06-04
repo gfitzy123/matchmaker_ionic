@@ -14,16 +14,15 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import React, { useState } from "react";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, {
+  getCountryCallingCode,
+  parsePhoneNumber,
+} from "react-phone-number-input";
 import Input from "react-phone-number-input/input";
 import "react-phone-number-input/style.css";
 import Logo from "../../public/assets/logo.svg";
 import { authentication } from "../config/firebase";
 import { useHomeContext } from "../context/Home";
-import {
-  parsePhoneNumber,
-  getCountryCallingCode
-} from "react-phone-number-input";
 
 const JoinNow = () => {
   const router = useIonRouter();
@@ -79,11 +78,12 @@ const JoinNow = () => {
     if (value) {
       const callingCode = getCountryCallingCode(countryCode);
       if (!new RegExp(`^\\+${callingCode}$`).test(value)) {
-        const phoneNumber = parsePhoneNumber(value)
-        if(phoneNumber?.country){
-          setCountryCode(phoneNumber.country)          
+        const phoneNumber = parsePhoneNumber(value);
+        if (phoneNumber?.country) {
+          setCountryCode(phoneNumber.country);
         }
-      }}
+      }
+    }
   };
 
   return (

@@ -23,19 +23,21 @@ import {
   person,
   volumeMediumOutline,
 } from "ionicons/icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css";
-import SelectionPlus from "../../public/assets/SelectionPlus.svg";
-import message from "../../public/assets/msg.svg";
-import sender from "../../public/assets/sender.svg";
-import thumbsdown from "../../public/assets/thumb down.svg";
-import thumbsup from "../../public/assets/thumb up.svg";
-import MatchedImages from "../components/MatchedImages";
-import NavBar from "../components/common/NavBar";
-import Slider from "../components/slider";
-import { messages as initialMessages } from "../data";
-import VoiceCommunication from "../components/VoiceCommunication";
-import voiceicon from "../../public/assets/voice icon.svg";
+import SelectionPlus from "../../../public/assets/SelectionPlus.svg";
+import message from "../../../public/assets/msg.svg";
+import sender from "../../../public/assets/sender.svg";
+import thumbsdown from "../../../public/assets/thumb down.svg";
+import thumbsup from "../../../public/assets/thumb up.svg";
+import voiceicon from "../../../public/assets/voice icon.svg";
+import MatchedImages from "../../components/MatchedImages";
+import NavBar from "../../components/common/NavBar";
+import Slider from "../../components/slider";
+import { messages as initialMessages } from "../../data";
+import VoiceCommunication from "../../components/VoiceCommunication";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getUserDetail } from "../../actions/userActions";
 
 const Chat = () => {
   const [messages, setMessages] = useState(initialMessages);
@@ -91,6 +93,34 @@ const Chat = () => {
   };
 
   const handleVoice = () => {};
+
+  useEffect(() => {
+    const fetchUserDetailsFromFirebase = async (user) => {
+      if (user) {
+        try {
+          const userDetailsFromFirebase = await getUserDetail(user.uid);
+          console.log(
+            "hasActiveEncounter?",
+            userDetailsFromFirebase.data.activeEncounterId
+          );
+          if (userDetailsFromFirebase.data.activeEncounterId) {
+            handleActiveEncounter(userDetailsFromFirebase.data);
+          } else if (userDetailsFromFirebase) {
+            handleUserDetails(userDetailsFromFirebase.data);
+          }
+        } catch (error) {
+          console.error("Error fetching user details from Firebase:", error);
+        }
+      }
+    };
+
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, fetchUserDetailsFromFirebase);
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
 
   return (
     <IonPage>
