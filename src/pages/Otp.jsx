@@ -37,7 +37,7 @@ function Otp() {
     show: false,
     message: "",
   });
-  const { opt } = useHomeContext();
+  const { otp } = useHomeContext();
 
   function handleCloseModal() {
     setShowModal(false);
@@ -66,11 +66,11 @@ function Otp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("handleSubmit", inputOtp);
-    console.log("handleSubmit", opt);
+    console.log("handleSubmit", otp);
 
-    if (opt) {
+    if (otp) {
       try {
-        let confirmResult = opt;
+        let confirmResult = otp;
         console.log("confirmResult", confirmResult);
         confirmResult
           .confirm(inputOtp)

@@ -6,38 +6,40 @@ import {
   IonIcon,
   IonImg,
   IonInput,
-  IonItem,
   IonLabel,
-  IonList,
+  IonModal,
   IonPage,
-  IonPopover,
   IonProgressBar,
   IonRow,
   IonText,
-  useIonRouter,
-  IonModal,
 } from "@ionic/react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
-  arrowBackOutline,
-  copyOutline,
-  person,
-  volumeMediumOutline,
-} from "ionicons/icons";
-import { useEffect, useRef, useState } from "react";
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where
+} from "firebase/firestore";
+import { person } from "ionicons/icons";
+import { useEffect, useState } from "react";
 import "tailwindcss/tailwind.css";
-import SelectionPlus from "../../../public/assets/SelectionPlus.svg";
 import message from "../../../public/assets/msg.svg";
 import sender from "../../../public/assets/sender.svg";
 import thumbsdown from "../../../public/assets/thumb down.svg";
 import thumbsup from "../../../public/assets/thumb up.svg";
 import voiceicon from "../../../public/assets/voice icon.svg";
-import MatchedImages from "../../components/MatchedImages";
-import NavBar from "../../components/common/NavBar";
-import Slider from "../../components/slider";
-import { messages as initialMessages } from "../../data";
-import VoiceCommunication from "../../components/VoiceCommunication";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getUserDetail } from "../../actions/userActions";
+import MatchedImages from "../../components/MatchedImages";
+import VoiceCommunication from "../../components/VoiceCommunication";
+import NavBar from "../../components/common/NavBar";
+import PopoverMenu from "../../components/common/PopoverMenu";
+import { authentication, db } from "../../config/firebase";
+import { useHomeContext } from "../../context/Home";
+import { messages as initialMessages } from "../../data";
 
 const Chat = () => {
   const [messages, setMessages] = useState(initialMessages);
@@ -47,31 +49,16 @@ const Chat = () => {
   const [popoverEvent, setPopoverEvent] = useState(null);
   const [isCommunicationModal, setIsCommunicationModal] = useState(false);
   const [transcribedText, setTranscribedText] = useState("");
-  const popoverRef = useRef(null);
   const [showMatchedImages, setShowMatchedImages] = useState(false);
+  const { messageList, messageListReducer } = useHomeContext();
+  const [matches, setMatches] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [onboardingData, setOnboardingData] = useState([]);
+
+  const userId = authentication?.currentUser?.uid;
 
   const handleSeeMoreClick = () => {
     setShowMatchedImages(true);
-  };
-
-  const handleSend = () => {
-    if (inputValue.trim()) {
-      const newMessages = [...messages, { type: "user", text: inputValue }];
-      setMessages(newMessages);
-      setInputValue("");
-      setQuestionCount((prevCount) => Math.min(prevCount + 1, 10));
-      handleAIResponse(newMessages);
-    }
-  };
-
-  const handleAIResponse = (currentMessages) => {
-    setTimeout(() => {
-      const aiMessage = {
-        type: "ai",
-        text: "Thank you for your information. Let's move to the next step.",
-      };
-      setMessages([...currentMessages, aiMessage]);
-    }, 1000);
   };
 
   const handleInputChange = (e) => {
@@ -92,22 +79,100 @@ const Chat = () => {
     setShowPopover(false);
   };
 
-  const handleVoice = () => {};
+  const getQuery = (inputValue) => {
+    if (Number.isInteger(inputValue)) {
+      return savedSearches[inputValue].message;
+    } else {
+      return inputValue;
+    }
+  };
+
+  const createUserMessage = (query) => {
+    return {
+      role: "user",
+      content: query,
+    };
+  };
+
+  const createChatMessage = (query) => {
+    return {
+      content: query,
+      role: "user",
+    };
+  };
+
+  const handleAddStreamedMessage = async (inputValue) => {
+    setIsLoading(true);
+
+    const userMessage = createUserMessage(inputValue);
+    let docId;
+
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, "Onboarding"), where("userId", "==", userId))
+      );
+
+      if (querySnapshot.empty) {
+        // Create a new document for the user
+        const docRef = await addDoc(collection(db, "Onboarding"), {
+          userId,
+          chatHistory: [userMessage],
+        });
+        console.log("Document added with ID: ", docRef.id);
+      } else {
+        docId = querySnapshot.docs[0].id;
+        await updateDoc(doc(db, "Onboarding", docId), {
+          chatHistory: arrayUnion(userMessage),
+        });
+      }
+
+      setTimeout(async () => {
+        const aiMessage = {
+          role: "ai",
+          content:
+            "Thank you for your information. Let's move to the next step.",
+        };
+
+        if (docId) {
+          await updateDoc(doc(db, "Onboarding", docId), {
+            chatHistory: arrayUnion(aiMessage),
+          });
+        }
+      }, 1000);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    messageListReducer(userMessage, "ADD_MESSAGE");
+
+    //  const chatMessage = createChatMessage(query);
+
+    //  sendStreamChatMessage(chatMessage);
+    setInputValue("");
+    setIsLoading(false);
+  };
+
+  const fetchOnboardingData = async () => {
+    setIsLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(db, "Onboarding"));
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      setOnboardingData(data);
+    } catch (error) {
+      console.error("Error fetching onboarding data: ", error);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchOnboardingData();
+  }, [inputValue]);
 
   useEffect(() => {
     const fetchUserDetailsFromFirebase = async (user) => {
+      console.log("fetchUserDetailsFromFirebase");
       if (user) {
         try {
           const userDetailsFromFirebase = await getUserDetail(user.uid);
-          console.log(
-            "hasActiveEncounter?",
-            userDetailsFromFirebase.data.activeEncounterId
-          );
-          if (userDetailsFromFirebase.data.activeEncounterId) {
-            handleActiveEncounter(userDetailsFromFirebase.data);
-          } else if (userDetailsFromFirebase) {
-            handleUserDetails(userDetailsFromFirebase.data);
-          }
         } catch (error) {
           console.error("Error fetching user details from Firebase:", error);
         }
@@ -118,10 +183,10 @@ const Chat = () => {
 
     const unsubscribe = onAuthStateChanged(auth, fetchUserDetailsFromFirebase);
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
+  const handleVoice = () => {};
   return (
     <IonPage>
       <NavBar vertical />
@@ -159,52 +224,78 @@ const Chat = () => {
           </IonRow>
         </IonGrid>
         <IonGrid className="p-4 mb-6">
-          {messages.map((message, index) => (
-            <IonRow key={index} className="flex items-center mb-4">
-              <IonCol>
-                {message.type === "user" && (
-                  <IonLabel>
-                    <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
-                      {transcribedText.length > 1
-                        ? "APPEARANCE AND HEALTH"
-                        : "PERSONAL INFORMATION"}
-                    </h4>
-                  </IonLabel>
-                )}
-                <IonGrid className="p-4">
-                  <IonRow className="flex gap-2 items-center">
-                    <IonIcon
-                      icon={person}
-                      className="border rounded-full"
-                    ></IonIcon>
-                    <IonText className="text-sm text-center text-textSecondary">
-                      <b>{message.type === "ai" ? "Matchmaker AI" : "You"}</b>
-                    </IonText>
-                    {transcribedText.length > 1 && (
-                      <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
+          {onboardingData.map((data, index) => (
+            <div key={index}>
+              {data.chatHistory.map((message, msgIndex) => (
+                <IonRow key={index} className="flex items-center mb-4">
+                  <IonCol>
+                    {message.role === "user" && (
+                      <IonLabel>
+                        <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
+                          {transcribedText.length > 1
+                            ? "APPEARANCE AND HEALTH"
+                            : "PERSONAL INFORMATION"}
+                        </h4>
+                      </IonLabel>
                     )}
-                  </IonRow>
-                  <IonRow>
-                    <IonCol>
-                      <IonText
-                        className="text-sm text-textSecondary"
-                        onClick={message.type === "ai" ? handleLongPress : null}
-                      >
-                        {transcribedText.length > 1
-                          ? transcribedText
-                          : message.text}
-                      </IonText>
-                    </IonCol>
-                  </IonRow>
-                  {transcribedText.length > 1 && (
-                    <IonRow className="flex flex-nowrap items-center mt-2 bg-pausebutton p-2">
-                      <IonCol size="auto">
-                        <IonText>
-                          <h4 className="mb-0">Assess voice communication</h4>
+                    <IonGrid className="p-4">
+                      <IonRow className="flex gap-2 items-center">
+                        <IonIcon
+                          icon={person}
+                          className="border rounded-full"
+                        ></IonIcon>
+                        <IonText className="text-sm text-center text-textSecondary">
+                          <b>
+                            {message.role === "ai" ? "Matchmaker AI" : "You"}
+                          </b>
                         </IonText>
-                      </IonCol>
-                      <IonCol size="auto">
-                        <IonRow className="flex items-center">
+                        {transcribedText.length > 1 && (
+                          <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
+                        )}
+                      </IonRow>
+                      <IonRow>
+                        <IonCol>
+                          <IonText
+                            className="text-sm text-textSecondary"
+                            onClick={
+                              message.role === "ai" ? handleLongPress : null
+                            }
+                          >
+                            {transcribedText.length > 1
+                              ? transcribedText
+                              : message.content}
+                          </IonText>
+                        </IonCol>
+                      </IonRow>
+                      {transcribedText.length > 1 && (
+                        <IonRow className="flex flex-nowrap items-center mt-2 bg-pausebutton p-2">
+                          <IonCol size="auto">
+                            <IonText>
+                              <h4 className="mb-0">
+                                Assess voice communication
+                              </h4>
+                            </IonText>
+                          </IonCol>
+                          <IonCol size="auto">
+                            <IonRow className="flex items-center">
+                              <IonButton
+                                fill="clear"
+                                size="small"
+                                className="mr-2"
+                              >
+                                <IonIcon icon={thumbsup} slot="icon-only" />
+                              </IonButton>
+                              <IonButton fill="clear" size="small">
+                                <IonIcon icon={thumbsdown} slot="icon-only" />
+                              </IonButton>
+                            </IonRow>
+                          </IonCol>
+                        </IonRow>
+                      )}
+                    </IonGrid>
+                    {message.role === "ai" && (
+                      <>
+                        <IonRow className="flex items-center mt-2">
                           <IonButton fill="clear" size="small" className="mr-2">
                             <IonIcon icon={thumbsup} slot="icon-only" />
                           </IonButton>
@@ -212,37 +303,26 @@ const Chat = () => {
                             <IonIcon icon={thumbsdown} slot="icon-only" />
                           </IonButton>
                         </IonRow>
-                      </IonCol>
-                    </IonRow>
-                  )}
-                </IonGrid>
-                {message.type === "ai" && (
-                  <>
-                    <IonRow className="flex items-center mt-2">
-                      <IonButton fill="clear" size="small" className="mr-2">
-                        <IonIcon icon={thumbsup} slot="icon-only" />
-                      </IonButton>
-                      <IonButton fill="clear" size="small">
-                        <IonIcon icon={thumbsdown} slot="icon-only" />
-                      </IonButton>
-                    </IonRow>
-                    <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
-                      <div
-                        className={`w-[200%] ${
-                          showMatchedImages ? "hidden" : ""
-                        }`}
-                      >
-                        <Slider handleClick={handleSeeMoreClick} />
-                      </div>
-                      {showMatchedImages && <MatchedImages />}
-                    </div>
-                  </>
-                )}
-              </IonCol>
-            </IonRow>
+                        <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
+                          <div
+                            className={`w-[200%] ${
+                              showMatchedImages ? "hidden" : ""
+                            }`}
+                          >
+                            {/* <Slider handleClick={handleSeeMoreClick} /> */}
+                          </div>
+                          {showMatchedImages && <MatchedImages />}
+                        </div>
+                      </>
+                    )}
+                  </IonCol>
+                </IonRow>
+              ))}
+            </div>
           ))}
         </IonGrid>
         <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
+          {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
           <IonRow className="flex items-center gap-3 w-full">
             <IonCol className="flex justify-center items-center">
               <IonInput
@@ -256,7 +336,7 @@ const Chat = () => {
                   <IonIcon
                     className="p-3 w-5 h-5 rounded-full bg-secondary"
                     icon={sender}
-                    onClick={handleSend}
+                    onClick={() => handleAddStreamedMessage(inputValue)}
                   />
                 ) : (
                   <IonIcon
@@ -270,39 +350,12 @@ const Chat = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      <IonPopover
-        ref={popoverRef}
-        event={popoverEvent}
+      <PopoverMenu
         isOpen={showPopover}
+        event={popoverEvent}
         onDidDismiss={handlePopoverDismiss}
-      >
-        <IonList>
-          <IonItem button onClick={() => handleMenuItemClick("Copy")}>
-            <IonIcon color="white" size="large" icon={copyOutline}></IonIcon>
-            <IonLabel className="ml-3">Copy</IonLabel>
-          </IonItem>
-          <IonItem button onClick={() => handleMenuItemClick("SelectText")}>
-            <IonIcon color="white" size="large" icon={SelectionPlus}></IonIcon>
-            <IonLabel className="ml-3">Select Text</IonLabel>
-          </IonItem>
-          <IonItem button onClick={() => handleMenuItemClick("ReadAloud")}>
-            <IonIcon
-              color="white"
-              size="large"
-              icon={volumeMediumOutline}
-            ></IonIcon>
-            <IonLabel className="ml-3">Read Aloud</IonLabel>
-          </IonItem>
-          <IonItem button onClick={() => handleMenuItemClick("Close")}>
-            <IonIcon
-              color="white"
-              size="large"
-              icon={arrowBackOutline}
-            ></IonIcon>
-            <IonLabel className="ml-3">Close</IonLabel>
-          </IonItem>
-        </IonList>
-      </IonPopover>
+        handleMenuItemClick={handleMenuItemClick}
+      />
       <IonModal isOpen={isCommunicationModal}>
         <VoiceCommunication
           setTranscribedText={setTranscribedText}

@@ -28,9 +28,8 @@ const JoinNow = () => {
   const router = useIonRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
   const recaptchaRef = React.createRef();
-  const { setOpt } = useHomeContext();
+  const { setOtp } = useHomeContext();
   const [countryCode, setCountryCode] = useState("US");
-
   const generatorRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       authentication,
@@ -66,7 +65,7 @@ const JoinNow = () => {
         appVerifier
       );
       console.log("signInWithPhoneNumber: result", result);
-      setOpt(result);
+      setOtp(result);
       router.push("/otp");
     } catch (error) {
       console.log("loginWithPhoneNumber_Error", error);
@@ -152,6 +151,7 @@ const JoinNow = () => {
               <IonButton
                 className="mt-8 bg-secondary w-full"
                 onClick={(e) => handlePhoneNumberLogin(e)}
+                disabled={!phoneNumber}
               >
                 CONTINUE
               </IonButton>
