@@ -6,8 +6,9 @@ import {
   IonRow,
   IonTextarea,
   useIonRouter,
+  IonText,
+  IonGrid,
 } from "@ionic/react";
-import React from "react";
 import NavBar from "../components/common/NavBar";
 import { RANDOMCHIP } from "../data";
 
@@ -21,28 +22,31 @@ function EditHobbies() {
     <IonPage>
       <NavBar backbutton={handleback} title="Appearance and Health" />
       <IonContent className="p-4 bg-gray-900 text-white">
-        <div className="flex flex-col p-4 gap-4 ">
-          <div className="w-full flex flex-col gap-4">
+        <IonGrid className="flex flex-col p-4 gap-8">
+          <IonRow className="w-full flex flex-col">
+            <IonText className="text-xs text-textSecondary">Favourite Activities</IonText>
             <IonRow className="w-full">
               {RANDOMCHIP.map((value, index) => (
-                <IonChip key={index} className="bg-pausebutton">
+                <IonChip key={index} className="bg-pausebutton text-light">
                   {value}
                 </IonChip>
               ))}
             </IonRow>
-            <IonTextarea
+          </IonRow>
+          <IonRow>
+          <IonTextarea
               label="Celebrities I Like"
-              labelPlacement="stacked"
+              labelPlacement="floating"
               className="border-b border-bg-primary"
             />
-          </div>
+          </IonRow>
           <IonButton
             expand="block"
             className="bg-yellow-500 text-black font-semibold rounded-lg"
           >
             SAVE
           </IonButton>
-        </div>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

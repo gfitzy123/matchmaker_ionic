@@ -3,11 +3,8 @@ import {
   IonButtons,
   IonCol,
   IonContent,
-  IonFooter,
   IonGrid,
-  IonHeader,
   IonIcon,
-  IonItem,
   IonLabel,
   IonList,
   IonModal,
@@ -17,18 +14,13 @@ import {
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
-import {
-  checkmarkSharp,
-  chevronForward,
-  closeOutline,
-  closeSharp,
-  lockClosed,
-} from "ionicons/icons";
+import { chevronForward, closeOutline, lockClosed } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import crown from "../../public/assets/crown.svg";
 import NavBar from "../components/common/NavBar";
-import { Menubg, Menubgfull } from "../components/common/svg-icons";
+import { Menubg } from "../components/common/svg-icons";
 import { itemData } from "../data";
+import SubscriptionModal from "../components/subscribtion-modal";
 
 const Preferences = () => {
   const router = useIonRouter();
@@ -62,108 +54,57 @@ const Preferences = () => {
     <IonPage ref={page} className="p-4">
       <NavBar backbutton={handleprofile} title="My Preferences" />
       <IonContent>
-        <div className=" flex flex-col gap-6 transform translate-y-6">
+        <IonGrid className=" flex flex-col justify-center gap-6 transform translate-y-6">
           {itemData.map((item, index) => (
-            <IonItem
+            <IonRow
               key={index}
-              color="secondary"
               lines="none"
-              className="rounded-lg"
+              className="rounded-lg bg-secondary p-3"
             >
-              <IonLabel>{item.label}</IonLabel>
-              {item.value ? (
-                <IonLabel className="text-right">{item.value}</IonLabel>
-              ) : (
-                <IonIcon icon={lockClosed} onClick={handleOpenModal} />
-              )}
-              <IonIcon icon={chevronForward} />
-            </IonItem>
+              <IonCol className="flex items-center">
+                <IonLabel>{item.label}</IonLabel>
+              </IonCol>
+              <IonCol className="flex gap-1 justify-end items-center">
+                {item.value ? (
+                  <IonLabel className="text-right">{item.value}</IonLabel>
+                ) : (
+                  <IonIcon icon={lockClosed} onClick={handleOpenModal} />
+                )}
+                <IonIcon className="min-w-6 h-6" icon={chevronForward} />
+              </IonCol>
+            </IonRow>
           ))}
-        </div>
-        <IonModal
-          ref={modal}
-          trigger="modal"
+          <IonRow className="relative bg-[#30313696] p-4 rounded-lg">
+            <IonCol size="8" className="flex flex-col gap-3">
+              <IonText className="flex flex-col gap-3">
+                <h1 className="text-lg">Enjoy all benefits!</h1>
+                <p className="text-sm">
+                  Find ideal partners with no restrictions on any parameters!
+                </p>
+              </IonText>
+              <IonButton
+                className="w-3/4"
+                expand="block"
+                onClick={() => modal.current?.present()}
+              >
+                Get Premium
+              </IonButton>
+            </IonCol>
+            <IonCol size="4" className="flex justify-center items-center">
+              <IonIcon className="w-20 h-14" icon={crown}></IonIcon>
+            </IonCol>
+            <IonRow className="absolute rounded-lg top-0 left-0 -z-10 opacity-10">
+              <Menubg />
+            </IonRow>
+          </IonRow>
+        </IonGrid>
+        <SubscriptionModal
           presentingElement={presentingElement}
-        >
-          <IonHeader class="ion-no-border">
-            <IonToolbar>
-              <IonButtons slot="end">
-                <IonButton onClick={() => dismiss()}>
-                  <IonIcon icon={closeSharp} className="text-white" />
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <div className="flex flex-col gap-10 relative">
-              <div className="flex flex-col gap-4 items-center ">
-                <IonIcon size="large" icon={crown} />
-                <IonLabel className="text-2xl">Premium Plan</IonLabel>
-                <div className="absolute top-0 left-0 -z-10 opacity-10 w-[375px] h-[368px] ">
-                  <Menubgfull />
-                </div>
-              </div>
-              <div className="flex flex-col gap-4 w-full p-11 ">
-                <div className="flex w-full items-center gap-3 border rounded-lg px-6 py-5">
-                  <IonIcon
-                    icon={checkmarkSharp}
-                    size="large"
-                    className="flex-shrink-0"
-                    color="primary"
-                  />
-                  <IonLabel className="flex-grow">
-                    Search By Verified Income Bracket +$150,000
-                  </IonLabel>
-                </div>
-
-                <div className="flex  w-full gap-3 border rounded-lg px-6 py-5">
-                  <IonIcon
-                    className="flex-shrink-0"
-                    icon={checkmarkSharp}
-                    size="large"
-                    color="primary"
-                  />
-                  <IonLabel className="flex-grow">
-                    Multiple Searches A Day
-                  </IonLabel>
-                </div>
-
-                <div className="flex  w-full gap-3 border rounded-lg px-6 py-5">
-                  <IonIcon
-                    className="flex-shrink-0"
-                    icon={checkmarkSharp}
-                    size="large"
-                    color="primary"
-                  />
-                  <IonLabel className="flex-grow">Search By Height</IonLabel>
-                </div>
-
-                <div className="flex  w-full gap-3 border rounded-lg px-6 py-5">
-                  <IonIcon
-                    className="flex-shrink-0"
-                    icon={checkmarkSharp}
-                    size="large"
-                    color="primary"
-                  />
-                  <IonLabel className="flex-grow">
-                    Search By Attractiveness Level
-                  </IonLabel>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center items-center gap-3 p-4 ">
-                <IonButton className=" font-semibold rounded-lg w-full">
-                  JOIN TO UPGRADE
-                </IonButton>
-                <IonLabel className="">Just $10/month</IonLabel>
-                <div className="absolute bottom-0 left-0 -z-10 opacity-10 w-[375px] h-[138px] ">
-                  <Menubg />
-                </div>
-              </div>
-            </div>
-          </IonContent>
-        </IonModal>
+          dismiss={dismiss}
+          modal={modal}
+        />
         <IonModal
-        id='lockmodal'
+          id="lockmodal"
           isOpen={showModal}
           onDidDismiss={handleCloseModal}
           ref={modalRef}
@@ -201,27 +142,6 @@ const Preferences = () => {
           </IonContent>
         </IonModal>
       </IonContent>
-      <IonFooter className="p-4 bg-secondary rounded-lg relative">
-        <IonRow className="" color="secondary">
-          <IonCol size="8" className="flex flex-col gap-3">
-            <IonText className="flex flex-col gap-3">
-              <h1 className="text-lg">Enjoy all benefits!</h1>
-              <p className="text-sm">
-                Find ideal partners with no restrictions on any parameters!
-              </p>
-            </IonText>
-            <IonButton className="w-3/4" id="modal" expand="block">
-              Get Premium
-            </IonButton>
-          </IonCol>
-          <IonCol size="4" className="flex justify-center items-center">
-            <IonIcon icon={crown} size="large"></IonIcon>
-          </IonCol>
-        </IonRow>
-        <div className="absolute top-0 left-0 -z-10 opacity-10 w-[343px] h-[148px] ">
-          <Menubg />
-        </div>
-      </IonFooter>
     </IonPage>
   );
 };

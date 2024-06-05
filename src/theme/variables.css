@@ -41,6 +41,7 @@
   --dark-grey-background-color: #303136;
   --ion-color-step-100: rgba(198, 161, 90, 0.2);
   --ion-item-border-color: 255, 255, 255, 0.2;
+  --ion-danger-color: #EB445ADE;
   /*Fonts */
   --ion-font-family: "Barlow";
 }

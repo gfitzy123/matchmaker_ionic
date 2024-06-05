@@ -41,7 +41,8 @@ module.exports = {
       "pausebutton": "rgb(var(--ion-color-primary-rgb))",
       dark:"var(--dark-grey-background-color)",
       light:"var(--ion-color-secondary-contrast)",
-      textSecondary: "var(--ion-text-color-secondary)"
+      textSecondary: "var(--ion-text-color-secondary)",
+      dangerText: "var(--ion-danger-color)",
     },
   },
   variants: {
