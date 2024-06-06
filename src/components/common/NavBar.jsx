@@ -44,11 +44,10 @@ function NavBar({ backbutton, vertical, title }) {
         <IonToolbar>
           <IonRow className="flex px-2 justify-around items-center flex-nowrap w-full ">
             {backbutton ? (
-              <IonIcon
+              <IonIcon className="w-6 h-6"
                 onClick={backbutton}
                 color="white"
                 icon={chevronBack}
-                size="medium"
               />
             ) : (
               <IonMenuButton color="light" />

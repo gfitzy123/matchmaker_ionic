@@ -2,7 +2,7 @@ import { IonContent, IonPage } from "@ionic/react";
 import { Redirect, Route } from "react-router";
 import AccountSetup from "./pages/AccountSetup";
 import AssessVoiceCommunication from "./pages/AssessVoiceCommunication";
-import Chat from "./pages/Chat/Chat";
+import Chat from "./pages/Chat";
 import EditAppearanceHealth from "./pages/EditAppearanceHealth";
 import EditCareer from "./pages/EditCareer";
 import EditHobbies from "./pages/EditHobbies";
@@ -15,6 +15,7 @@ import Preferences from "./pages/Preferences";
 import Profile from "./pages/Profile";
 import UploadPhoto from "./pages/UploadPhoto";
 import Welcome from "./pages/Welcome";
+import ProfileChat from "./pages/ProfileChat";
 
 export default function Routing() {
   return (
@@ -67,6 +68,9 @@ export default function Routing() {
         </Route>
         <Route exact path="/plaid">
           <Plaid />
+        </Route>
+        <Route exact path="/profilechat">
+          <ProfileChat />
         </Route>
       </IonContent>
     </IonPage>

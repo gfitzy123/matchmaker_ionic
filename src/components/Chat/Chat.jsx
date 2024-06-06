@@ -2,6 +2,7 @@ import {
   IonButton,
   IonCol,
   IonContent,
+  IonFooter,
   IonGrid,
   IonIcon,
   IonImg,
@@ -22,7 +23,7 @@ import {
   getDocs,
   query,
   updateDoc,
-  where
+  where,
 } from "firebase/firestore";
 import { person } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -33,15 +34,14 @@ import thumbsdown from "../../../public/assets/thumb down.svg";
 import thumbsup from "../../../public/assets/thumb up.svg";
 import voiceicon from "../../../public/assets/voice icon.svg";
 import { getUserDetail } from "../../actions/userActions";
-import MatchedImages from "../../components/MatchedImages";
-import VoiceCommunication from "../../components/VoiceCommunication";
-import NavBar from "../../components/common/NavBar";
-import PopoverMenu from "../../components/common/PopoverMenu";
+import MatchedImages from "../MatchedImages";
+import VoiceCommunication from "../VoiceCommunication";
+import PopoverMenu from "../common/PopoverMenu";
 import { authentication, db } from "../../config/firebase";
 import { useHomeContext } from "../../context/Home";
 import { messages as initialMessages } from "../../data";
 
-const Chat = () => {
+const ChatInner = ({otherUser}) => {
   const [messages, setMessages] = useState(initialMessages);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(3);
@@ -188,10 +188,9 @@ const Chat = () => {
 
   const handleVoice = () => {};
   return (
-    <IonPage>
-      <NavBar vertical />
-      <IonContent>
-        <IonGrid className="p-4 bg-dark">
+<>
+<IonContent>
+      {!otherUser && <IonGrid className="p-4 bg-dark">
           <IonRow className="flex items-center justify-center  text-sm mb-2  ">
             <IonRow className="flex justify-center items-center w-full relative">
               <IonLabel className="mr-2">
@@ -222,7 +221,7 @@ const Chat = () => {
               <IonProgressBar value={questionCount * 0.1}></IonProgressBar>
             </IonCol>
           </IonRow>
-        </IonGrid>
+        </IonGrid>}
         <IonGrid className="p-4 mb-6">
           {onboardingData.map((data, index) => (
             <div key={index}>
@@ -321,7 +320,22 @@ const Chat = () => {
             </div>
           ))}
         </IonGrid>
-        <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
+
+        <PopoverMenu
+        isOpen={showPopover}
+        event={popoverEvent}
+        onDidDismiss={handlePopoverDismiss}
+        handleMenuItemClick={handleMenuItemClick}
+      />
+      <IonModal isOpen={isCommunicationModal}>
+        <VoiceCommunication
+          setTranscribedText={setTranscribedText}
+          setIsCommunicationModal={setIsCommunicationModal}
+        />
+      </IonModal>
+      </IonContent>
+      <IonFooter>
+                <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
           {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
           <IonRow className="flex items-center gap-3 w-full">
             <IonCol className="flex justify-center items-center">
@@ -349,21 +363,9 @@ const Chat = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-      </IonContent>
-      <PopoverMenu
-        isOpen={showPopover}
-        event={popoverEvent}
-        onDidDismiss={handlePopoverDismiss}
-        handleMenuItemClick={handleMenuItemClick}
-      />
-      <IonModal isOpen={isCommunicationModal}>
-        <VoiceCommunication
-          setTranscribedText={setTranscribedText}
-          setIsCommunicationModal={setIsCommunicationModal}
-        />
-      </IonModal>
-    </IonPage>
+      </IonFooter>
+</>
   );
 };
 
-export default Chat;
+export default ChatInner;

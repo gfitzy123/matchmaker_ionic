@@ -1,13 +1,13 @@
+import { useState } from "react";
 import {
   IonButton,
   IonContent,
   IonInput,
-  IonLabel,
   IonPage,
   IonRange,
   useIonRouter,
+  IonText,
 } from "@ionic/react";
-import React, { useState } from "react";
 import NavBar from "../components/common/NavBar";
 
 function EditCareer() {
@@ -26,22 +26,25 @@ function EditCareer() {
     <IonPage>
       <NavBar backbutton={handleback} title="Career and Achievements" />
       <IonContent className="p-4 bg-gray-900 text-white">
-        <div className="flex flex-col p-4 gap-4">
+        <div className="flex flex-col p-4 gap-10">
           <div className="w-full flex flex-col gap-4">
             <IonRange
+            mode="md"
+            label="Income Bracket"
+            labelPlacement="stacked"
               min={50}
               max={250}
               dualKnobs={true}
-              pin={true}
               ticks={true}
               value={rangeValue}
-              onIonChange={handleRangeChange}
+              onIonInput={handleRangeChange
+              }
               className="range-custom"
             />
             <div className="relative w-full h-8 ">
-              <div className="absolute left-0  ">$50k</div>
+              <div className="absolute left-0 text-textSecondary">$50k</div>
               <div
-                className="absolute  text-primary"
+                className="absolute text-primary bg-background z-10"
                 style={{
                   left: `${((rangeValue.lower - 50) / 200) * 100}%`,
                   transform: "translateX(-50%)",
@@ -50,7 +53,7 @@ function EditCareer() {
                 ${rangeValue.lower}k
               </div>
               <div
-                className="absolute  text-primary"
+                className="absolute bg-background text-primary z-10"
                 style={{
                   left: `${((rangeValue.upper - 50) / 200) * 100}%`,
                   transform: "translateX(-50%)",
@@ -58,19 +61,19 @@ function EditCareer() {
               >
                 ${rangeValue.upper}k
               </div>
-              <div className="absolute right-0  text-white">$250k</div>
+              <div className="absolute right-0  text-textSecondary">$250k</div>
             </div>
 
             <IonInput
               label="Company"
-              labelPlacement="stacked"
-              className="border-b border-bg-primary"
+              labelPlacement="floating"
+              className="border-b h-16"
             />
 
             <IonInput
               label="Job title"
-              labelPlacement="stacked"
-              className="border-b border-bg-primary"
+              labelPlacement="floating"
+              className="border-b h-16"
             />
           </div>
           <IonButton
