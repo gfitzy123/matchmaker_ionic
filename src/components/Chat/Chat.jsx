@@ -1,29 +1,22 @@
 import {
   IonButton,
   IonCol,
-  IonContent,
-  IonFooter,
   IonGrid,
-  IonHeader,
   IonIcon,
   IonImg,
   IonInput,
   IonLabel,
   IonModal,
-  IonPage,
   IonProgressBar,
   IonRow,
   IonText,
   IonList,
   IonToolbar,
 } from "@ionic/react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
 import {
-  collection,
   doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
+  getDoc
 } from "firebase/firestore";
 import { person } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
@@ -33,16 +26,12 @@ import sender from "../../../public/assets/sender.svg";
 import thumbsdown from "../../../public/assets/thumb down.svg";
 import thumbsup from "../../../public/assets/thumb up.svg";
 import voiceicon from "../../../public/assets/voice icon.svg";
-import { getUserDetail } from "../../actions/userActions";
+import { authentication, db } from "../../config/firebase";
+import { useHomeContext } from "../../context/Home";
 import MatchedImages from "../MatchedImages";
 import VoiceCommunication from "../VoiceCommunication";
 import PopoverMenu from "../common/PopoverMenu";
-import { authentication, db } from "../../config/firebase";
-import { useHomeContext } from "../../context/Home";
-import { messages as initialMessages } from "../../data";
 import { getStreamingUrl } from "./utils";
-import axios from "axios";
-import Slider from "../slider";
 
 const ChatInner = ({ otherUser }) => {
   const [inputValue, setInputValue] = useState("");
@@ -58,7 +47,7 @@ const ChatInner = ({ otherUser }) => {
   const [progressData, setProgressData] = useState(0);
   const messagesEndRef = useRef(null);
 
-  const userId = authentication?.currentUser?.uid;
+  const userId = authentication?.currentUser.uid;
 
   const handleSeeMoreClick = () => {
     setShowMatchedImages(true);
@@ -109,6 +98,17 @@ const ChatInner = ({ otherUser }) => {
     setInputValue("");
   };
 
+  const fetchOnboardingData = async () => {
+    try {
+      const querySnapRef = doc(db, "Onboarding", userId);
+      const data = (await getDoc(querySnapRef)).data();
+      setOnboardingData(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching onboarding data: ", error);
+    }
+  };
+
   const sendStreamChatMessage = async (chatMessage, isOnboarding) => {
     const chatUrl = getStreamingUrl(isOnboarding);
 
@@ -116,36 +116,19 @@ const ChatInner = ({ otherUser }) => {
 
     url.searchParams.append("chatMessage", JSON.stringify(chatMessage));
     url.searchParams.append("userId", userId);
-    console.log("url", url);
     try {
+      setIsLoading(true);
       await axios.get(url);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching chat response:", error);
       throw error;
     }
   };
-  const fetchOnboardingData = async () => {
-    setIsLoading(true);
-    try {
-      const querySnapshot = await getDocs(collection(db, "Onboarding"));
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      const progressValues = querySnapshot.docs
-        .filter((doc) => doc.data().progress !== undefined)
-        .map((doc) => doc.data().progress);
-
-      const maxProgress = Math.max(...progressValues);
-      setProgressData(maxProgress);
-
-      setOnboardingData(data);
-    } catch (error) {
-      console.error("Error fetching onboarding data: ", error);
-    }
-    setIsLoading(false);
-  };
 
   useEffect(() => {
     fetchOnboardingData();
-  }, [inputValue]);
+  }, [isLoading]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -215,114 +198,105 @@ const ChatInner = ({ otherUser }) => {
             <MatchedImages />
             <MatchedImages />
           </IonList>
-          {onboardingData.map((data, index) => (
-            <div key={index}>
-              {data.chatHistory?.map((message, msgIndex) => (
-                <IonRow
-                  ref={messagesEndRef}
-                  key={msgIndex}
-                  className="flex items-center mb-4"
-                >
-                  <IonCol>
-                    {message.role === "user" && (
-                      <IonLabel>
-                        <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
+          <div>
+            {onboardingData.chatHistory?.map((message, msgIndex) => (
+              <IonRow
+                ref={messagesEndRef}
+                key={msgIndex}
+                className="flex items-center mb-4"
+              >
+                <IonCol>
+                  {message.role === "user" && (
+                    <IonLabel>
+                      <h4 className="text-primary border-b border-bg-secondary p-2 mb-2">
+                        {transcribedText.length > 1
+                          ? "APPEARANCE AND HEALTH"
+                          : "PERSONAL INFORMATION"}
+                      </h4>
+                    </IonLabel>
+                  )}
+                  <IonGrid className="p-4">
+                    <IonRow className="flex gap-2 items-center">
+                      <IonIcon
+                        icon={person}
+                        className="border rounded-full"
+                      ></IonIcon>
+                      <IonText className="text-sm text-center text-textSecondary">
+                        <b>
+                          {message.role === "assistant"
+                            ? "Matchmaker AI"
+                            : message.role === "system"
+                            ? "System"
+                            : message.role === "function"
+                            ? "Function"
+                            : "You"}
+                        </b>
+                      </IonText>
+                      {transcribedText.length > 1 && (
+                        <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
+                      )}
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <IonText
+                          className="text-sm text-textSecondary"
+                          onClick={
+                            message.role === "assistant"
+                              ? handleLongPress
+                              : null
+                          }
+                        >
                           {transcribedText.length > 1
-                            ? "APPEARANCE AND HEALTH"
-                            : "PERSONAL INFORMATION"}
-                        </h4>
-                      </IonLabel>
-                    )}
-                    <IonGrid className="p-4">
-                      <IonRow className="flex gap-2 items-center">
-                        <IonIcon
-                          icon={person}
-                          className="border rounded-full"
-                        ></IonIcon>
-                        <IonText className="text-sm text-center text-textSecondary">
-                          <b>
-                            {message.role === "assistant"
-                              ? "Matchmaker AI"
-                              : message.role === "system"
-                              ? "System"
-                              : message.role === "function"
-                              ? "Function"
-                              : "You"}
-                          </b>
+                            ? transcribedText
+                            : message.content}
                         </IonText>
                         {transcribedText.length > 1 && (
                           <IonIcon icon={voiceicon} className="ml-2"></IonIcon>
                         )}
-                      </IonRow>
-                      <IonRow>
-                        <IonCol>
-                          <IonText
-                            className="text-sm text-textSecondary"
-                            onClick={
-                              message.role === "assistant"
-                                ? handleLongPress
-                                : null
-                            }
-                          >
-                            {transcribedText.length > 1
-                              ? transcribedText
-                              : message.content}
-                          </IonText>
                         </IonCol>
                       </IonRow>
-                      {transcribedText.length > 1 && (
-                        <IonRow className="flex flex-nowrap items-center mt-2 bg-pausebutton p-2">
-                          <IonCol size="auto">
-                            <IonText>
-                              <h4 className="mb-0">
-                                Assess voice communication
-                              </h4>
-                            </IonText>
-                          </IonCol>
-                          <IonCol size="auto">
-                            <IonRow className="flex items-center">
-                              <IonButton
-                                fill="clear"
-                                size="small"
-                                className="mr-2"
-                              >
-                                <IonIcon icon={thumbsup} slot="icon-only" />
-                              </IonButton>
-                              <IonButton fill="clear" size="small">
-                                <IonIcon icon={thumbsdown} slot="icon-only" />
-                              </IonButton>
-                            </IonRow>
-                          </IonCol>
-                        </IonRow>
-                      )}
-                    </IonGrid>
-                    {message.role === "assistant" && (
-                      <>
-                        <IonRow className="flex items-center mt-2">
-                          <IonButton fill="clear" size="small" className="mr-2">
-                            <IonIcon icon={thumbsup} slot="icon-only" />
-                          </IonButton>
-                          <IonButton fill="clear" size="small">
-                            <IonIcon icon={thumbsdown} slot="icon-only" />
-                          </IonButton>
-                        </IonRow>
-                        <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
-                          <div
-                            className={`w-[200%] ${
-                              showMatchedImages ? "hidden" : ""
-                            }`}
-                          >
-                            <Slider handleClick={handleSeeMoreClick} />
-                          </div>
-                          {showMatchedImages && <MatchedImages />}
+                      <IonRow>
+                        <IonCol size="auto">
+                          <IonRow className="flex items-center">
+                            <IonButton
+                              fill="clear"
+                              size="small"
+                              className="mr-2"
+                            >
+                              <IonIcon icon={thumbsup} slot="icon-only" />
+                            </IonButton>
+                            <IonButton fill="clear" size="small">
+                              <IonIcon icon={thumbsdown} slot="icon-only" />
+                            </IonButton>
+                          </IonRow>
+                        </IonCol>
+                      </IonRow>
+                  </IonGrid>
+                  {message.role === "assistant" && (
+                    <>
+                      <IonRow className="flex items-center mt-2">
+                        <IonButton fill="clear" size="small" className="mr-2">
+                          <IonIcon icon={thumbsup} slot="icon-only" />
+                        </IonButton>
+                        <IonButton fill="clear" size="small">
+                          <IonIcon icon={thumbsdown} slot="icon-only" />
+                        </IonButton>
+                      </IonRow>
+                      <div className="flex-grow overflow-scroll whitespace-nowrap hide-scrollbar">
+                        <div
+                          className={`w-[200%] ${
+                            showMatchedImages ? "hidden" : ""
+                          }`}
+                        >
                         </div>
-                      </>
-                    )}
-                  </IonCol>
-                </IonRow>
-              ))}
-            </div>
-          ))}
+                        {showMatchedImages && <MatchedImages />}
+                      </div>
+                    </>
+                  )}
+                </IonCol>
+              </IonRow>
+            ))}
+          </div>
         </div>
         <div className="absolute z-10 bottom-0 p-4 w-full">
           {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
