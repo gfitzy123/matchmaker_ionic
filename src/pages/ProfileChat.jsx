@@ -5,8 +5,7 @@ import {
 } from "@ionic/react";
 import Profile from "../components/ProfilePage";
 import NavBar from "../components/common/NavBar";
-import Chat from "./Chat";
-
+import ChatInner from "../components/Chat/Chat";
 
 const ProfileChat = () => {
   const router = useIonRouter();
@@ -20,7 +19,7 @@ const ProfileChat = () => {
       <IonContent>
         <Profile otherUser />
         <div>
-        <Chat otherUser />
+        <ChatInner otherUser />
         </div>
       </IonContent>
     </IonPage>

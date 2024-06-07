@@ -24,8 +24,6 @@ function MatchedImages() {
         showDetails={true}
         showClose={false}
         likeData={{ likedImages, toggleHeart }}
-     
-     
       />
       <div className="flex gap-4 w-full">
         <IonButton

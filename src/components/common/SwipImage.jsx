@@ -1,4 +1,4 @@
-import { IonIcon, IonImg, IonLabel, IonText } from "@ionic/react";
+import { IonIcon, IonImg, IonLabel, IonText, useIonRouter } from "@ionic/react";
 import {
   addCircleOutline,
   closeOutline,
@@ -31,7 +31,7 @@ function SwipImage({
   swiperConfig = {},
 }) {
   const { likedImages = [], toggleHeart = () => {} } = likeData;
-  
+  const router = useIonRouter();
   const defaultSwiperConfig = {
     horizontal: {
       slidesPerView: 1.2,
@@ -63,9 +63,14 @@ function SwipImage({
   if (pagination) {
     modules.push(Pagination);
   }
+  
+  const handleMatching = () => {
+    router.push("/profilechat")
+  }
 
   return (
     <Swiper
+    onClick={handleMatching}
       modules={modules}
       direction={direction}
       slidesPerView={slidesPerView}

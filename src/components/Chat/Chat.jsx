@@ -14,6 +14,7 @@ import {
   IonProgressBar,
   IonRow,
   IonText,
+  IonList,
   IonToolbar,
 } from "@ionic/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -150,47 +151,78 @@ const ChatInner = ({ otherUser }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messagesEndRef, onboardingData]);
   return (
-<>
-      {!otherUser && <IonGrid className="p-4 bg-dark">
+    <>
+      {!otherUser && (
+        <IonGrid className="p-4 bg-dark">
           <IonRow className="flex items-center justify-center  text-sm mb-2  ">
             <IonRow className="flex justify-center items-center w-full relative">
               <IonLabel className="mr-2">
-              <b>{progressData}% </b>profile completed
+                <b>{progressData}% </b>profile completed
               </IonLabel>
-          {progressData <= 10 &&
-              <div className="flex absolute right-0">
-              <IonImg
-                src={person}
-                alt="User 1"
-                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-              />
-              <IonImg
-                src={person}
-                alt="User 2"
-                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-              />
-              <IonImg
-                src={person}
-                alt="User 3"
-                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-              />
-              <IonText>120 matches</IonText>
-            </div>
-          }
+              {progressData <= 10 && (
+                <div className="flex absolute right-0">
+                  <IonImg
+                    src={person}
+                    alt="User 1"
+                    className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+                  />
+                  <IonImg
+                    src={person}
+                    alt="User 2"
+                    className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+                  />
+                  <IonImg
+                    src={person}
+                    alt="User 3"
+                    className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+                  />
+                  <IonText>120 matches</IonText>
+                </div>
+              )}
             </IonRow>
           </IonRow>
           <IonRow>
             <IonCol>
-            <IonProgressBar value={progressData}></IonProgressBar>
+              <IonProgressBar value={progressData}></IonProgressBar>
             </IonCol>
           </IonRow>
-        </IonGrid>}
-        <IonGrid className={"relative"}>
-          <div className={`${otherUser ? "max-h-72" : "h-[82vh]"} overflow-auto pb-10`}>
+        </IonGrid>
+      )}
+      <IonGrid className={"relative"}>
+        <div
+          className={`${
+            otherUser ? "max-h-72" : "h-[82vh]"
+          } overflow-auto pb-10`}
+        >
+          <IonGrid className="p-4">
+            <IonRow className="flex gap-2 items-center">
+              <IonIcon icon={person} className="border rounded-full"></IonIcon>
+              <IonText className="text-sm text-center text-textSecondary">
+                <b>Matchmaker AI</b>
+              </IonText>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonText className="text-sm text-textSecondary">
+                  Hi Devon, I found some potential matches for you based on your
+                  criteria. Take a look and see if any catch your eye!
+                </IonText>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          <IonList className="px-4 bg-background flex flex-col gap-10">
+            <MatchedImages />
+            <MatchedImages />
+            <MatchedImages />
+          </IonList>
           {onboardingData.map((data, index) => (
             <div key={index}>
               {data.chatHistory?.map((message, msgIndex) => (
-                <IonRow ref={messagesEndRef} key={msgIndex} className="flex items-center mb-4">
+                <IonRow
+                  ref={messagesEndRef}
+                  key={msgIndex}
+                  className="flex items-center mb-4"
+                >
                   <IonCol>
                     {message.role === "user" && (
                       <IonLabel>
@@ -227,7 +259,9 @@ const ChatInner = ({ otherUser }) => {
                           <IonText
                             className="text-sm text-textSecondary"
                             onClick={
-                              message.role === "assistant" ? handleLongPress : null
+                              message.role === "assistant"
+                                ? handleLongPress
+                                : null
                             }
                           >
                             {transcribedText.length > 1
@@ -278,7 +312,7 @@ const ChatInner = ({ otherUser }) => {
                               showMatchedImages ? "hidden" : ""
                             }`}
                           >
-                            {/* <Slider handleClick={handleSeeMoreClick} /> */}
+                            <Slider handleClick={handleSeeMoreClick} />
                           </div>
                           {showMatchedImages && <MatchedImages />}
                         </div>
@@ -318,8 +352,8 @@ const ChatInner = ({ otherUser }) => {
             </IonCol>
           </IonRow>
         </div>
-        </IonGrid>
-        <PopoverMenu
+      </IonGrid>
+      <PopoverMenu
         isOpen={showPopover}
         event={popoverEvent}
         onDidDismiss={handlePopoverDismiss}
@@ -331,7 +365,7 @@ const ChatInner = ({ otherUser }) => {
           setIsCommunicationModal={setIsCommunicationModal}
         />
       </IonModal>
-</>
+    </>
   );
 };
 
