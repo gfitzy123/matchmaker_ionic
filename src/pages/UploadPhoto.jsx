@@ -14,17 +14,21 @@ import {
   IonPage,
   IonRow,
   useIonRouter,
+  useIonToast,
 } from "@ionic/react";
 import { chevronBack } from "ionicons/icons";
 import profile from "../../public/assets/UserSquare.svg";
 import Insta from "../../public/assets/insta.svg";
 import { useRef, useState } from "react";
-import { Camera, CameraResultType, CameraSource} from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 function UploadPhoto() {
   const modal = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const router = useIonRouter();
+  const [present] = useIonToast();
 
   const handleConfirm = () => {
     router.push("/accountsetup");
@@ -36,23 +40,48 @@ function UploadPhoto() {
   function handleCloseModal() {
     setShowModal(false);
   }
-  const handleCamera = async() => {
-    await Camera.getPhoto({
-     quality: 100,
-     allowEditing: true,
-     resultType: CameraResultType.DataUrl,
-     saveToGallery: true,
-     source: CameraSource.Camera
+  const handleCamera = async () => {
+    const photo = await Camera.getPhoto({
+      quality: 100,
+      allowEditing: true,
+      resultType: CameraResultType.Uri,
+      saveToGallery: true,
+      source: CameraSource.Camera,
     });
-   };
-   const handlePhoto = async() => {
-    await Camera.getPhoto({
-     quality: 100,
-     allowEditing: false,
-     resultType: CameraResultType.DataUrl,
-     source: CameraSource.Photos
+    handleUploadImage(photo);
+  };
+  const handlePhoto = async () => {
+    const photo = await Camera.getPhoto({
+      quality: 100,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos,
     });
-   };
+    handleUploadImage(photo);
+  };
+
+  const handleUploadImage = async (photo) => {
+    const debuigUid = "moVZs03jrtTMkgeOPz0HkzO46TC2";
+    const userRef = doc(db, "Users", debuigUid);
+
+    if (photo !== null) {
+      try {
+        setDoc(userRef, { capital: true, newImage: photo }, { merge: true });
+        present({
+          message: "Photo Upload Successfully!",
+          duration: 1500,
+          position: "top",
+        });
+        router.push("/chat");
+      } catch (error) {
+        present({
+          message: error,
+          duration: 1500,
+          position: "top",
+        });
+      }
+    }
+  };
 
   return (
     <IonPage>
@@ -60,7 +89,7 @@ function UploadPhoto() {
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton color="light" onClick={handleConfirm}>
-              <IonIcon  icon={chevronBack} defaultHref="" />
+              <IonIcon icon={chevronBack} defaultHref="" />
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -111,7 +140,11 @@ function UploadPhoto() {
                   detail={false}
                   onClick={handlewelcome}
                 >
-                  <IonIcon slot="start" className="mr-6 w-6 h-6" icon={Insta}></IonIcon>
+                  <IonIcon
+                    slot="start"
+                    className="mr-6 w-6 h-6"
+                    icon={Insta}
+                  ></IonIcon>
                   <IonLabel>Use From Your Instagram</IonLabel>
                 </IonButton>
               </IonList>

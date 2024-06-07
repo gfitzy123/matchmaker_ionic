@@ -225,7 +225,7 @@ const ChatInner = ({otherUser}) => {
         <IonGrid className="p-4 mb-6">
           {onboardingData.map((data, index) => (
             <div key={index}>
-              {data.chatHistory.map((message, msgIndex) => (
+              {data.chatHistory?.map((message, msgIndex) => (
                 <IonRow key={index} className="flex items-center mb-4">
                   <IonCol>
                     {message.role === "user" && (
@@ -320,7 +320,6 @@ const ChatInner = ({otherUser}) => {
             </div>
           ))}
         </IonGrid>
-
         <PopoverMenu
         isOpen={showPopover}
         event={popoverEvent}
