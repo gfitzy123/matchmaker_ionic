@@ -1,27 +1,28 @@
 import {
-	IonContent,
-	IonImg,
-	IonPage,
-	IonText
+  IonContent,
+  IonImg,
+  IonPage,
+  IonText,
+  useIonRouter
 } from "@ionic/react";
 import { createVeriffFrame } from "@veriff/incontext-sdk";
 import { Veriff } from "@veriff/js-sdk";
 import { doc, setDoc } from "firebase/firestore";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
 import VeriffImage from "../../public/assets/logo.svg";
 import { VERIFY_API_KEY } from "../config/config";
 import { db } from "../config/firebase";
+import { useHomeContext } from "../context/Home";
 
 export default function IdentityVerification() {
-  const history = useHistory();
-  let { state } = useLocation();
+  const router = useIonRouter();
+  const {currentUserInfo} = useHomeContext();
 
   useEffect(() => {
     veriff.setParams({
       person: {
-        givenName: "asad ",
-        lastName: " akram",
+        givenName: " ",
+        lastName: " ",
       },
       vendorData: " ",
     });
@@ -34,19 +35,16 @@ export default function IdentityVerification() {
     apiKey: VERIFY_API_KEY,
     parentId: "veriff-root",
     onSession: function (err, response) {
-      console.log("Veriff response: ", response);
       if (err) {
         console.log("Veriff error: ", err);
         return;
       }
       if (response.status === "success") {
         let identityVerification = {
-          userId: state?.uid,
+          userId: currentUserInfo?.uid,
           veriffId: response.verification.id,
           vendorData: response.verification.vendorData,
         };
-        console.log("Updating user identity info: ", identityVerification);
-        console.log("response", response);
         createVeriffFrame({ url: response.verification.url });
         updateUserIdentityInfo(identityVerification);
       }
@@ -66,12 +64,8 @@ export default function IdentityVerification() {
       { merge: true }
     );
     setTimeout(() => {
-      history.push("/plaid", {
-        state: {
-          uid: state?.uid.toString(),
-        },
-      });
-    }, 60000);
+      router.push("/plaid")
+    }, 2000);
   };
 
   return (

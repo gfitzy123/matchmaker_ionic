@@ -5,25 +5,25 @@ import {
   IonPage,
   IonText,
   IonTitle,
+  useIonRouter,
 } from "@ionic/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
 import { doc, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
-import { useLocation } from "react-router-dom";
 import PlaidLogo from "../../public/assets/plaid-white.svg";
+import { LINK_PLAID_TOKEN_URL } from "../config/config";
 import { db } from "../config/firebase";
-
-const linkTokenUrl = `https://us-central1-tier-dating.cloudfunctions.net/app/create_token`;
+import { useHomeContext } from "../context/Home";
 
 export default function Plaid() {
-  let { state } = useLocation();
   const [linkTokenResponse, setLinkTokenResponse] = useState(null);
+  const { currentUserInfo } = useHomeContext();
+  const router = useIonRouter();
 
   useEffect(() => {
     axios
-      .post(linkTokenUrl)
+      .post(LINK_PLAID_TOKEN_URL)
       .then((response) => {
         setLinkTokenResponse(response);
       })
@@ -35,25 +35,35 @@ export default function Plaid() {
   const { open, ready } = usePlaidLink({
     token: linkTokenResponse?.data?.response?.link_token,
     onSuccess: (public_token, metadata) => {
-      console.log("public_token", public_token);
-      console.log("metadata", metadata);
       if (metadata && public_token) {
         updateUserIncomeyInfo(metadata);
       }
     },
   });
 
-  const updateUserIncomeyInfo = (incomeVerification) => {
-    const uid = state?.uid.toString;
+  const updateUserIncomeyInfo = async (incomeVerification) => {
+    const uid = currentUserInfo?.uid;
     const userRef = doc(db, "Users", uid);
+    const onboardingRef = doc(db, "Onboarding", uid);
     setDoc(
       userRef,
       {
         capital: true,
         incomeVerificationData: incomeVerification,
+        onboarded: false,
+        isOnboarding: true,
+        hasStartedOnboarding: true,
+        isOnboarded:false,
       },
       { merge: true }
     );
+    setDoc(onboardingRef, {
+      status: "inProgress",
+      progress: 0,
+      createdAt: new Date(),
+      chatHistory: [],
+    });
+    router.push("/uploadphoto");
   };
 
   return (

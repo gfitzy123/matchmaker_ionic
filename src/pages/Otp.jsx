@@ -20,7 +20,6 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import { chevronBack, closeOutline } from "ionicons/icons";
 import { useRef, useState } from "react";
-import { useHistory } from "react-router";
 import Group from "../../public/assets/Group 1000001992.svg";
 import brand from "../../public/assets/bg.svg";
 import { db } from "../config/firebase";
@@ -31,13 +30,12 @@ function Otp() {
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
   const router = useIonRouter();
-  const history = useHistory();
   const [inputOtp, setInputOtp] = useState("");
   const [toast, setToast] = useState({
     show: false,
     message: "",
   });
-  const { otp } = useHomeContext();
+  const { otp, setCurrentUserInfo } = useHomeContext();
 
   function handleCloseModal() {
     setShowModal(false);
@@ -65,13 +63,10 @@ function Otp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("handleSubmit", inputOtp);
-    console.log("handleSubmit", otp);
 
     if (otp) {
       try {
         let confirmResult = otp;
-        console.log("confirmResult", confirmResult);
         confirmResult
           .confirm(inputOtp)
           .then(async (result) => {
@@ -81,29 +76,24 @@ function Otp() {
             });
             const user = result.user;
             const userDoc = doc(db, "Users", user.uid);
-            console.log("userDoc", userDoc);
             console.log(user.uid);
             const userDocData = await getDoc(userDoc);
-            console.log("userDocData", userDocData.exists());
             setShowModal(true);
 
             if (userDocData.exists()) {
+              setCurrentUserInfo({
+                uid: userDocData?.id,
+              });
               router.push("/chat");
             } else {
-              setTimeout(() => {
-                history.push("/identity", {
-                  state: {
-                    email: user?.email,
-                    uid: user?.uid,
-                  },
-                });
-              }, 1000);
+              setCurrentUserInfo({
+                uid: user?.uid,
+              });
+              router.push("/identity");
             }
           })
           .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("otp_Error", errorCode, errorMessage);
             if (errorCode === "auth/invalid-verification-code") {
               setToast({
                 show: true,

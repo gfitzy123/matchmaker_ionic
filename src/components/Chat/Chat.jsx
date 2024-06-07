@@ -1,29 +1,31 @@
 import {
   IonButton,
   IonCol,
+  IonContent,
+  IonFooter,
   IonGrid,
+  IonHeader,
   IonIcon,
   IonImg,
   IonInput,
   IonLabel,
   IonModal,
+  IonPage,
   IonProgressBar,
   IonRow,
   IonText,
+  IonToolbar,
 } from "@ionic/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
-  addDoc,
-  arrayUnion,
   collection,
   doc,
+  getDoc,
   getDocs,
-  query,
-  updateDoc,
-  where,
+  onSnapshot,
 } from "firebase/firestore";
 import { person } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css";
 import message from "../../../public/assets/msg.svg";
 import sender from "../../../public/assets/sender.svg";
@@ -37,9 +39,11 @@ import PopoverMenu from "../common/PopoverMenu";
 import { authentication, db } from "../../config/firebase";
 import { useHomeContext } from "../../context/Home";
 import { messages as initialMessages } from "../../data";
+import { getStreamingUrl } from "./utils";
+import axios from "axios";
+import Slider from "../slider";
 
-const ChatInner = ({otherUser}) => {
-  const [messages, setMessages] = useState(initialMessages);
+const ChatInner = ({ otherUser }) => {
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(3);
   const [showPopover, setShowPopover] = useState(false);
@@ -48,9 +52,10 @@ const ChatInner = ({otherUser}) => {
   const [transcribedText, setTranscribedText] = useState("");
   const [showMatchedImages, setShowMatchedImages] = useState(false);
   const { messageList, messageListReducer } = useHomeContext();
-  const [matches, setMatches] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [onboardingData, setOnboardingData] = useState([]);
+  const [progressData, setProgressData] = useState(0);
+  const messagesEndRef = useRef(null);
 
   const userId = authentication?.currentUser?.uid;
 
@@ -84,13 +89,6 @@ const ChatInner = ({otherUser}) => {
     }
   };
 
-  const createUserMessage = (query) => {
-    return {
-      role: "user",
-      content: query,
-    };
-  };
-
   const createChatMessage = (query) => {
     return {
       content: query,
@@ -101,58 +99,42 @@ const ChatInner = ({otherUser}) => {
   const handleAddStreamedMessage = async (inputValue) => {
     setIsLoading(true);
 
-    const userMessage = createUserMessage(inputValue);
-    let docId;
+    const query = getQuery(inputValue);
+    const chatMessage = createChatMessage(query);
+    messageListReducer(chatMessage, "ADD_MESSAGE");
 
-    try {
-      const querySnapshot = await getDocs(
-        query(collection(db, "Onboarding"), where("userId", "==", userId))
-      );
+    sendStreamChatMessage(chatMessage, true);
 
-      if (querySnapshot.empty) {
-        // Create a new document for the user
-        const docRef = await addDoc(collection(db, "Onboarding"), {
-          userId,
-          chatHistory: [userMessage],
-        });
-        console.log("Document added with ID: ", docRef.id);
-      } else {
-        docId = querySnapshot.docs[0].id;
-        await updateDoc(doc(db, "Onboarding", docId), {
-          chatHistory: arrayUnion(userMessage),
-        });
-      }
-
-      setTimeout(async () => {
-        const aiMessage = {
-          role: "ai",
-          content:
-            "Thank you for your information. Let's move to the next step.",
-        };
-
-        if (docId) {
-          await updateDoc(doc(db, "Onboarding", docId), {
-            chatHistory: arrayUnion(aiMessage),
-          });
-        }
-      }, 1000);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-    messageListReducer(userMessage, "ADD_MESSAGE");
-
-    //  const chatMessage = createChatMessage(query);
-
-    //  sendStreamChatMessage(chatMessage);
     setInputValue("");
-    setIsLoading(false);
   };
 
+  const sendStreamChatMessage = async (chatMessage, isOnboarding) => {
+    const chatUrl = getStreamingUrl(isOnboarding);
+
+    const url = new URL(chatUrl);
+
+    url.searchParams.append("chatMessage", JSON.stringify(chatMessage));
+    url.searchParams.append("userId", userId);
+    console.log("url", url);
+    try {
+      await axios.get(url);
+    } catch (error) {
+      console.error("Error fetching chat response:", error);
+      throw error;
+    }
+  };
   const fetchOnboardingData = async () => {
     setIsLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "Onboarding"));
       const data = querySnapshot.docs.map((doc) => doc.data());
+      const progressValues = querySnapshot.docs
+        .filter((doc) => doc.data().progress !== undefined)
+        .map((doc) => doc.data().progress);
+
+      const maxProgress = Math.max(...progressValues);
+      setProgressData(maxProgress);
+
       setOnboardingData(data);
     } catch (error) {
       console.error("Error fetching onboarding data: ", error);
@@ -165,56 +147,41 @@ const ChatInner = ({otherUser}) => {
   }, [inputValue]);
 
   useEffect(() => {
-    const fetchUserDetailsFromFirebase = async (user) => {
-      console.log("fetchUserDetailsFromFirebase");
-      if (user) {
-        try {
-          const userDetailsFromFirebase = await getUserDetail(user.uid);
-        } catch (error) {
-          console.error("Error fetching user details from Firebase:", error);
-        }
-      }
-    };
-
-    const auth = getAuth();
-
-    const unsubscribe = onAuthStateChanged(auth, fetchUserDetailsFromFirebase);
-
-    return () => unsubscribe();
-  }, []);
-
-  const handleVoice = () => {};
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messagesEndRef, onboardingData]);
   return (
 <>
       {!otherUser && <IonGrid className="p-4 bg-dark">
           <IonRow className="flex items-center justify-center  text-sm mb-2  ">
             <IonRow className="flex justify-center items-center w-full relative">
               <IonLabel className="mr-2">
-                <b>{questionCount * 10}% </b>profile completed
+              <b>{progressData}% </b>profile completed
               </IonLabel>
+          {progressData <= 10 &&
               <div className="flex absolute right-0">
-                <IonImg
-                  src={person}
-                  alt="User 1"
-                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-                />
-                <IonImg
-                  src={person}
-                  alt="User 2"
-                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-                />
-                <IonImg
-                  src={person}
-                  alt="User 3"
-                  className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
-                />
-                <IonText>120 matches</IonText>
-              </div>
+              <IonImg
+                src={person}
+                alt="User 1"
+                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+              />
+              <IonImg
+                src={person}
+                alt="User 2"
+                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+              />
+              <IonImg
+                src={person}
+                alt="User 3"
+                className="w-6 h-6 p-1 bg-secondary rounded-full border-2"
+              />
+              <IonText>120 matches</IonText>
+            </div>
+          }
             </IonRow>
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonProgressBar value={questionCount * 0.1}></IonProgressBar>
+            <IonProgressBar value={progressData}></IonProgressBar>
             </IonCol>
           </IonRow>
         </IonGrid>}
@@ -223,7 +190,7 @@ const ChatInner = ({otherUser}) => {
           {onboardingData.map((data, index) => (
             <div key={index}>
               {data.chatHistory?.map((message, msgIndex) => (
-                <IonRow key={index} className="flex items-center mb-4">
+                <IonRow ref={messagesEndRef} key={msgIndex} className="flex items-center mb-4">
                   <IonCol>
                     {message.role === "user" && (
                       <IonLabel>
@@ -242,7 +209,13 @@ const ChatInner = ({otherUser}) => {
                         ></IonIcon>
                         <IonText className="text-sm text-center text-textSecondary">
                           <b>
-                            {message.role === "ai" ? "Matchmaker AI" : "You"}
+                            {message.role === "assistant"
+                              ? "Matchmaker AI"
+                              : message.role === "system"
+                              ? "System"
+                              : message.role === "function"
+                              ? "Function"
+                              : "You"}
                           </b>
                         </IonText>
                         {transcribedText.length > 1 && (
@@ -254,7 +227,7 @@ const ChatInner = ({otherUser}) => {
                           <IonText
                             className="text-sm text-textSecondary"
                             onClick={
-                              message.role === "ai" ? handleLongPress : null
+                              message.role === "assistant" ? handleLongPress : null
                             }
                           >
                             {transcribedText.length > 1
@@ -289,7 +262,7 @@ const ChatInner = ({otherUser}) => {
                         </IonRow>
                       )}
                     </IonGrid>
-                    {message.role === "ai" && (
+                    {message.role === "assistant" && (
                       <>
                         <IonRow className="flex items-center mt-2">
                           <IonButton fill="clear" size="small" className="mr-2">

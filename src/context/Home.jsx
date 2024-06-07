@@ -5,6 +5,7 @@ const HomeContext = createContext(null);
 export function HomeProvider({ children }) {
   const [otp, setOtp] = useState(0);
   const [messageList, setMessageList] = useState([])
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const messageListReducer = (state, type) => {
     // console.log('messageListReducer', action)
@@ -42,8 +43,10 @@ export function HomeProvider({ children }) {
       setOtp,
       messageList,
       messageListReducer,
+      currentUserInfo,
+      setCurrentUserInfo,
     }),
-    [otp,setOtp,messageList,messageListReducer]
+    [otp,setOtp,messageList,messageListReducer,currentUserInfo,setCurrentUserInfo]
   );
 
   return <HomeContext.Provider value={value}>{children}</HomeContext.Provider>;

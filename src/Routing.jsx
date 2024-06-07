@@ -17,6 +17,7 @@ import UploadPhoto from "./pages/UploadPhoto";
 import Welcome from "./pages/Welcome";
 import ProfileChat from "./pages/ProfileChat";
 
+
 export default function Routing() {
   return (
     <IonPage>

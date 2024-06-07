@@ -4,8 +4,9 @@ import {
   IonContent,
 } from "@ionic/react";
 import Profile from "../components/ProfilePage";
-import Chat from "../components/Chat/Chat";
 import NavBar from "../components/common/NavBar";
+import Chat from "./Chat";
+
 
 const ProfileChat = () => {
   const router = useIonRouter();

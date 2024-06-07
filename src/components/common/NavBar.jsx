@@ -40,7 +40,7 @@ function NavBar({ backbutton, vertical, title }) {
 
   return (
     <>
-      <IonHeader id="main-content">
+      <IonHeader id="main-content" className="ion-no-border">
         <IonToolbar>
           <IonRow className="flex px-2 justify-around items-center flex-nowrap w-full ">
             {backbutton ? (

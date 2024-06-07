@@ -19,6 +19,7 @@ export const PLAID_CLIENT_ID = '62693ece2336fa001ae96871'
 export const PLAID_SECRET_SANDBOX = '1f9b043969ff2e39eaa1e592b19aaf'
 export const PLAID_SECRET = '9a3529b844c6789bafe34621c62f0a'
 export const VERIFY_API_KEY = 'f46c32a5-1a9b-4267-9503-a9591d273651'
+export const LINK_PLAID_TOKEN_URL = `https://us-central1-tier-dating.cloudfunctions.net/app/create_token`;
 
 // new 2b2204eadb446c7b929086d4aedb7c
 // old 1f9b043969ff2e39eaa1e592b19aaf
