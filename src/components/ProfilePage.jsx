@@ -2,9 +2,7 @@ import { useState } from "react";
 import {
   IonContent,
   IonIcon,
-  IonPage,
   IonProgressBar,
-  useIonRouter,
   IonModal,
   IonGrid,
   IonText,
@@ -27,7 +25,7 @@ const ProfilePage = ({ otherUser }) => {
   };
 
   return (
-    <IonContent className="p-4">
+    <div className="p-4">
       <div className="flex flex-col items-start gap-10 w-full">
         <SwipImage images={IMAGE_URLS} upload={true} pagination={true} />
         {!otherUser && (
@@ -89,7 +87,7 @@ const ProfilePage = ({ otherUser }) => {
           </IonGrid>
         </IonContent>
       </IonModal>
-    </IonContent>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { IonPage, useIonRouter } from "@ionic/react";
+import { IonPage,IonContent, useIonRouter } from "@ionic/react";
 import ProfilePage from "../components/ProfilePage";
 import NavBar from "../components/common/NavBar";
 
@@ -10,7 +10,9 @@ const Profile = () => {
   return (
     <IonPage>
       <NavBar backbutton={handleback} title="Profile" vertical />
-      <ProfilePage />
+      <IonContent>
+        <ProfilePage />
+      </IonContent>
     </IonPage>
   );
 };

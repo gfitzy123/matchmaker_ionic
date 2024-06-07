@@ -1,15 +1,12 @@
 import {
   IonButton,
   IonCol,
-  IonContent,
-  IonFooter,
   IonGrid,
   IonIcon,
   IonImg,
   IonInput,
   IonLabel,
   IonModal,
-  IonPage,
   IonProgressBar,
   IonRow,
   IonText,
@@ -189,7 +186,6 @@ const ChatInner = ({otherUser}) => {
   const handleVoice = () => {};
   return (
 <>
-<IonContent>
       {!otherUser && <IonGrid className="p-4 bg-dark">
           <IonRow className="flex items-center justify-center  text-sm mb-2  ">
             <IonRow className="flex justify-center items-center w-full relative">
@@ -222,7 +218,8 @@ const ChatInner = ({otherUser}) => {
             </IonCol>
           </IonRow>
         </IonGrid>}
-        <IonGrid className="p-4 mb-6">
+        <IonGrid className={"relative"}>
+          <div className={`${otherUser ? "max-h-72" : "h-[82vh]"} overflow-auto pb-10`}>
           {onboardingData.map((data, index) => (
             <div key={index}>
               {data.chatHistory?.map((message, msgIndex) => (
@@ -319,22 +316,8 @@ const ChatInner = ({otherUser}) => {
               ))}
             </div>
           ))}
-        </IonGrid>
-        <PopoverMenu
-        isOpen={showPopover}
-        event={popoverEvent}
-        onDidDismiss={handlePopoverDismiss}
-        handleMenuItemClick={handleMenuItemClick}
-      />
-      <IonModal isOpen={isCommunicationModal}>
-        <VoiceCommunication
-          setTranscribedText={setTranscribedText}
-          setIsCommunicationModal={setIsCommunicationModal}
-        />
-      </IonModal>
-      </IonContent>
-      <IonFooter>
-                <IonGrid className="fixed inset-x-0 bottom-0 p-4 w-full">
+        </div>
+        <div className="absolute z-10 bottom-0 p-4 w-full">
           {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
           <IonRow className="flex items-center gap-3 w-full">
             <IonCol className="flex justify-center items-center">
@@ -361,8 +344,20 @@ const ChatInner = ({otherUser}) => {
               </IonCol>
             </IonCol>
           </IonRow>
+        </div>
         </IonGrid>
-      </IonFooter>
+        <PopoverMenu
+        isOpen={showPopover}
+        event={popoverEvent}
+        onDidDismiss={handlePopoverDismiss}
+        handleMenuItemClick={handleMenuItemClick}
+      />
+      <IonModal isOpen={isCommunicationModal}>
+        <VoiceCommunication
+          setTranscribedText={setTranscribedText}
+          setIsCommunicationModal={setIsCommunicationModal}
+        />
+      </IonModal>
 </>
   );
 };
